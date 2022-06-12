@@ -118,7 +118,23 @@ const VerticalNavHeader = props => {
       ) : (
         <Link href='/' passHref>
           <StyledLink>
-            <svg width={40} fill='none' height={22} viewBox='0 0 268 150' xmlns='http://www.w3.org/2000/svg'>
+          <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+            width="40.000000pt" height="40.000000pt" viewBox="0 0 40.000000 40.000000"
+            preserveAspectRatio="xMidYMid meet">
+            <metadata>
+            Created by potrace 1.16, written by Peter Selinger 2001-2019
+            </metadata>
+            <g transform="translate(0.000000,40.000000) scale(0.004000,-0.004000)"
+            fill="#000000" stroke="none">
+            <path d="M0 5000 l0 -5000 5000 0 5000 0 0 5000 0 5000 -5000 0 -5000 0 0
+            -5000z m6520 2600 l0 -1080 1080 0 1080 0 0 -1727 0 -1728 -872 -872 -873
+            -873 -1727 0 -1728 0 0 1080 0 1080 -1080 0 -1080 0 0 1727 0 1728 872 872
+            873 873 1727 0 1728 0 0 -1080z"/>
+            <path d="M3630 5000 l0 -1370 1370 0 1370 0 0 1370 0 1370 -1370 0 -1370 0 0
+            -1370z"/>
+            </g>
+          </svg>
+            {/* <svg width={40} fill='none' height={22} viewBox='0 0 268 150' xmlns='http://www.w3.org/2000/svg'>
               <rect
                 rx='25.1443'
                 width='50.2886'
@@ -187,7 +203,7 @@ const VerticalNavHeader = props => {
                   <stop offset='1' stopOpacity='0' />
                 </linearGradient>
               </defs>
-            </svg>
+            </svg> */}
             <HeaderTitle variant='h6' sx={{ ...menuCollapsedStyles, ...(navCollapsed && !navHover ? {} : { ml: 2 }) }}>
               {themeConfig.templateName}
             </HeaderTitle>

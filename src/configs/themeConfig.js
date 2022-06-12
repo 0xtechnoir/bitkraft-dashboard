@@ -9,7 +9,7 @@ import Circle from 'mdi-material-ui/Circle'
 
 const themeConfig = {
   // ** Layout Configs
-  templateName: 'Materialize' /* App Name */,
+  templateName: 'Bitkraft' /* App Name */,
   layout: 'vertical' /* vertical | horizontal */,
   mode: 'light' /* light | dark */,
   direction: 'ltr' /* ltr | rtl */,
