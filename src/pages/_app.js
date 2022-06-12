@@ -88,7 +88,7 @@ const App = props => {
   // Variables
   const getLayout = Component.getLayout ?? (page => <UserLayout>{page}</UserLayout>)
   const setConfig = Component.setConfig ?? undefined
-  const authGuard = Component.authGuard ?? true
+  const authGuard = Component.authGuard ?? false
   const guestGuard = Component.guestGuard ?? false
   const aclAbilities = Component.acl ?? defaultACLObj
 
