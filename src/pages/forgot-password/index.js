@@ -222,7 +222,6 @@ const ForgotPassword = () => {
     </Box>
   )
 }
-ForgotPassword.guestGuard = true
 ForgotPassword.getLayout = page => <BlankLayout>{page}</BlankLayout>
 
 export default ForgotPassword

@@ -22,7 +22,7 @@ import AnalyticsTotalRevenue from 'src/views/dashboards/analytics/AnalyticsTotal
 import AnalyticsSalesCountry from 'src/views/dashboards/analytics/AnalyticsSalesCountry'
 import AnalyticsCongratulations from 'src/views/dashboards/analytics/AnalyticsCongratulations'
 import AnalyticsActivityTimeline from 'src/views/dashboards/analytics/AnalyticsActivityTimeline'
-import AnalyticsTotalTransactions from 'src/views/dashboards/analytics/AnalyticsTotalTransactions'
+import EmbeddedChart from 'src/views/dashboards/analytics/EmbeddedChart'
 import AnalyticsProjectStatistics from 'src/views/dashboards/analytics/AnalyticsProjectStatistics'
 import AnalyticsTopReferralSources from 'src/views/dashboards/analytics/AnalyticsTopReferralSources'
 
@@ -30,7 +30,7 @@ const AnalyticsDashboard = () => {
   return (
     <ApexChartWrapper>
       <Grid container spacing={6} className='match-height'>
-        <Grid item xs={12} md={8}>
+        {/* <Grid item xs={12} md={8}>
           <AnalyticsCongratulations />
         </Grid>
         <Grid item xs={6} md={2}>
@@ -45,17 +45,20 @@ const AnalyticsDashboard = () => {
         </Grid>
         <Grid item xs={6} md={2}>
           <AnalyticsSessions />
+        </Grid> */}
+        <Grid item xs={12} md={6}>
+          <EmbeddedChart 
+            title='S&P 500'
+            chartSrc="https://app.koyfin.com/share/39ccd477d0/simple"
+          />
         </Grid>
-        <Grid item xs={12} md={8}>
-          <AnalyticsTotalTransactions />
+        <Grid item xs={12} md={6}>
+          <EmbeddedChart 
+            title='FTSE 100'
+            chartSrc="https://app.koyfin.com/share/1b6bcdb08c/simple"
+          />
         </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <AnalyticsPerformance />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <AnalyticsProjectStatistics />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        {/* <Grid item xs={12} sm={6} md={4}>
           <Grid container spacing={6}>
             <Grid item xs={6}>
               <AnalyticsTotalRevenue />
@@ -99,7 +102,7 @@ const AnalyticsDashboard = () => {
         </Grid>
         <Grid item xs={12} md={8}>
           <AnalyticsActivityTimeline />
-        </Grid>
+        </Grid> */}
       </Grid>
     </ApexChartWrapper>
   )
