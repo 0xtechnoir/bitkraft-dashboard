@@ -40,9 +40,5 @@ const ACLPage = () => {
     </Grid>
   )
 }
-ACLPage.acl = {
-  action: 'read',
-  subject: 'acl-page'
-}
 
 export default ACLPage

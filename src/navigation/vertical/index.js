@@ -469,8 +469,6 @@ const navigation = () => {
     },
     {
       path: '/acl',
-      action: 'read',
-      subject: 'acl-page',
       icon: ShieldOutline,
       title: 'Access Control'
     },
