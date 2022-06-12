@@ -11,7 +11,7 @@ import Spinner from 'src/@core/components/spinner'
  *  Set Home URL
  */
  export const getHomeRoute = () => {
-  return '/dashboards/analytics'
+  return '/dashboards/macro'
 }
 
 const Home = () => {

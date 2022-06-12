@@ -3,239 +3,35 @@ import Table from 'mdi-material-ui/Table'
 import ChartDonut from 'mdi-material-ui/ChartDonut'
 import FormSelect from 'mdi-material-ui/FormSelect'
 import CubeOutline from 'mdi-material-ui/CubeOutline'
-import LockOutline from 'mdi-material-ui/LockOutline'
 import HomeOutline from 'mdi-material-ui/HomeOutline'
-import EmailOutline from 'mdi-material-ui/EmailOutline'
-import ShieldOutline from 'mdi-material-ui/ShieldOutline'
-import AccountOutline from 'mdi-material-ui/AccountOutline'
 import ArchiveOutline from 'mdi-material-ui/ArchiveOutline'
 import DotsHorizontal from 'mdi-material-ui/DotsHorizontal'
-import MessageOutline from 'mdi-material-ui/MessageOutline'
 import FormatLetterCase from 'mdi-material-ui/FormatLetterCase'
 import CreditCardOutline from 'mdi-material-ui/CreditCardOutline'
-import VectorArrangeBelow from 'mdi-material-ui/VectorArrangeBelow'
-import FileDocumentOutline from 'mdi-material-ui/FileDocumentOutline'
-import CalendarBlankOutline from 'mdi-material-ui/CalendarBlankOutline'
 import PackageVariantClosed from 'mdi-material-ui/PackageVariantClosed'
 import GoogleCirclesExtended from 'mdi-material-ui/GoogleCirclesExtended'
 import CheckboxMarkedCircleOutline from 'mdi-material-ui/CheckboxMarkedCircleOutline'
+import { mdiMicrosoftXboxController } from '@mdi/js';
 
 const navigation = () => {
   return [
     {
-      title: 'Dashboards',
+      sectionTitle: 'Dashboards'
+    },
+    {
+      title: 'Macro',
       icon: HomeOutline,
-      badgeContent: 'new',
-      badgeColor: 'error',
-      children: [
-        {
-          title: 'CRM',
-          path: '/dashboards/crm'
-        },
-        {
-          title: 'Analytics',
-          path: '/dashboards/analytics'
-        },
-        {
-          title: 'eCommerce',
-          path: '/dashboards/ecommerce'
-        }
-      ]
+      path: '/dashboards/macro'
     },
     {
-      sectionTitle: 'Apps & Pages'
+      title: 'Crypto',
+      icon: HomeOutline,
+      path: '/dashboards/crypto'
     },
     {
-      title: 'Email',
-      icon: EmailOutline,
-      path: '/apps/email'
-    },
-    {
-      title: 'Chat',
-      icon: MessageOutline,
-      path: '/apps/chat'
-    },
-    {
-      title: 'Calendar',
-      icon: CalendarBlankOutline,
-      path: '/apps/calendar'
-    },
-    {
-      title: 'Invoice',
-      icon: FileDocumentOutline,
-      children: [
-        {
-          title: 'List',
-          path: '/apps/invoice/list'
-        },
-        {
-          title: 'Preview',
-          path: '/apps/invoice/preview'
-        },
-        {
-          title: 'Edit',
-          path: '/apps/invoice/edit'
-        },
-        {
-          title: 'Add',
-          path: '/apps/invoice/add'
-        }
-      ]
-    },
-    {
-      title: 'User',
-      icon: AccountOutline,
-      children: [
-        {
-          title: 'List',
-          path: '/apps/user/list'
-        },
-        {
-          title: 'View',
-          path: '/apps/user/view'
-        }
-      ]
-    },
-    {
-      title: 'Roles & Permissions',
-      icon: LockOutline,
-      children: [
-        {
-          title: 'Roles',
-          path: '/apps/roles'
-        },
-        {
-          title: 'Permissions',
-          path: '/apps/permissions'
-        }
-      ]
-    },
-    {
-      title: 'Pages',
-      icon: FileDocumentOutline,
-      children: [
-        {
-          title: 'Authentication',
-          children: [
-            {
-              title: 'Login',
-              children: [
-                {
-                  openInNewTab: true,
-                  title: 'Login v1',
-                  path: '/pages/auth/login-v1'
-                },
-                {
-                  openInNewTab: true,
-                  title: 'Login v2',
-                  path: '/pages/auth/login-v2'
-                },
-                {
-                  openInNewTab: true,
-                  title: 'Login With AppBar',
-                  path: '/pages/auth/login-with-appbar'
-                }
-              ]
-            },
-            {
-              title: 'Register',
-              children: [
-                {
-                  openInNewTab: true,
-                  title: 'Register v1',
-                  path: '/pages/auth/register-v1'
-                },
-                {
-                  openInNewTab: true,
-                  title: 'Register v2',
-                  path: '/pages/auth/register-v2'
-                }
-              ]
-            },
-            {
-              title: 'Forgot Password',
-              children: [
-                {
-                  openInNewTab: true,
-                  title: 'Forgot Password v1',
-                  path: '/pages/auth/forgot-password-v1'
-                },
-                {
-                  openInNewTab: true,
-                  title: 'Forgot Password v2',
-                  path: '/pages/auth/forgot-password-v2'
-                }
-              ]
-            },
-            {
-              title: 'Reset Password',
-              children: [
-                {
-                  openInNewTab: true,
-                  title: 'Reset Password v1',
-                  path: '/pages/auth/reset-password-v1'
-                },
-                {
-                  openInNewTab: true,
-                  title: 'Reset Password v2',
-                  path: '/pages/auth/reset-password-v2'
-                }
-              ]
-            }
-          ]
-        },
-        {
-          title: 'Account Settings',
-          path: '/pages/account-settings'
-        },
-        {
-          title: 'Pricing',
-          path: '/pages/pricing'
-        },
-        {
-          title: 'FAQ',
-          path: '/pages/faq'
-        },
-        {
-          title: 'Knowledge Base',
-          path: '/pages/knowledge-base'
-        },
-        {
-          title: 'Miscellaneous',
-          children: [
-            {
-              openInNewTab: true,
-              title: 'Coming Soon',
-              path: '/pages/misc/coming-soon'
-            },
-            {
-              openInNewTab: true,
-              title: 'Under Maintenance',
-              path: '/pages/misc/under-maintenance'
-            },
-            {
-              openInNewTab: true,
-              title: 'Page Not Found - 404',
-              path: '/pages/misc/404-not-found'
-            },
-            {
-              openInNewTab: true,
-              title: 'Not Authorized - 401',
-              path: '/pages/misc/401-not-authorized'
-            },
-            {
-              openInNewTab: true,
-              title: 'Server Error - 500',
-              path: '/pages/misc/500-server-error'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      icon: VectorArrangeBelow,
-      title: 'Dialog Examples',
-      path: '/pages/dialog-examples'
+      title: 'Gaming',
+      icon: HomeOutline,
+      path: '/dashboards/gaming'
     },
     {
       sectionTitle: 'User Interface'
@@ -468,11 +264,6 @@ const navigation = () => {
       ]
     },
     {
-      path: '/acl',
-      icon: ShieldOutline,
-      title: 'Access Control'
-    },
-    {
       title: 'Others',
       icon: DotsHorizontal,
       children: [
@@ -494,22 +285,6 @@ const navigation = () => {
               ]
             }
           ]
-        },
-        {
-          title: 'Disabled Menu',
-          disabled: true
-        },
-        {
-          title: 'Raise Support',
-          externalLink: true,
-          openInNewTab: true,
-          path: 'https://pixinvent.ticksy.com/'
-        },
-        {
-          title: 'Documentation',
-          externalLink: true,
-          openInNewTab: true,
-          path: 'https://pixinvent.com/demo/materialize-mui-react-nextjs-admin-template/documentation'
         }
       ]
     }
