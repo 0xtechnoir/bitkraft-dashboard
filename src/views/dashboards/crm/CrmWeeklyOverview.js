@@ -121,7 +121,7 @@ const CrmWeeklyOverview = () => {
           <Typography sx={{ mr: 4 }} variant='h5'>
             62%
           </Typography>
-          <Typography variant='body2'>Your sales performance is 35% 😎 better compared to last month</Typography>
+          <Typography variant='body2'>This will be our standard chart component</Typography>
         </Box>
         <Button fullWidth variant='contained'>
           Details

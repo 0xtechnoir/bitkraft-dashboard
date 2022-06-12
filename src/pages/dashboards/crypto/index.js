@@ -22,7 +22,7 @@ import AnalyticsTotalRevenue from 'src/views/dashboards/analytics/AnalyticsTotal
 import AnalyticsSalesCountry from 'src/views/dashboards/analytics/AnalyticsSalesCountry'
 import AnalyticsCongratulations from 'src/views/dashboards/analytics/AnalyticsCongratulations'
 import AnalyticsActivityTimeline from 'src/views/dashboards/analytics/AnalyticsActivityTimeline'
-import AnalyticsTotalTransactions from 'src/views/dashboards/analytics/AnalyticsTotalTransactions'
+import EmbeddedChart from 'src/views/dashboards/analytics/AnalyticsTotalTransactions'
 import AnalyticsProjectStatistics from 'src/views/dashboards/analytics/AnalyticsProjectStatistics'
 import AnalyticsTopReferralSources from 'src/views/dashboards/analytics/AnalyticsTopReferralSources'
 
@@ -47,7 +47,7 @@ const AnalyticsDashboard = () => {
           <AnalyticsSessions />
         </Grid>
         <Grid item xs={12} md={8}>
-          <AnalyticsTotalTransactions />
+          <EmbeddedChart />
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
           <AnalyticsPerformance />
