@@ -40,6 +40,7 @@
     "apexcharts-clevision": "3.28.5",
     "aws-amplify": "4.3.22",
     "axios": "0.27.2",
+    "axios-mock-adapter": "1.20.0",
     "babel-eslint": "10.1.0",
     "chart.js": "3.7.1",
     "cleave.js": "1.6.0",
