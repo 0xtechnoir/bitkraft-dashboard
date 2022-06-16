@@ -12,6 +12,8 @@ import PackageVariantClosed from 'mdi-material-ui/PackageVariantClosed'
 import GoogleCirclesExtended from 'mdi-material-ui/GoogleCirclesExtended'
 import CheckboxMarkedCircleOutline from 'mdi-material-ui/CheckboxMarkedCircleOutline'
 import { mdiMicrosoftXboxController } from '@mdi/js';
+import { FaBitcoin, FaChartLine, FaGamepad } from 'react-icons/fa'
+import Icon from "@mdi/react";
 
 const navigation = () => {
   return [
@@ -20,17 +22,17 @@ const navigation = () => {
     },
     {
       title: 'Macro',
-      icon: HomeOutline,
+      icon: FaChartLine,
       path: '/dashboards/macro'
     },
     {
       title: 'Crypto',
-      icon: HomeOutline,
+      icon: FaBitcoin,
       path: '/dashboards/crypto'
     },
     {
       title: 'Gaming',
-      icon: HomeOutline,
+      icon: FaGamepad,
       path: '/dashboards/gaming'
     },
     // {

@@ -49,13 +49,37 @@ const AnalyticsDashboard = () => {
         <Grid item xs={12} md={6}>
           <EmbeddedChart 
             title='S&P 500'
-            chartSrc="https://app.koyfin.com/share/39ccd477d0/simple"
+            chartSrc="https://app.koyfin.com/share/4d937a406b/simple"
           />
         </Grid>
         <Grid item xs={12} md={6}>
           <EmbeddedChart 
             title='FTSE 100'
-            chartSrc="https://app.koyfin.com/share/1b6bcdb08c/simple"
+            chartSrc="https://app.koyfin.com/share/63b871f5e7/simple"
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <EmbeddedChart 
+            title='NASDAQ 100'
+            chartSrc="https://app.koyfin.com/share/33a4ffb4f0/simple"
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <EmbeddedChart 
+            title='Hang Seng China Enterprises Index'
+            chartSrc=" https://app.koyfin.com/share/88fb45f96d/simple"
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <EmbeddedChart 
+            title='US Brent Oil Fund'
+            chartSrc="https://app.koyfin.com/share/34d572df1f/simple"
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <EmbeddedChart 
+            title='World Gold Trust'
+            chartSrc="https://app.koyfin.com/share/97c7d024ee/simple"
           />
         </Grid>
         {/* <Grid item xs={12} sm={6} md={4}>
