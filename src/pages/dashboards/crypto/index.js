@@ -30,7 +30,7 @@ const AnalyticsDashboard = () => {
   return (
     <ApexChartWrapper>
       <Grid container spacing={6} className='match-height'>
-        <Grid item xs={12} md={8}>
+        {/* <Grid item xs={12} md={8}>
           <AnalyticsCongratulations />
         </Grid>
         <Grid item xs={6} md={2}>
@@ -45,17 +45,45 @@ const AnalyticsDashboard = () => {
         </Grid>
         <Grid item xs={6} md={2}>
           <AnalyticsSessions />
+        </Grid> */}
+        <Grid item xs={12} md={6}>
+          <EmbeddedChart 
+            title='Bitcoin Dominance'
+            chartSrc="https://embed.theblockcrypto.com/data/crypto-markets/prices/bitcoin-dominance/embed"
+          />
         </Grid>
-        <Grid item xs={12} md={8}>
-          <EmbeddedChart />
+        <Grid item xs={12} md={6}>
+          <EmbeddedChart 
+            title='Fear and Greed Index'
+            chartSrc="https://alternative.me/crypto/fear-and-greed-index.png"
+          />
         </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <AnalyticsPerformance />
+        <Grid item xs={12} md={6}>
+          <EmbeddedChart 
+            title='Daily New Unique Addresses for EVM-Chains'
+            chartSrc="https://embed.theblockcrypto.com/data/scaling-solutions/evm-chains-stats/daily-new-unique-addresses-for-evm-chains/embed"
+          />
         </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <AnalyticsProjectStatistics />
+        <Grid item xs={12} md={6}>
+          <EmbeddedChart 
+            title='Transaction Count (Daily, 7DMA)'
+            chartSrc="https://embed.theblockcrypto.com/data/scaling-solutions/evm-chains-stats/transaction-count-for-evm-chains/embed"
+          />
         </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={12} md={6}>
+          <EmbeddedChart 
+            title='Solana - Non-Vote Transactions (Daily, 7DMA)'
+            chartSrc="https://embed.theblockcrypto.com/data/on-chain-metrics/solana/non-vote-transactions-on-the-solana-network-daily-7dma/embed"
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <EmbeddedChart 
+            title='Ethereum Bridge TVL'
+            chartSrc="https://dune.com/embeds/915736/1601441/ef723fa3-2e84-489a-889d-29b3223cbb81"
+          />
+        </Grid>
+        
+        {/* <Grid item xs={12} sm={6} md={4}>
           <Grid container spacing={6}>
             <Grid item xs={6}>
               <AnalyticsTotalRevenue />
@@ -99,7 +127,7 @@ const AnalyticsDashboard = () => {
         </Grid>
         <Grid item xs={12} md={8}>
           <AnalyticsActivityTimeline />
-        </Grid>
+        </Grid> */}
       </Grid>
     </ApexChartWrapper>
   )
