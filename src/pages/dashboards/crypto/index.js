@@ -25,8 +25,13 @@ import AnalyticsActivityTimeline from 'src/views/dashboards/analytics/AnalyticsA
 import EmbeddedChart from 'src/views/dashboards/analytics/EmbeddedChart'
 import AnalyticsProjectStatistics from 'src/views/dashboards/analytics/AnalyticsProjectStatistics'
 import AnalyticsTopReferralSources from 'src/views/dashboards/analytics/AnalyticsTopReferralSources'
+import RechartsLineChart from 'src/views/charts/recharts/RechartsLineChart'
+
+// ** Hooks
+import { useSettings } from 'src/@core/hooks/useSettings'
 
 const AnalyticsDashboard = () => {
+  const { settings } = useSettings()
   return (
     <ApexChartWrapper>
       <Grid container spacing={6} className='match-height'>
@@ -53,11 +58,9 @@ const AnalyticsDashboard = () => {
           />
         </Grid>
         <Grid item xs={12} md={6}>
-          <EmbeddedChart 
-            title='Fear and Greed Index'
-            chartSrc="https://alternative.me/crypto/fear-and-greed-index.png"
-          />
+          <RechartsLineChart direction={settings.direction} />
         </Grid>
+        
         <Grid item xs={12} md={6}>
           <EmbeddedChart 
             title='Daily New Unique Addresses for EVM-Chains'

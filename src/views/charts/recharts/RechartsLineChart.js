@@ -1,3 +1,6 @@
+// ** React Imports
+import { useEffect, useState } from 'react'
+
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
@@ -7,53 +10,62 @@ import CardContent from '@mui/material/CardContent'
 
 // ** Third Party Imports
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
-
-// ** Icons Imports
-import ArrowUp from 'mdi-material-ui/ArrowUp'
-
-// ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
-
-const data = [
-  { pv: 280, name: '7/12' },
-  { pv: 200, name: '8/12' },
-  { pv: 220, name: '9/12' },
-  { pv: 180, name: '10/12' },
-  { pv: 270, name: '11/12' },
-  { pv: 250, name: '12/12' },
-  { pv: 70, name: '13/12' },
-  { pv: 90, name: '14/12' },
-  { pv: 200, name: '15/12' },
-  { pv: 150, name: '16/12' },
-  { pv: 160, name: '17/12' },
-  { pv: 100, name: '18/12' },
-  { pv: 150, name: '19/12' },
-  { pv: 100, name: '20/12' },
-  { pv: 50, name: '21/12' }
-]
-
-const CustomTooltip = props => {
-  // ** Props
-  const { active, payload } = props
-  if (active && payload) {
-    return (
-      <div className='recharts-custom-tooltip'>
-        <span>{`${payload[0].value}%`}</span>
-      </div>
-    )
-  }
-
-  return null
-}
+import axios from 'axios'
 
 const RechartsLineChart = ({ direction }) => {
+
+  const [data, setData] = useState(null)
+  const [fearAndGreedValues, setFearAndGreedValues] = useState(null)
+
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
+];
+
+  const processData = (data) => {
+    if (data) {
+      let arr = data["data"]
+      let values = arr.slice(0).reverse().map(index => {
+        let date = new Date(index.timestamp * 1000);
+        return { 
+          "sentiment" : index.value, 
+          "name": `${date.getDate()}/${monthNames[date.getMonth()]}/${date.getYear()-100}` 
+        }
+      });
+      setFearAndGreedValues(values)
+    }
+  }
+
+  useEffect(() => {
+    axios.get(`https://api.alternative.me/fng/?limit=500`)
+      .then(response => {
+        if (!response === 200) {
+          throw new Error(
+            `This is an HTTP error: The status is ${response.status}`
+          );
+        }
+        return response.data;
+      })
+      .then((actualData) => {
+        setData(actualData);
+      }) 
+    }, []);
+
+    useEffect(() => {
+      processData(data)
+    }, [data])
+
+  const renderData = () => {
+    if (data) {
+      return `${data["data"][0].value}, ${data["data"][0].value_classification}`
+    } else return ''
+  }
+  
+  
   return (
     <Card>
       <CardHeader
-        title='Balance'
+        title='Fear and Greed Index'
         titleTypographyProps={{ variant: 'h6' }}
-        subheader='Commercial networks & enterprises'
-        subheaderTypographyProps={{ variant: 'caption', sx: { color: 'text.disabled' } }}
         sx={{
           flexDirection: ['column', 'row'],
           alignItems: ['flex-start', 'center'],
@@ -63,31 +75,30 @@ const RechartsLineChart = ({ direction }) => {
         action={
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Typography variant='h6' sx={{ mr: 5 }}>
-              $221,267
+              Today: {renderData()}
             </Typography>
-            <CustomChip
-              skin='light'
-              color='success'
-              sx={{ fontWeight: 500, borderRadius: 1, fontSize: '0.875rem' }}
-              label={
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <ArrowUp sx={{ fontSize: '1rem', mr: 1 }} />
-                  <span>22%</span>
-                </Box>
-              }
-            />
           </Box>
         }
       />
       <CardContent>
-        <Box sx={{ height: 350 }}>
-          <ResponsiveContainer>
-            <LineChart height={350} data={data} style={{ direction }} margin={{ left: -20 }}>
-              <CartesianGrid />
-              <XAxis dataKey='name' reversed={direction === 'rtl'} />
-              <YAxis orientation={direction === 'rtl' ? 'right' : 'left'} />
-              <Tooltip content={CustomTooltip} />
-              <Line dataKey='pv' stroke='#ff9f43' strokeWidth={3} />
+        <Box sx={{ height: 400, width: 600 }}>
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart 
+              width={500}
+              height={300} 
+              data={fearAndGreedValues} 
+              margin={{
+                top: 5,
+                right: 30,
+                left: -20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3"/>
+              <XAxis dataKey="name" hide={true} interval="preserveStartEnd"/>
+              <YAxis dataKey="sentiment"/>
+              <Line type="monotone" dataKey="sentiment" stroke="#8884d8" dot={false} />
+              <Tooltip />
             </LineChart>
           </ResponsiveContainer>
         </Box>
