@@ -5,6 +5,7 @@ const client = new MongoClient(url);
 const dbName = "historical_price_data";
 
 async function run() {
+    
     try {
   
       await client.connect();
@@ -12,7 +13,8 @@ async function run() {
       const db = client.db(dbName);
       const col = db.collection("BTCUSD");
       const cursor = col.find()
-      await cursor.forEach(console.dir);
+      console.log(cursor)
+    //   await cursor.forEach(console.dir);
     }
     catch (err) {
         console.log(err.stack);

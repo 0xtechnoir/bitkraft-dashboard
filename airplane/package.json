@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "airplane": "^0.1.2",
+    "axios": "^0.27.2",
+    "mongodb": "^4.7.0"
+  }
+}
