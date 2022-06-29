@@ -20,42 +20,26 @@ import axios from 'axios'
 
 const RechartsLineChart = ({ direction }) => {
 
-  const [data, setData] = useState(null)
   const [btcPriceValues, setBtcPriceValues] = useState(null)
 
-const processData = (data) => {
-  if (data) {
-    console.log(`Data: ${JSON.stringify(data)}`)
-    // let arr = data["data"]
-    // let values = data.map(index => {
-    //   let date = new Date(index.timestamp * 1000);
-    //   return { 
-    //     "sentiment" : index.value, 
-    //     "name": `${date.getDate()}/${monthNames[date.getMonth()]}/${date.getYear()-100}` 
-    //   }
-    // });
-    setBtcPriceValues(data)
-  }
-}
-
-  useEffect(() => {
+  function getBtcData() {
     axios.get(`/api/retrieveBtcPrice`)
-    .then(response => {
-      if (!response === 200) {
-        throw new Error(
-          `This is an HTTP error: The status is ${response.status}`
-        );
-      }
-      return response.data;
-    })
-    .then((actualData) => {
-      setData(actualData);
-    })
-  }, []);
+      .then(response => {
+        if (!response === 200) {
+          throw new Error(
+            `This is an HTTP error: The status is ${response.status}`
+          )
+        }
+        return response.data
+      })
+      .then((actualData) => {
+        setBtcPriceValues(actualData)
+      })
+  }
 
   useEffect(() => {
-    processData(data)
-  }, [data])
+    getBtcData()
+  }, []);
   
   return (
     <Card>
@@ -84,8 +68,8 @@ const processData = (data) => {
               data={btcPriceValues} 
               margin={{
                 top: 5,
-                right: 100,
-                left: -20,
+                right: 30,
+                left: 10,
                 bottom: 5,
               }}
             >
@@ -103,3 +87,4 @@ const processData = (data) => {
 }
 
 export default RechartsLineChart
+
