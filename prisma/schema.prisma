@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model BTCUSD {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  close_price String
+  close_time  Float  @unique(map: "close_time_1")
+}
+
+model btc_position {
+  id                 String @id @default(auto()) @map("_id") @db.ObjectId
+  close_price        Float
+  close_time         Float  @unique(map: "close_time_1")
+  position_value_usd Float
+  tokens_held        Float
+}
+
+model matic_position {
+  id                 String @id @default(auto()) @map("_id") @db.ObjectId
+  close_price        Float
+  close_time         Float  @unique(map: "close_time_1")
+  position_value_usd Float
+  tokens_held        Float
+}

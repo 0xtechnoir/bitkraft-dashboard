@@ -36,6 +36,7 @@
     "@mui/material": "5.6.4",
     "@mui/x-data-grid": "5.10.0",
     "@popperjs/core": "2.11.2",
+    "@prisma/client": "^4.0.0",
     "@reduxjs/toolkit": "1.8.1",
     "apexcharts-clevision": "3.28.5",
     "aws-amplify": "4.3.22",
@@ -92,6 +93,7 @@
     "eslint-import-resolver-typescript": "2.5.0",
     "eslint-plugin-import": "2.25.4",
     "next-transpile-modules": "9.0.0",
-    "prettier": "2.6.2"
+    "prettier": "2.6.2",
+    "prisma": "^4.0.0"
   }
 }
