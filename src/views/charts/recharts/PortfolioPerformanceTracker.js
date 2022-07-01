@@ -21,7 +21,7 @@ const RechartsLineChart = ({ direction }) => {
   "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
   useEffect(() => {
-    axios.get(`/api/retrieveBtcData`)
+    axios.get(`/api/retrieveLiqPortfolioData`)
       .then(response => {
         if (!response === 200) {
           throw new Error(
@@ -114,6 +114,8 @@ const RechartsLineChart = ({ direction }) => {
               <p className="label">{formatDate(payload[0].payload.time)}</p>
               <p className="label" style={{color:'#8884d8'}}>{`${payload[0].name} : $${payload[0].value.toLocaleString('en-US')}`}</p>
               <p className="label" style={{color:'#82ca9d'}}>{`${payload[1].name} : $${payload[1].value.toLocaleString('en-US')}`}</p>
+              <p className="label" style={{color:'#d884cb'}}>{`${payload[2].name} : $${payload[2].value.toLocaleString('en-US')}`}</p>
+
             </div>
         </CardContent>
         </Card>
@@ -179,6 +181,8 @@ const RechartsLineChart = ({ direction }) => {
               <YAxis tickFormatter={formatYAxis}/>
               <Line dataKey="value" data={series[0].data} name={series[0].name} key={series[0].name} dot={false} stroke="#8884d8" />
               <Line dataKey="value" data={series[1].data} name={series[1].name} key={series[1].name} dot={false} stroke="#82ca9d" />
+              <Line dataKey="value" data={series[2].data} name={series[2].name} key={series[2].name} dot={false} stroke="#d884cb" />
+
               <Tooltip content={<CustomTooltip />} />
             </LineChart>
           </ResponsiveContainer>

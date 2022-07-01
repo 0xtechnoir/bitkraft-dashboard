@@ -7,45 +7,67 @@ const client = new MongoClient(URL);
 
 async function main() {
 
-    // a function that can be fed an array of tickers
-
-
-    try {
-        const maticPurchaseDate = 1651791600 * 1000 // Epoch Unix Timestamp for 6th May 2022, converted to milliseconds
-        await client.connect()
-        const db = client.db("historical_price_data")
+    const maticPurchaseDate = 1651791600 * 1000 // Epoch Unix Timestamp for 6th May 2022, converted to milliseconds
+    await client.connect()
+    const db = client.db("historical_price_data")
     
-        const data = await getData("MATICUSDT", "1d", maticPurchaseDate, 3333333)  // create matic position
-        const mappedData = await mapData(data, 3333333)
-        mappedData[0].position_value_usd = 3000000 // change the initial value from market price to TWAP price
-        const col = db.collection("matic_position");
+    await createPosition("MATICUSDT", "matic_position", db, maticPurchaseDate, 3000000)
+    await createBenchmark("BTCUSDT", "btc_position", db, maticPurchaseDate, 3000000)
+    await createBenchmark("ETHUSDT", "eth_position", db, maticPurchaseDate, 3000000)
+}
+
+async function createPosition(_pair, _collectionName, _db, _startDate, _purchasePrice) {
+    const col = _db.collection(_collectionName);
+    getData(_pair, "1d", _startDate)
+    .then((data) => mapData(data, 3333333))
+    .then((mappedData) => {
+        mappedData[0].position_value_usd = _purchasePrice // change the initial value from market price to TWAP price
         col.createIndex( { "close_time": 1 }, { unique: true } )
-        await col.insertMany(mappedData, { ordered: false });
-    
-        // createBenchmark("BTCUSDT", )
-        // create corresponding Bitcoin position
-        const btcData = await getData("BTCUSDT", "1d", maticPurchaseDate) 
-        const btcEquivalent = 3000000 / parseFloat(btcData[0][4])
-        const btcMappedData = await mapData(btcData, btcEquivalent)
-        const col2 = db.collection("btc_position");
-        col2.createIndex( { "close_time": 1 }, { unique: true } )
-        await col2.insertMany(btcMappedData, { ordered: false });
-        
-    } catch (err) {
-        if(err.toString().includes("E11000 duplicate key error")) {
-            //do nothing
+        return writeDocs(mappedData, col, _pair)
+    })
+    .then(async (docsToAdd) => {
+        // if required bulk write new documents to collection
+        if (docsToAdd.length) {
+           await col.insertMany(docsToAdd, { ordered : false});
+        }
+    })
+}
+
+async function writeDocs(mappedData, col, _pair) {    
+    const docsToAdd = [];
+  
+    for (const x of mappedData){
+        const count = await col.find({ close_time: x.close_time }).count()
+        if(!count) {
+            docsToAdd.push(x);
         } else {
-            throw err
         }
     }
+    return docsToAdd
+}
+
+async function createBenchmark(_pair, _collectionName, db, _startDate, _purchasePrice) {
     
+    const col = db.collection(_collectionName);
+    getData(_pair, "1d", _startDate)
+    .then((data) => {
+        const benchmarkEquavalent = _purchasePrice / parseFloat(data[0][4])
+        return mapData(data, benchmarkEquavalent)
+    })
+    .then((mappedData) => {  
+        col.createIndex( { "close_time": 1 }, { unique: true } )
+        return writeDocs(mappedData, col, _pair);
+    })
+    .then(async (docsToAdd) => {
+        // if required bulk write new documents to collection
+        console.log(`docsToAdd array for ${_pair} has length of ${docsToAdd.length}`)
+        if (docsToAdd.length) {
+            await col.insertMany(docsToAdd, { ordered : false});
+        }
+    })
 }
 
-async function createBenchmark(_pair, _startDate, ) {
-
-}
-
-async function mapData(data, tokensHeld) {
+function mapData(data, tokensHeld) {
     const mappedData = data.map(x => {
         return {
             "close_time": parseFloat(x[6]),
@@ -70,13 +92,13 @@ async function getData(pair, interval, startDate) {
 }
 
 main()
-  .catch((e) => {
-    // throw e
-    console.log("An error occurred: " + e)
-  })
-  .finally(async () => {
-    await client.close()
-  })
+//   .catch((e) => {
+//     // throw e
+//     console.log("An error occurred: " + e)
+//   })
+//   .finally(async () => {
+//     await client.close()
+//   })
 
 /* example response from coin market cap
 [ 
