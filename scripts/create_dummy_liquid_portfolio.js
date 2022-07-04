@@ -11,60 +11,45 @@ async function main() {
     await client.connect()
     const db = client.db("historical_price_data")
     
-    await createPosition("MATICUSDT", "matic_position", db, maticPurchaseDate, 3000000)
-    await createBenchmark("BTCUSDT", "btc_position", db, maticPurchaseDate, 3000000)
-    await createBenchmark("ETHUSDT", "eth_position", db, maticPurchaseDate, 3000000)
+    const maticPosition = await createPosition("MATICUSDT", "matic_position", db, maticPurchaseDate, 3000000)
+    const btcPosition = await createBenchmark("BTCUSDT", "btc_position", db, maticPurchaseDate, 3000000)
+    const ethPosition = await createBenchmark("ETHUSDT", "eth_position", db, maticPurchaseDate, 3000000)
 }
 
 async function createPosition(_pair, _collectionName, _db, _startDate, _purchasePrice) {
     const col = _db.collection(_collectionName);
-    getData(_pair, "1d", _startDate)
-    .then((data) => mapData(data, 3333333))
-    .then((mappedData) => {
-        mappedData[0].position_value_usd = _purchasePrice // change the initial value from market price to TWAP price
-        col.createIndex( { "close_time": 1 }, { unique: true } )
-        return writeDocs(mappedData, col, _pair)
-    })
-    .then(async (docsToAdd) => {
-        // if required bulk write new documents to collection
-        if (docsToAdd.length) {
-           await col.insertMany(docsToAdd, { ordered : false});
-        }
-    })
+    const data = await getData(_pair, "1d", _startDate)
+    const mappedData = mapData(data, 3333333)
+    mappedData[0].position_value_usd = _purchasePrice // change the initial value from market price to TWAP price
+    col.createIndex( { "close_time": 1 }, { unique: true } )
+    const docsToWrite = await writeDocs(mappedData, col, _pair)
+    if (docsToWrite.length) {
+        await col.insertMany(docsToWrite, { ordered : false});
+    }
 }
 
-async function writeDocs(mappedData, col, _pair) {    
+
+async function writeDocs(mappedData, col, _pair) {   
     const docsToAdd = [];
-  
     for (const x of mappedData){
         const count = await col.find({ close_time: x.close_time }).count()
         if(!count) {
             docsToAdd.push(x);
-        } else {
         }
     }
     return docsToAdd
 }
 
 async function createBenchmark(_pair, _collectionName, db, _startDate, _purchasePrice) {
-    
     const col = db.collection(_collectionName);
-    getData(_pair, "1d", _startDate)
-    .then((data) => {
-        const benchmarkEquavalent = _purchasePrice / parseFloat(data[0][4])
-        return mapData(data, benchmarkEquavalent)
-    })
-    .then((mappedData) => {  
-        col.createIndex( { "close_time": 1 }, { unique: true } )
-        return writeDocs(mappedData, col, _pair);
-    })
-    .then(async (docsToAdd) => {
-        // if required bulk write new documents to collection
-        console.log(`docsToAdd array for ${_pair} has length of ${docsToAdd.length}`)
-        if (docsToAdd.length) {
-            await col.insertMany(docsToAdd, { ordered : false});
-        }
-    })
+    const data = await getData(_pair, "1d", _startDate)
+    const benchmarkEquavalent = _purchasePrice / parseFloat(data[0][4])
+    const mappedData = mapData(data, benchmarkEquavalent)
+    col.createIndex( { "close_time": 1 }, { unique: true } )
+    const docsToWrite = await writeDocs(mappedData, col, _pair)
+    if (docsToWrite.length) {
+        return await col.insertMany(docsToWrite, { ordered : false});
+    }
 }
 
 function mapData(data, tokensHeld) {
@@ -80,27 +65,25 @@ function mapData(data, tokensHeld) {
 }
 
 async function getData(pair, interval, startDate) {
-    return axios.get(`https://api.binance.com/api/v3/klines?symbol=${pair}&interval=${interval}&startTime=${startDate}&endTime=${endDate}&limit=1000`)
-    .then(response => {
-        if (!response === 200) {
-            throw new Error(
-                `This is an HTTP error: The status is ${response.status}`
-            );
-        }
-        return response.data;
-    })
+    const response = await axios.get(`https://api.binance.com/api/v3/klines?symbol=${pair}&interval=${interval}&startTime=${startDate}&endTime=${endDate}&limit=1000`)
+    if (!response.status === 200) {
+        throw new Error(
+            `This is an HTTP error: The status is ${response.status}`
+        );
+    }
+    return response.data;
 }
 
 main()
-//   .catch((e) => {
-//     // throw e
-//     console.log("An error occurred: " + e)
-//   })
-//   .finally(async () => {
-//     await client.close()
-//   })
+  .catch((e) => {
+    // throw e
+    console.log("An error occurred: " + e)
+  })
+  .finally(async () => {
+    await client.close()
+  })
 
-/* example response from coin market cap
+/* example response from Binance
 [ 
   [
     1499040000000,      // Open time
