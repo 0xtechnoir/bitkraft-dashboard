@@ -32,7 +32,7 @@ async function createPosition(_pair, _collectionName, _db, _startDate, _purchase
 async function writeDocs(mappedData, col, _pair) {   
     const docsToAdd = [];
     for (const x of mappedData){
-        const count = await col.find({ close_time: x.close_time }).count()
+        const count = await col.countDocuments( { close_time: x.close_time })
         if(!count) {
             docsToAdd.push(x);
         }
