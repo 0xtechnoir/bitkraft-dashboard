@@ -21,14 +21,14 @@ const RechartsLineChart = ({ direction }) => {
   "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
   useEffect(() => {
-    axios.get(`/api/retrieveLiqPortfolioData`)
+    axios.get(`/api/getIndexedAssetData`)
       .then(response => {
         if (!response === 200) {
           throw new Error(
             `This is an HTTP error: The status is ${response.status}`
           )
         }
-        // console.log(`Performance Response data: ${JSON.stringify(response.data)}`)
+        console.log(`Index Response data: ${JSON.stringify(response.data)}`)
         setSeries(response.data)
         setLoading(false)
       })
@@ -113,10 +113,7 @@ const RechartsLineChart = ({ direction }) => {
           <CardContent>
             <div className="custom-tooltip">
               <p className="label">{formatDate(payload[0].payload.time)}</p>
-              <p className="label" style={{color:'#8884d8'}}>{`${payload[0].name} : $${payload[0].value.toLocaleString('en-US')}`}</p>
-              <p className="label" style={{color:'#82ca9d'}}>{`${payload[1].name} : $${payload[1].value.toLocaleString('en-US')}`}</p>
-              <p className="label" style={{color:'#d884cb'}}>{`${payload[2].name} : $${payload[2].value.toLocaleString('en-US')}`}</p>
-
+              <p className="label" style={{color:'#8884d8'}}>{`${payload[0].coin} : $${payload[0].value.toLocaleString('en-US')}`}</p>
             </div>
         </CardContent>
         </Card>
@@ -158,7 +155,7 @@ const RechartsLineChart = ({ direction }) => {
   return (
     <Card>
       <CardHeader
-        title='Liquid Portfolio Performance'
+        title='Indexed Portfolio'
         titleTypographyProps={{ variant: 'h6' }}
         sx={{
           flexDirection: ['column', 'row'],
@@ -180,10 +177,7 @@ const RechartsLineChart = ({ direction }) => {
               <CartesianGrid strokeDasharray="3 3"/>
               <XAxis dataKey="time" tickFormatter={formatXAxis} minTickGap={150} allowDuplicatedCategory={false}/>
               <YAxis tickFormatter={formatYAxis}/>
-              <Line dataKey="value" data={series[0].data} name={series[0].name} key={series[0].name} dot={false} stroke="#8884d8" />
-              <Line dataKey="value" data={series[1].data} name={series[1].name} key={series[1].name} dot={false} stroke="#82ca9d" />
-              <Line dataKey="value" data={series[2].data} name={series[2].name} key={series[2].name} dot={false} stroke="#d884cb" strokeWidth={3} />
-
+              <Line dataKey="value" data={series[0].data} name={series[0].coin} key={series[0].coin} dot={false} stroke="#8884d8" />
               <Tooltip content={<CustomTooltip />} />
             </LineChart>
           </ResponsiveContainer>
