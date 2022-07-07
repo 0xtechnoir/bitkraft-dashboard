@@ -57,6 +57,7 @@
     "iframe-resizer-react": "^1.1.0",
     "jsonwebtoken": "8.5.1",
     "keen-slider": "6.6.5",
+    "lodash": "^4.17.21",
     "mdbreact": "^5.2.0",
     "mdi-material-ui": "7.1.0",
     "mongodb": "^4.7.0",

@@ -8,9 +8,10 @@ import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import Button from '@mui/material/Button'
+import _ from 'lodash';
 
 // ** Third Party Imports
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts'
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Surface, Symbols } from 'recharts'
 import axios from 'axios'
 
 const RechartsLineChart = ({ direction }) => {
@@ -18,6 +19,8 @@ const RechartsLineChart = ({ direction }) => {
   const [series, setSeries] = useState()
   const [visibleData, setVisibleData] = useState()
   const [loading, setLoading] = useState(true);
+  const [disabled, setDisabled] = useState([""])
+  const lineColours = ["#e6194B", "#3cb44b", "#ffe119", "#4363d8", "#f58231", "#911eb4", "#42d4f4", "#f032e6" ]
 
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
@@ -129,6 +132,51 @@ const RechartsLineChart = ({ direction }) => {
     }
     return null;
   };
+
+  const handleClick = dataKey => {
+    if (_.includes(disabled, dataKey)) {
+      setDisabled(disabled.filter(obj => obj !== dataKey));
+    } else {
+      setDisabled([...disabled, dataKey]);
+    }
+  };
+
+  const renderLegend = ({payload}) => {
+    console.log(`legend payload: ${JSON.stringify(payload)}`)
+    return (
+      <div>
+        {payload.map(entry => {
+          const { dataKey, colour } = entry;
+          const active = _.includes(disabled, dataKey);
+          const style = {
+            marginRight: 10,
+            color: active ? "#AAA" : "#000"
+          };
+
+          return (
+            <ul
+              onClick={() => handleClick(dataKey)}
+              style={style}
+            >
+              <Surface width={10} height={10} viewBox="0 0 10 10">
+                <Symbols cx={5} cy={5} type="circle" size={50} fill={colour} />
+                {active && (
+                  <Symbols
+                    cx={5}
+                    cy={5}
+                    type="circle"
+                    size={25}
+                    fill={"#FFF"}
+                  />
+                )}
+              </Surface>
+              <span>{dataKey}</span>
+            </ul>
+          )
+        })}
+      </div>
+    );
+  }
   
   if (loading) {
     return (
@@ -237,16 +285,22 @@ const RechartsLineChart = ({ direction }) => {
               <CartesianGrid strokeDasharray="3 3"/>
               <XAxis dataKey="time" tickFormatter={formatXAxis} minTickGap={150} allowDuplicatedCategory={false} type="number" domain={['dataMin', 'dataMax']}/>
               <YAxis label={{ value: 'ETH', angle: -90, position: 'insideLeft', offset: -20}}/>
-              <Line dataKey="eth_value" data={visibleData[0].data} name={visibleData[0].name} key={visibleData[0].name} dot={false} stroke="#e6194B" strokeWidth={2}/>
-              <Line dataKey="eth_value" data={visibleData[1].data} name={visibleData[1].name} key={visibleData[1].name} dot={false} stroke="#3cb44b" strokeWidth={2}/>     
-              <Line dataKey="eth_value" data={visibleData[2].data} name={visibleData[2].name} key={visibleData[2].name} dot={false} stroke="#ffe119" strokeWidth={2}/>     
-              <Line dataKey="eth_value" data={visibleData[3].data} name={visibleData[3].name} key={visibleData[3].name} dot={false} stroke="#4363d8" strokeWidth={2}/>
-              <Line dataKey="eth_value" data={visibleData[4].data} name={visibleData[4].name} key={visibleData[4].name} dot={false} stroke="#f58231" strokeWidth={2}/> 
-              <Line dataKey="eth_value" data={visibleData[5].data} name={visibleData[5].name} key={visibleData[5].name} dot={false} stroke="#911eb4" strokeWidth={2}/>
-              <Line dataKey="eth_value" data={visibleData[6].data} name={visibleData[6].name} key={visibleData[6].name} dot={false} stroke="#42d4f4" strokeWidth={2}/>
-              <Line dataKey="eth_value" data={visibleData[7].data} name={visibleData[7].name} key={visibleData[7].name} dot={false} stroke="#f032e6" strokeWidth={2}/>
+              
+              {visibleData.filter(line => !_.includes(disabled, line.name))
+              .map( (line, index) => (   
+                <Line dataKey="eth_value" data={line.data} name={line.name} key={line.name} dot={false} stroke={lineColours[index]} strokeWidth={2}/>
+              ))}
+
+              {/* {visibleData.map( (line, index) => (   
+                  <Line dataKey="eth_value" data={line.data} name={line.name} key={line.name} dot={false} stroke={lineColours[index]} strokeWidth={2}/>
+                ))} */}
               <Tooltip content={<CustomTooltip />} offset={200}/>
-              <Legend />
+              <Legend content={renderLegend} layout="vertical" verticalAlign="middle" align="right"
+                payload={visibleData.map((line, index) => ({
+                  dataKey: line.name,
+                  colour: lineColours[index]
+                }))}
+               />
             </LineChart>
           </ResponsiveContainer>
         </Box>
