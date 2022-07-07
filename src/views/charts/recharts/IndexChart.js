@@ -21,6 +21,7 @@ const RechartsLineChart = ({ direction }) => {
   const [loading, setLoading] = useState(true);
   const [disabled, setDisabled] = useState([""])
   const lineColours = ["#e6194B", "#3cb44b", "#ffe119", "#4363d8", "#f58231", "#911eb4", "#42d4f4", "#f032e6" ]
+  const pairs = {}
 
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
@@ -141,12 +142,36 @@ const RechartsLineChart = ({ direction }) => {
     }
   };
 
+  const formatTokenName = (name) => {
+    switch(name) {
+      case "yield_guild_games":
+        return "YGG"
+      case "alethea_artificial_liquid_intelligence_token":
+        return "ALI"
+      case "immutable_x":
+        return "IMX"
+      case "rainbow_token_2":
+        return "RBW"
+      case "superfarm":
+        return "SUPER"
+      case "matic_network":
+        return "MATIC"
+      case "sipher":
+        return "SIPHER"
+      case "blackpool_token":
+        return "BPT"
+      default: 
+        return "-"
+    }
+  }
+
   const renderLegend = ({payload}) => {
     console.log(`legend payload: ${JSON.stringify(payload)}`)
     return (
       <div>
         {payload.map(entry => {
-          const { dataKey, colour } = entry;
+          const dataKey = entry.data.name
+          const colour = entry.colour;
           const active = _.includes(disabled, dataKey);
           const style = {
             marginRight: 10,
@@ -170,7 +195,7 @@ const RechartsLineChart = ({ direction }) => {
                   />
                 )}
               </Surface>
-              <span>{dataKey}</span>
+              <span>{formatTokenName(dataKey)}</span>
             </ul>
           )
         })}
@@ -281,25 +306,40 @@ const RechartsLineChart = ({ direction }) => {
       <CardContent>
         <Box sx={{ height: 400, width: 1250 }}>
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart margin={{ top: 15, right: 30, left: 30, bottom: 5 }} width={500} height={500} >
+            <LineChart margin={{ top: 15, right: 30, left: 30, bottom: 5 }} width={500} height={500} data={visibleData}>
               <CartesianGrid strokeDasharray="3 3"/>
               <XAxis dataKey="time" tickFormatter={formatXAxis} minTickGap={150} allowDuplicatedCategory={false} type="number" domain={['dataMin', 'dataMax']}/>
-              <YAxis label={{ value: 'ETH', angle: -90, position: 'insideLeft', offset: -20}}/>
-              
-              {visibleData.filter(line => !_.includes(disabled, line.name))
-              .map( (line, index) => (   
-                <Line dataKey="eth_value" data={line.data} name={line.name} key={line.name} dot={false} stroke={lineColours[index]} strokeWidth={2}/>
-              ))}
-
-              {/* {visibleData.map( (line, index) => (   
-                  <Line dataKey="eth_value" data={line.data} name={line.name} key={line.name} dot={false} stroke={lineColours[index]} strokeWidth={2}/>
-                ))} */}
+              <YAxis label={{ value: 'ETH', angle: -90, position: 'insideLeft', offset: -20}}/>          
+              {
+              visibleData.map((element, index) => {
+                return {
+                  "data" : element, 
+                  "colour" : lineColours[index]
+                }
+              }).filter(pair => {
+                return !disabled.includes(pair.data.name)
+              }).map((pair) => {
+                return (
+                  <Line dataKey="eth_value" data={pair.data.data} name={pair.data.name} key={pair.data.name} dot={false} stroke={pair.colour} strokeWidth={2}/>
+                ) 
+              })
+              }
               <Tooltip content={<CustomTooltip />} offset={200}/>
               <Legend content={renderLegend} layout="vertical" verticalAlign="middle" align="right"
-                payload={visibleData.map((line, index) => ({
-                  dataKey: line.name,
-                  colour: lineColours[index]
-                }))}
+                payload={ visibleData.map((element, index) => {
+                  return {
+                    "data" : element, 
+                    "colour" : lineColours[index]
+                  }})}
+
+
+
+
+
+                //   _.toPairs(lineColours).map((pair) => ({
+                //   dataKey: pair[0].name,
+                //   colour: pair[1]
+                // }))}
                />
             </LineChart>
           </ResponsiveContainer>
