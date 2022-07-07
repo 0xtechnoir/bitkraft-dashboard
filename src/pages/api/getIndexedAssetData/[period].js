@@ -1,13 +1,42 @@
 const { PrismaClient } = require('@prisma/client');
 
 export default async function handler(req, res) {
+    // Endpoint is no longer used but keeping for future reference
 
     const prisma = new PrismaClient()
-    // get the period passed in the request 
+    // get the period passed in the request - should make it an enum
     const { period } = req.query
-    console.log(`getIndexedAssetData endpoint invoked with following period: ${period}`)
+    console.log(`getIndexedAssetData [period] endpoint invoked with following period: ${period}`)
     // calculate how many ms in the period and subtract it from date.now()
-    // use that value as the input to the where clause on the primsma query
+
+    const DAY_MS = 86400000
+    const YEAR_MS = 31536000000
+    let startTime
+
+    switch(period) {
+        case "30D":
+            startTime = Date.now() - (30 * DAY_MS);
+            break;
+        case "90D":
+            startTime = Date.now() - (90 * DAY_MS);
+            break;
+        case "180D":
+            startTime = Date.now() - (180 * DAY_MS);
+            break;
+        case "YTD":
+            const currentYear = new Date().getFullYear() // 2022
+            const date = new Date(`${currentYear}-01-01`) // first day of current year
+            startTime = date.getTime(); // timestamp in ms
+            break;
+        case "1Y":
+            startTime = Date.now() - YEAR_MS;
+            break;
+        case "ALL":
+            startTime = 1609539760000 // 1st Jan 2021
+            break;
+        default:
+            startTime = 1609539760000 // 1st Jan 2021
+      }
 
     try {
 
@@ -21,7 +50,7 @@ export default async function handler(req, res) {
             const coinData = await prisma[coinIds[i]].findMany({
                 where: { 
                     time : {
-                        gte: 1609539760000, //01.01.2021
+                        gte: startTime,
                      },
                 }, orderBy : {
                     time : 'asc'

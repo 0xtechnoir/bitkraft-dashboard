@@ -16,23 +16,23 @@ import axios from 'axios'
 const RechartsLineChart = ({ direction }) => {
 
   const [series, setSeries] = useState()
+  const [visibleData, setVisibleData] = useState()
   const [loading, setLoading] = useState(true);
 
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
   useEffect(() => {
-    axios.get(`/api/getIndexedAssetData/3M`)
+    axios.get(`/api/getIndexedAssetData`)
       .then(response => {
         if (!response === 200) {
           throw new Error(
             `This is an HTTP error: The status is ${response.status}`
           )
         }
-        console.log(`Index Response data: ${JSON.stringify(response.data)}`)
         setSeries(response.data)
+        setVisibleData(response.data)
         setLoading(false)
-        console.log(`Series: ${series}`)
       })
   }, []);
 
@@ -159,6 +159,50 @@ const RechartsLineChart = ({ direction }) => {
       </Card>
     )
   } 
+
+  const changePeriod = async (period) => {
+    
+    const DAY_MS = 86400000
+    const YEAR_MS = 31536000000
+    let startTime
+
+    switch(period) {
+        case "30D":
+            startTime = Date.now() - (30 * DAY_MS);
+            break;
+        case "90D":
+            startTime = Date.now() - (90 * DAY_MS);
+            break;
+        case "180D":
+            startTime = Date.now() - (180 * DAY_MS);
+            break;
+        case "YTD":
+            const currentYear = new Date().getFullYear() // 2022
+            const date = new Date(`${currentYear}-01-01`) // first day of current year
+            startTime = date.getTime(); // timestamp in ms
+            break;
+        case "1Y":
+            startTime = Date.now() - YEAR_MS;
+            break;
+        case "ALL":
+            startTime = 1609539760000 // 1st Jan 2021
+            break;
+        default:
+            startTime = 1609539760000 // 1st Jan 2021
+      }
+    
+    let tempArray = []
+    series.forEach((element, index, arr) => {
+      const dataArray = element.data
+      const filteredArray = dataArray.filter(index => index.time > startTime)
+
+      tempArray[index] = {
+        "name" : element.name,
+        "data" : filteredArray
+      }
+    })
+    setVisibleData(tempArray)
+  }
   
   return (
     <Card>
@@ -176,11 +220,12 @@ const RechartsLineChart = ({ direction }) => {
             <Typography variant='h6' sx={{ mr: 5 }}>
             </Typography>
             <div>
-                <Button size='small' sx={{ mr: 3.5 }} variant='outlined'> All</Button>
-                <Button size='small' sx={{ mr: 3.5 }} variant='contained'> YTD </Button>
-                <Button size='small' sx={{ mr: 3.5 }} variant='contained'> 6M </Button>
-                <Button size='small' sx={{ mr: 3.5 }} variant='contained'> 3M </Button>
-                <Button size='small' sx={{ mr: 3.5 }} variant='contained'> 1M </Button>
+                <Button size='small' sx={{ mr: 3.5 }} variant='outlined' onClick={() => changePeriod('ALL')}> All</Button>
+                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('1Y')}> 1Y </Button>
+                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('YTD')}> YTD </Button>
+                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('180D')}> 180D </Button>
+                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('90D')}> 90D </Button>
+                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('30D')}> 30D </Button>
             </div>
           </Box>
         }
@@ -192,14 +237,14 @@ const RechartsLineChart = ({ direction }) => {
               <CartesianGrid strokeDasharray="3 3"/>
               <XAxis dataKey="time" tickFormatter={formatXAxis} minTickGap={150} allowDuplicatedCategory={false} type="number" domain={['dataMin', 'dataMax']}/>
               <YAxis label={{ value: 'ETH', angle: -90, position: 'insideLeft', offset: -20}}/>
-              <Line dataKey="eth_value" data={series[0].data} name={series[0].name} key={series[0].name} dot={false} stroke="#e6194B" strokeWidth={2}/>
-              <Line dataKey="eth_value" data={series[1].data} name={series[1].name} key={series[1].name} dot={false} stroke="#3cb44b" strokeWidth={2}/>     
-              <Line dataKey="eth_value" data={series[2].data} name={series[2].name} key={series[2].name} dot={false} stroke="#ffe119" strokeWidth={2}/>     
-              <Line dataKey="eth_value" data={series[3].data} name={series[3].name} key={series[3].name} dot={false} stroke="#4363d8" strokeWidth={2}/>
-              <Line dataKey="eth_value" data={series[4].data} name={series[4].name} key={series[4].name} dot={false} stroke="#f58231" strokeWidth={2}/> 
-              <Line dataKey="eth_value" data={series[5].data} name={series[5].name} key={series[5].name} dot={false} stroke="#911eb4" strokeWidth={2}/>
-              <Line dataKey="eth_value" data={series[6].data} name={series[6].name} key={series[6].name} dot={false} stroke="#42d4f4" strokeWidth={2}/>
-              <Line dataKey="eth_value" data={series[7].data} name={series[7].name} key={series[7].name} dot={false} stroke="#f032e6" strokeWidth={2}/>
+              <Line dataKey="eth_value" data={visibleData[0].data} name={visibleData[0].name} key={visibleData[0].name} dot={false} stroke="#e6194B" strokeWidth={2}/>
+              <Line dataKey="eth_value" data={visibleData[1].data} name={visibleData[1].name} key={visibleData[1].name} dot={false} stroke="#3cb44b" strokeWidth={2}/>     
+              <Line dataKey="eth_value" data={visibleData[2].data} name={visibleData[2].name} key={visibleData[2].name} dot={false} stroke="#ffe119" strokeWidth={2}/>     
+              <Line dataKey="eth_value" data={visibleData[3].data} name={visibleData[3].name} key={visibleData[3].name} dot={false} stroke="#4363d8" strokeWidth={2}/>
+              <Line dataKey="eth_value" data={visibleData[4].data} name={visibleData[4].name} key={visibleData[4].name} dot={false} stroke="#f58231" strokeWidth={2}/> 
+              <Line dataKey="eth_value" data={visibleData[5].data} name={visibleData[5].name} key={visibleData[5].name} dot={false} stroke="#911eb4" strokeWidth={2}/>
+              <Line dataKey="eth_value" data={visibleData[6].data} name={visibleData[6].name} key={visibleData[6].name} dot={false} stroke="#42d4f4" strokeWidth={2}/>
+              <Line dataKey="eth_value" data={visibleData[7].data} name={visibleData[7].name} key={visibleData[7].name} dot={false} stroke="#f032e6" strokeWidth={2}/>
               <Tooltip content={<CustomTooltip />} offset={200}/>
               <Legend />
             </LineChart>

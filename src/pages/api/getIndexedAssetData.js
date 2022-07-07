@@ -1,42 +1,32 @@
-const { MongoClient } = require('mongodb');
-
-const url = "mongodb+srv://bkCryptoTeam:Vw01wuSjeNkyeZrj@cluster0.tmpq7.mongodb.net/?retryWrites=true&w=majority";
-const client = new MongoClient(url);
-const dbName = "historical_price_data";
+const { PrismaClient } = require('@prisma/client');
 
 export default async function handler(req, res) {
 
+    const prisma = new PrismaClient()
+    console.log(`getIndexedAssetData endpoint invoked`)
+
     try {
-        // connect to mongodb cloud database
-        await client.connect();
-        const db = client.db(dbName);
 
-        const coinIds = [ "yield-guild-games", "alethea-artificial-liquid-intelligence-token",
-                  "immutable-x", "rainbow-token-2", "superfarm", "matic-network", "sipher", "blackpool-token"]
-
-        console.dir(req)
-        // console.log(`getIndexedAssetData endpoint invoked with following params: ${req.query}`)
+        const coinIds = [ "yield_guild_games", "alethea_artificial_liquid_intelligence_token",
+                  "immutable_x", "rainbow_token_2", "superfarm", "matic_network", "sipher", "blackpool_token"]
 
         let results = []
 
         for (let i = 0; i < coinIds.length; i++) {
-            const col = db.collection(coinIds[i]);
-            const cursor = col.find().sort( { time : 1 } ) // sort by time (oldest first)
-        
-            // map result set into a format readable by the charting library (recharts)
-            let values = cursor.map(index => {
-                return { 
-                    "time": index.time,
-                    "value" : index.value, 
-                    "indexed_value" : index.indexed_value
+            console.log(`Getting: ${coinIds[i]}`)
+            const coinData = await prisma[coinIds[i]].findMany({
+                where: { 
+                    time : {
+                        gte: 1609539760, // 01.01.2021
+                     },
+                }, orderBy : {
+                    time : 'asc'
                 }
-            });
-        
-            const arr = await values.toArray()
-        
+            })
+            
             const resultsObj = {
                 name: coinIds[i],
-                data: arr,
+                data: coinData,
             }
 
             results[i] = resultsObj
@@ -48,6 +38,6 @@ export default async function handler(req, res) {
         console.log(err.stack);
     }
     finally {
-        await client.close();
+        await prisma.$disconnect()
     }
 }
