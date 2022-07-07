@@ -64,11 +64,11 @@ const AnalyticsDashboard = () => {
           <RechartsLineChart direction={settings.direction} />
         </Grid>
 
-        <Grid item xs={12} md={6}>
+        {/* <Grid item xs={12} md={6}>
           <PortfolioPerformanceTracker direction={settings.direction} />
-        </Grid>
+        </Grid> */}
 
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={12}>
           <IndexChart direction={settings.direction} />
         </Grid>
         

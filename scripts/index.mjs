@@ -7,23 +7,23 @@ async function main() {
   await prisma.$connect()
 
   // READ
-  // const maticPositions = await prisma.matic_position.findMany()
-  // console.log(maticPositions)
+  const ethereum = await prisma.ethereum.findMany()
+  console.log(ethereum)
 
   // WRITE
-  await prisma.write_test.create({
-    data: {
-      name: 'Rich',
-      email: 'hello@prisma.com',
-      posts: {
-        create: {
-          title: 'My first post',
-          body: 'Lots of really interesting stuff',
-          slug: 'my-first-post',
-        },
-      },
-    },
-  })
+//   await prisma.write_test.create({
+//     data: {
+//       name: 'Rich',
+//       email: 'hello@prisma.com',
+//       posts: {
+//         create: {
+//           title: 'My first post',
+//           body: 'Lots of really interesting stuff',
+//           slug: 'my-first-post',
+//         },
+//       },
+//     },
+//   })
 }
 
 main()
