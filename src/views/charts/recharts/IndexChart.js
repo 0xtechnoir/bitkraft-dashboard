@@ -316,13 +316,10 @@ const RechartsLineChart = ({ direction }) => {
                   "data" : element, 
                   "colour" : lineColours[index]
                 }
-              }).filter(pair => {
-                return !disabled.includes(pair.data.name)
-              }).map((pair) => {
-                return (
+              }).filter(pair => !disabled.includes(pair.data.name))
+              .map((pair) => (
                   <Line dataKey="eth_value" data={pair.data.data} name={pair.data.name} key={pair.data.name} dot={false} stroke={pair.colour} strokeWidth={2}/>
-                ) 
-              })
+                ))
               }
               <Tooltip content={<CustomTooltip />} offset={200}/>
               <Legend content={renderLegend} layout="vertical" verticalAlign="middle" align="right"
@@ -331,15 +328,6 @@ const RechartsLineChart = ({ direction }) => {
                     "data" : element, 
                     "colour" : lineColours[index]
                   }})}
-
-
-
-
-
-                //   _.toPairs(lineColours).map((pair) => ({
-                //   dataKey: pair[0].name,
-                //   colour: pair[1]
-                // }))}
                />
             </LineChart>
           </ResponsiveContainer>

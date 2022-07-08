@@ -4,10 +4,9 @@ export default async function handler(req, res) {
     // Endpoint is no longer used but keeping for future reference
 
     const prisma = new PrismaClient()
+    
     // get the period passed in the request - should make it an enum
     const { period } = req.query
-    console.log(`getIndexedAssetData [period] endpoint invoked with following period: ${period}`)
-    // calculate how many ms in the period and subtract it from date.now()
 
     const DAY_MS = 86400000
     const YEAR_MS = 31536000000
@@ -46,7 +45,7 @@ export default async function handler(req, res) {
         let results = []
 
         for (let i = 0; i < coinIds.length; i++) {
-            console.log(`Getting: ${coinIds[i]}`)
+
             const coinData = await prisma[coinIds[i]].findMany({
                 where: { 
                     time : {

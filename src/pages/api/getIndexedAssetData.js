@@ -13,7 +13,7 @@ export default async function handler(req, res) {
         let results = []
 
         for (let i = 0; i < coinIds.length; i++) {
-            console.log(`Getting: ${coinIds[i]}`)
+ 
             const coinData = await prisma[coinIds[i]].findMany({
                 where: { 
                     time : {
