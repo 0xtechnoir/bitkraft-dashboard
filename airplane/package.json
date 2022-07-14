@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "airplane": "^0.1.2",
+    "axios": "^0.27.2",
+    "coingecko-api": "^1.0.10",
+    "mongodb": "^4.7.0"
+  }
+}

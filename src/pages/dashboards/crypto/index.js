@@ -26,6 +26,8 @@ import EmbeddedChart from 'src/views/dashboards/analytics/EmbeddedChart'
 import AnalyticsProjectStatistics from 'src/views/dashboards/analytics/AnalyticsProjectStatistics'
 import AnalyticsTopReferralSources from 'src/views/dashboards/analytics/AnalyticsTopReferralSources'
 import RechartsLineChart from 'src/views/charts/recharts/RechartsLineChart'
+import PortfolioPerformanceTracker from 'src/views/charts/recharts/PortfolioPerformanceTracker'
+import IndexChart from 'src/views/charts/recharts/IndexChart'
 
 // ** Hooks
 import { useSettings } from 'src/@core/hooks/useSettings'
@@ -60,6 +62,14 @@ const AnalyticsDashboard = () => {
         </Grid>
         <Grid item xs={12} md={6}>
           <RechartsLineChart direction={settings.direction} />
+        </Grid>
+
+        {/* <Grid item xs={12} md={6}>
+          <PortfolioPerformanceTracker direction={settings.direction} />
+        </Grid> */}
+
+        <Grid item xs={12} md={12}>
+          <IndexChart direction={settings.direction} />
         </Grid>
         
         <Grid item xs={12} md={6}>

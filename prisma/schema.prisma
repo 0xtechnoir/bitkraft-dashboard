@@ -1,0 +1,101 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model alethea_artificial_liquid_intelligence_token {
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  eth_value         Float
+  /// Multiple data types found: Float: 98.6%, Int: 1.4% out of 143 sampled entries
+  indexed_usd_value Json
+  time              Float  @unique(map: "time_1")
+  usd_value         Float
+
+  @@map("alethea-artificial-liquid-intelligence-token")
+}
+
+model blackpool_token {
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  eth_value         Float
+  /// Multiple data types found: Float: 99.5%, Int: 0.5% out of 405 sampled entries
+  indexed_usd_value Json
+  time              Float  @unique(map: "time_1")
+  usd_value         Float
+
+  @@map("blackpool-token")
+}
+
+model ethereum {
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  eth_value         Int
+  /// Multiple data types found: Float: 99.8%, Int: 0.2% out of 551 sampled entries
+  indexed_usd_value Json
+  time              Float  @unique(map: "time_1")
+  usd_value         Float
+}
+
+model immutable_x {
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  eth_value         Float
+  /// Multiple data types found: Float: 99.2%, Int: 0.8% out of 244 sampled entries
+  indexed_usd_value Json
+  time              Float  @unique(map: "time_1")
+  usd_value         Float
+
+  @@map("immutable-x")
+}
+
+model matic_network {
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  eth_value         Float
+  /// Multiple data types found: Float: 99.8%, Int: 0.2% out of 551 sampled entries
+  indexed_usd_value Json
+  time              Float  @unique(map: "time_1")
+  usd_value         Float
+
+  @@map("matic-network")
+}
+
+model rainbow_token_2 {
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  eth_value         Float
+  /// Multiple data types found: Float: 98.1%, Int: 1.9% out of 108 sampled entries
+  indexed_usd_value Json
+  time              Float  @unique(map: "time_1")
+  usd_value         Float
+
+  @@map("rainbow-token-2")
+}
+
+model sipher {
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  eth_value         Float
+  /// Multiple data types found: Float: 99%, Int: 1% out of 210 sampled entries
+  indexed_usd_value Json
+  time              Float  @unique(map: "time_1")
+  usd_value         Float
+}
+
+model superfarm {
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  eth_value         Float
+  /// Multiple data types found: Float: 99.6%, Int: 0.4% out of 500 sampled entries
+  indexed_usd_value Json
+  time              Float  @unique(map: "time_1")
+  usd_value         Float
+}
+
+model yield_guild_games {
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  eth_value         Float
+  /// Multiple data types found: Float: 99.4%, Int: 0.6% out of 344 sampled entries
+  indexed_usd_value Json
+  time              Float  @unique(map: "time_1")
+  usd_value         Float
+
+  @@map("yield-guild-games")
+}

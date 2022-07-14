@@ -96,7 +96,7 @@ const RechartsLineChart = ({ direction }) => {
             >
               <CartesianGrid strokeDasharray="3 3"/>
               <XAxis dataKey="name" hide={true} interval="preserveStartEnd"/>
-              <YAxis dataKey="sentiment"/>
+              <YAxis type="number" domain={[0, 100]}/>
               <Line type="monotone" dataKey="sentiment" stroke="#8884d8" dot={false} />
               <Tooltip />
             </LineChart>
