@@ -25,8 +25,15 @@ import AnalyticsActivityTimeline from 'src/views/dashboards/analytics/AnalyticsA
 import EmbeddedChart from 'src/views/dashboards/analytics/EmbeddedChart'
 import AnalyticsProjectStatistics from 'src/views/dashboards/analytics/AnalyticsProjectStatistics'
 import AnalyticsTopReferralSources from 'src/views/dashboards/analytics/AnalyticsTopReferralSources'
+import iAnalyticsTopReferralSources from 'src/views/dashboards/analytics/AnalyticsTopReferralSources'
+import TreasuryYieldCurves from 'src/views/charts/recharts/TreasuryYieldCurves'
+
+// ** Hooks
+import { useSettings } from 'src/@core/hooks/useSettings'
 
 const AnalyticsDashboard = () => {
+  
+  const { settings } = useSettings()
   return (
     <ApexChartWrapper>
       <Grid container spacing={6} className='match-height'>
@@ -46,6 +53,11 @@ const AnalyticsDashboard = () => {
         <Grid item xs={6} md={2}>
           <AnalyticsSessions />
         </Grid> */}
+
+        <Grid item xs={12} md={12}>
+          <TreasuryYieldCurves direction={settings.direction} />
+        </Grid>
+
         <Grid item xs={12} md={6}>
           <EmbeddedChart 
             title='S&P 500'
