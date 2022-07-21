@@ -219,33 +219,43 @@ const TreasuryYieldCurves = ({ direction }) => {
 
   const changePeriod = async (period) => {
     
-    const DAY_MS = 86400000
     const YEAR_MS = 31536000000
+    const MONTH_MS = 2629800000
     let startTime
 
     switch(period) {
-        case "30D":
-            startTime = Date.now() - (30 * DAY_MS);
+        case "3M":
+            startTime = Date.now() - (3 * MONTH_MS);
             break;
-        case "90D":
-            startTime = Date.now() - (90 * DAY_MS);
-            break;
-        case "180D":
-            startTime = Date.now() - (180 * DAY_MS);
-            break;
-        case "YTD":
-            const currentYear = new Date().getFullYear() // 2022
-            const date = new Date(`${currentYear}-01-01`) // first day of current year
-            startTime = date.getTime(); // timestamp in ms
+        case "6M":
+            startTime = Date.now() - (6 * MONTH_MS);
             break;
         case "1Y":
-            startTime = Date.now() - YEAR_MS;
+            startTime = Date.now() - (1 * YEAR_MS);
+            break;
+        case "2Y":
+            startTime = Date.now() - (2 * YEAR_MS);
+            break;
+        case "3Y":
+            startTime = Date.now() - (3 * YEAR_MS);
+            break;
+        case "5Y":
+            startTime = Date.now() - (5 * YEAR_MS);;
+            break;
+        case "7Y":
+            startTime = Date.now() - (7 * YEAR_MS);;
+            break;
+        case "10Y":
+            startTime = Date.now() - (10 * YEAR_MS);;
+            break;
+        case "30Y":
+            startTime = Date.now() - (30 * YEAR_MS);;
             break;
         case "ALL":
-            startTime = 1609539760000 // 1st Jan 2021
+            startTime = 631238400000 // 2nd Jan 1990
             break;
         default:
-            startTime = 1609539760000 // 1st Jan 2021
+            startTime = 631238400000 // 2nd Jan 1990
       }
     
     let tempArray = []
@@ -278,11 +288,15 @@ const TreasuryYieldCurves = ({ direction }) => {
             </Typography>
             <div>
                 <Button size='small' sx={{ mr: 3.5 }} variant='outlined' onClick={() => changePeriod('ALL')}> All</Button>
+                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('30Y')}> 30Y </Button>
+                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('10Y')}> 10Y </Button>
+                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('7Y')}> 7Y </Button>
+                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('5Y')}> 5Y </Button>
+                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('3Y')}> 3Y </Button>
+                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('2Y')}> 2Y </Button>
                 <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('1Y')}> 1Y </Button>
-                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('YTD')}> YTD </Button>
-                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('180D')}> 180D </Button>
-                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('90D')}> 90D </Button>
-                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('30D')}> 30D </Button>
+                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('6M')}> 6M </Button>
+                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('3M')}> 3M </Button>
             </div>
           </Box>
         }
