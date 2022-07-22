@@ -207,7 +207,7 @@ const MultiSeriesLineChart = ({direction}) => {
     return (
       <Card>
         <CardHeader
-          title='BIT1 Indexed Assets (ETH denominiated'
+          title='BIT1 Assets (ETH denominiated'
           titleTypographyProps={{ variant: 'h6' }}
           sx={{
             flexDirection: ['column', 'row'],
@@ -280,7 +280,7 @@ const MultiSeriesLineChart = ({direction}) => {
   return (
     <Card>
       <CardHeader
-        title='BIT1 Indexed Assets (ETH denominiated'
+        title='BIT1 Assets (ETH denominiated'
         titleTypographyProps={{ variant: 'h6' }}
         sx={{
           flexDirection: ['column', 'row'],
