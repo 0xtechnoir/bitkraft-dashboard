@@ -6,11 +6,7 @@ export default async function handler(req, res) {
     console.log(`getTreasuryYieldCurves endpoint invoked`)
 
     try {
-
-        
         const data = await prisma.treasury_yield_curves.findMany();
-        // console.log(`data: ${JSON.stringify(data)}`)
-
         const series1 = data.map((element, index, array) => {
             if (element["bc_10year"] == undefined || element["bc_3month"] == undefined) {
                 const val = array[index-1]["bc_10year"] - array[index-1]["bc_3month"] 
@@ -39,7 +35,7 @@ export default async function handler(req, res) {
                 }
             } else {
                 const val = element["bc_10year"] - element["bc_2year"] 
-                
+
                 return {
                     "time" : element["new_date"],
                     "val" : val,

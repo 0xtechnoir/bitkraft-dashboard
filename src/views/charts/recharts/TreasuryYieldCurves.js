@@ -21,10 +21,6 @@ const TreasuryYieldCurves = ({ direction }) => {
   const [loading, setLoading] = useState(true);
   const [disabled, setDisabled] = useState([""])
   const lineColours = ["#e6194B", "#3cb44b", "#ffe119", "#4363d8", "#f58231", "#911eb4", "#42d4f4", "#f032e6" ]
-  const pairs = {}
-
-  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-  "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
   useEffect(() => {
     axios.get(`/api/getTreasuryYieldCurves`)
@@ -49,7 +45,6 @@ const TreasuryYieldCurves = ({ direction }) => {
     } else {
       return `0.0bps`
     }
-    
   }
 
   function formatXAxis(value) {
@@ -57,91 +52,6 @@ const TreasuryYieldCurves = ({ direction }) => {
     const month = ("0" + (date.getMonth() + 1)).slice(-2)
     return `${month}/${date.getFullYear()}`;
   }
-
-  function abbreviate(number, maxPlaces, forcePlaces, forceLetter) {
-    number = Number(number)
-    forceLetter = forceLetter || false
-    if(forceLetter !== false) {
-      return annotate(number, maxPlaces, forcePlaces, forceLetter)
-    }
-    var abbr
-    if(number >= 1e12) {
-      abbr = 'T'
-    }
-    else if(number >= 1e9) {
-      abbr = 'B'
-    }
-    else if(number >= 1e6) {
-      abbr = 'M'
-    }
-    else if(number >= 1e3) {
-      abbr = 'K'
-    }
-    else {
-      abbr = ''
-    }
-    return annotate(number, maxPlaces, forcePlaces, abbr)
-  }
-  
-  function annotate(number, maxPlaces, forcePlaces, abbr) {
-    // set places to false to not round
-    var rounded = 0
-    switch(abbr) {
-      case 'T':
-        rounded = number / 1e12
-        break
-      case 'B':
-        rounded = number / 1e9
-        break
-      case 'M':
-        rounded = number / 1e6
-        break
-      case 'K':
-        rounded = number / 1e3
-        break
-      case '':
-        rounded = number
-        break
-    }
-    if(maxPlaces !== false) {
-      var test = new RegExp('\\.\\d{' + (maxPlaces + 1) + ',}$')
-      if(test.test(('' + rounded))) {
-        rounded = rounded.toFixed(maxPlaces)
-      }
-    }
-    if(forcePlaces !== false) {
-      rounded = Number(rounded).toFixed(forcePlaces)
-    }
-    return rounded + abbr
-  }
-
-  const formatDate = (timestamp) => {
-    let date = new Date(timestamp)
-    return `${date.getDate()}/${monthNames[date.getMonth()]}/${date.getYear()-100}`
-  }
-
-  const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
-      return (
-        <Card>
-          <CardContent>
-            <div className="custom-tooltip">
-              <p className="label">{formatDate(payload[0].payload.time)}</p>
-              <p className="label" style={{color:'#8884d8'}}>{`${(payload?.[0]) ? payload[0].name : ""} : Ξ ${payload?.[0] ? (payload[0].value.toFixed(6)) : ""}`}</p>
-              <p className="label" style={{color:'#8884d8'}}>{`${(payload?.[1]) ? payload[1].name : ""} : Ξ ${payload?.[1] ? (payload[1].value.toFixed(6)) : ""}`}</p>
-              <p className="label" style={{color:'#8884d8'}}>{`${(payload?.[2]) ? payload[2].name : ""} : Ξ ${payload?.[2] ? (payload[2].value.toFixed(6)) : ""}`}</p>
-              <p className="label" style={{color:'#8884d8'}}>{`${(payload?.[3]) ? payload[3].name : ""} : Ξ ${payload?.[3] ? (payload[3].value.toFixed(6)) : ""}`}</p>
-              <p className="label" style={{color:'#8884d8'}}>{`${(payload?.[4]) ? payload[4].name : ""} : Ξ ${payload?.[4] ? (payload[4].value.toFixed(6)) : ""}`}</p>
-              <p className="label" style={{color:'#8884d8'}}>{`${(payload?.[5]) ? payload[5].name : ""} : Ξ ${payload?.[5] ? (payload[5].value.toFixed(6)) : ""}`}</p>
-              <p className="label" style={{color:'#8884d8'}}>{`${(payload?.[6]) ? payload[6].name : ""} : Ξ ${payload?.[6] ? (payload[6].value.toFixed(6)) : ""}`}</p>
-              <p className="label" style={{color:'#8884d8'}}>{`${(payload?.[7]) ? payload[7].name : ""} : Ξ ${payload?.[7] ? (payload[7].value.toFixed(6)) : ""}`}</p>
-            </div>
-        </CardContent>
-        </Card>
-      );
-    }
-    return null;
-  };
 
   const handleClick = dataKey => {
     if (_.includes(disabled, dataKey)) {
