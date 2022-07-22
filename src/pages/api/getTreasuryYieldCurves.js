@@ -29,38 +29,33 @@ export default async function handler(req, res) {
         // })
 
         
-
+       
         const series1 = data.map((element, index, array) => {
-            console.log(`Series 1 - Mapping Element: ${JSON.stringify(element)}`)
-            Object.hasOwnProperty.bind(element)
-            if (!element.hasOwnProperty('bc_10year') || !element.hasOwnProperty('bc_3month')) {
-                const val = parseFloat(array[index-1]["bc_10year"]) - parseFloat(array[index-1]["bc_3month"]) 
 
-                return {
-                    "time" : element["new_date"],
-                    "val" : val,
-                }
-            } else {
+            // console.log(`Series 1 - Mapping Element: ${JSON.stringify(element)}`)
+            Object.hasOwnProperty.bind(element)
+
+            if (element.hasOwnProperty('bc_10year') || element.hasOwnProperty('bc_3month')) {
+                
                 const val = parseFloat(element["bc_10year"]) - parseFloat(element["bc_3month"]) 
 
                 return {
                     "time" : element["new_date"],
                     "val" : val,
                 }
-            }  
+              
+            } 
+
+                // const val = parseFloat(array[index-1]["bc_10year"]) - parseFloat(array[index-1]["bc_3month"]) 
+
+                return
+            
         })
 
         const series2 = data.map((element, index, array) => {
-            console.log(`Series 2 - Mapping Element: ${JSON.stringify(element)}`)
+            // console.log(`Series 2 - Mapping Element: ${JSON.stringify(element)}`)
             Object.hasOwnProperty.bind(element)
-            if (!element.hasOwnProperty('bc_10year') || !element.hasOwnProperty('bc_2year')) {
-                const val = parseFloat(array[index-1]["bc_10year"]) - parseFloat(array[index-1]["bc_2year"])
-
-                return {
-                    "time" : element["new_date"],
-                    "val" : val,
-                }
-            } else {
+            if (element.hasOwnProperty('bc_10year') || element.hasOwnProperty('bc_2year')) {
                 const val = parseFloat(element["bc_10year"]) - parseFloat(element["bc_2year"])
 
                 return {
@@ -68,6 +63,10 @@ export default async function handler(req, res) {
                     "val" : val,
                 }
             } 
+                // const val = parseFloat(array[index-1]["bc_10year"]) - parseFloat(array[index-1]["bc_2year"])
+
+                return 
+            
         })
 
         const resultsObj = {

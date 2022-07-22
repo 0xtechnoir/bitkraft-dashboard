@@ -92,30 +92,30 @@ model superfarm {
 model treasury_yield_curves {
   id               String @id @default(auto()) @map("_id") @db.ObjectId
   /// Multiple data types found: Float: 99.4%, Int: 0.6% out of 1000 sampled entries
-  bc_10year        Json
+  bc_10year        Json?
   /// Multiple data types found: Float: 98.1%, Int: 1.9% out of 638 sampled entries
   bc_1month        Json?
   /// Multiple data types found: Float: 99.3%, Int: 0.7% out of 1000 sampled entries
-  bc_1year         Json
+  bc_1year         Json?
   /// Multiple data types found: Float: 98.9%, Int: 1.1% out of 877 sampled entries
   bc_20year        Json?
   bc_2month        Float?
   /// Multiple data types found: Float: 99.8%, Int: 0.2% out of 1000 sampled entries
-  bc_2year         Json
+  bc_2year         Json?
   /// Multiple data types found: Float: 99.3%, Int: 0.7% out of 878 sampled entries
   bc_30year        Json?
   /// Multiple data types found: Float: 34.1%, Int: 65.9% out of 1000 sampled entries
-  bc_30yeardisplay Json
+  bc_30yeardisplay Json?
   /// Multiple data types found: Float: 99.1%, Int: 0.9% out of 1000 sampled entries
-  bc_3month        Json
+  bc_3month        Json?
   /// Multiple data types found: Float: 98.3%, Int: 1.7% out of 1000 sampled entries
-  bc_3year         Json
+  bc_3year         Json?
   /// Multiple data types found: Float: 99.3%, Int: 0.7% out of 1000 sampled entries
-  bc_5year         Json
+  bc_5year         Json?
   /// Multiple data types found: Float: 99.2%, Int: 0.8% out of 1000 sampled entries
-  bc_6month        Json
+  bc_6month        Json?
   /// Multiple data types found: Float: 98.4%, Int: 1.6% out of 1000 sampled entries
-  bc_7year         Json
+  bc_7year         Json?
   id_              Int    @map("id")
   new_date         Float  @unique(map: "new_date_1")
 }
