@@ -10,8 +10,29 @@ export default async function handler(req, res) {
 
         const data = await prisma.treasury_yield_curves.findMany();
 
+        // const series1 = data.map((element, index, array) => {
+        //     if (element["bc_10year"] == undefined || element["bc_3month"] == undefined) {
+        //         const val = parseFloat(array[index-1]["bc_10year"]) - parseFloat(array[index-1]["bc_3month"]) 
+
+        //         return {
+        //             "time" : element["new_date"],
+        //             "val" : val,
+        //         }
+        //     } else {
+        //         const val = parseFloat(element["bc_10year"]) - parseFloat(element["bc_3month"]) 
+
+        //         return {
+        //             "time" : element["new_date"],
+        //             "val" : val,
+        //         }
+        //     }  
+        // })
+
+        
+
         const series1 = data.map((element, index, array) => {
-            if (element["bc_10year"] == undefined || element["bc_3month"] == undefined) {
+            Object.hasOwnProperty.bind(element)
+            if (!element.hasOwnProperty('bc_10year') || !element.hasOwnProperty('bc_3month')) {
                 const val = parseFloat(array[index-1]["bc_10year"]) - parseFloat(array[index-1]["bc_3month"]) 
 
                 return {
@@ -29,7 +50,8 @@ export default async function handler(req, res) {
         })
 
         const series2 = data.map((element, index, array) => {
-            if (element["bc_10year"] == undefined || element["bc_2year"] == undefined) {
+            Object.hasOwnProperty.bind(element)
+            if (!element.hasOwnProperty('bc_10year') || !element.hasOwnProperty('bc_2year')) {
                 const val = parseFloat(array[index-1]["bc_10year"]) - parseFloat(array[index-1]["bc_2year"])
 
                 return {
