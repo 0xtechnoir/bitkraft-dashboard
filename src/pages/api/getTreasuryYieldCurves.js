@@ -12,19 +12,27 @@ export default async function handler(req, res) {
         // console.log(`data: ${JSON.stringify(data)}`)
 
         const series1 = data.map((element) => {
-            const val = element["bc_10year"] - element["bc_3month"] 
-            return {
-                "time" : element["new_date"],
-                "val" : val,
-            }
+            if (element["bc_10year"] == undefined || element["bc_3month"] == undefined) {
+                return
+            } else {
+                const val = element["bc_10year"] - element["bc_3month"] 
+                return {
+                    "time" : element["new_date"],
+                    "val" : val,
+                }
+            }  
         })
 
         const series2 = data.map((element) => {
-            const val = element["bc_10year"] - element["bc_2year"] 
-            return {
-                "time" : element["new_date"],
-                "val" : val
-            }
+            if (element["bc_10year"] == undefined || element["bc_2year"] == undefined) {
+                return
+            } else {
+                const val = element["bc_10year"] - element["bc_2year"] 
+                return {
+                    "time" : element["new_date"],
+                    "val" : val,
+                }
+            } 
         })
 
         const resultsObj = {

@@ -34,6 +34,7 @@ const TreasuryYieldCurves = ({ direction }) => {
             `This is an HTTP error: The status is ${response.status}`
           )
         }
+        console.log(JSON.stringify(response.data))
         setSeries(response.data)
         setVisibleData(response.data)
         setLoading(false)
@@ -53,7 +54,8 @@ const TreasuryYieldCurves = ({ direction }) => {
 
   function formatXAxis(value) {
     let date = new Date(value)
-    return `${monthNames[date.getMonth()]}/${date.getYear()-100}`;
+    const month = ("0" + (date.getMonth() + 1)).slice(-2)
+    return `${month}/${date.getFullYear()}`;
   }
 
   function abbreviate(number, maxPlaces, forcePlaces, forceLetter) {
@@ -150,7 +152,6 @@ const TreasuryYieldCurves = ({ direction }) => {
   };
 
   const renderLegend = ({payload}) => {
-    console.log(`legend payload: ${JSON.stringify(payload)}`)
     return (
       <div>
         {payload.map(entry => {
@@ -306,7 +307,7 @@ const TreasuryYieldCurves = ({ direction }) => {
           <ResponsiveContainer width="100%" height="100%">
             <LineChart margin={{ top: 15, right: 30, left: 40, bottom: 5 }} width={500} height={500} data={visibleData}>
               <CartesianGrid strokeDasharray="3 3"/>
-              <XAxis dataKey="time" tickFormatter={formatXAxis} minTickGap={150} allowDuplicatedCategory={false} type="number" domain={['dataMin', 'dataMax']}/>
+              <XAxis dataKey="time" tickFormatter={formatXAxis} type="number" domain={['dataMin', 'dataMax']}/>
               <YAxis tickFormatter={formatYAxis}/>          
               {
               visibleData.map((element, index) => {
@@ -316,7 +317,7 @@ const TreasuryYieldCurves = ({ direction }) => {
                 }
               }).filter(pair => !disabled.includes(pair.data.name))
               .map((pair) => (
-                  <Line dataKey="val" data={pair.data.data} name={pair.data.name} key={pair.data.name} dot={false} stroke={pair.colour} strokeWidth={2}/>
+                  <Line dataKey="val" data={pair.data.data} name={pair.data.name} key={pair.data.name} dot={false} stroke={pair.colour} strokeWidth={2} connectNulls={true}/>
                 ))
               }
               <Tooltip content={<CustomTooltip />} offset={200}/>
