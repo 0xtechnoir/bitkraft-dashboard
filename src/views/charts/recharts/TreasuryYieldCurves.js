@@ -159,8 +159,8 @@ const TreasuryYieldCurves = ({ direction }) => {
           const colour = entry.colour;
           const active = _.includes(disabled, dataKey);
           const style = {
-            marginRight: 10,
-            color: active ? "#AAA" : "#000"
+            color: active ? "#AAA" : "#000",
+            display: "inline"
           };
 
           return (
@@ -303,11 +303,11 @@ const TreasuryYieldCurves = ({ direction }) => {
         }
       />
       <CardContent>
-        <Box sx={{ height: 400, width: 1250 }}>
+        <Box sx={{ height: 400, width: 1350 }}>
           <ResponsiveContainer width="100%" height="100%">
             <LineChart margin={{ top: 15, right: 30, left: 40, bottom: 5 }} width={500} height={500} data={visibleData}>
               <CartesianGrid strokeDasharray="3 3"/>
-              <XAxis dataKey="time" tickFormatter={formatXAxis} type="number" domain={['dataMin', 'dataMax']}/>
+              <XAxis dataKey="time" tickFormatter={formatXAxis} type="catagory" allowDuplicatedCategory={false} domain={['dataMin', 'dataMax']}/>
               <YAxis tickFormatter={formatYAxis}/>          
               {
               visibleData.map((element, index) => {
@@ -320,8 +320,7 @@ const TreasuryYieldCurves = ({ direction }) => {
                   <Line dataKey="val" data={pair.data.data} name={pair.data.name} key={pair.data.name} dot={false} stroke={pair.colour} strokeWidth={2} connectNulls={true}/>
                 ))
               }
-              <Tooltip content={<CustomTooltip />} offset={200}/>
-              <Legend content={renderLegend} layout="vertical" verticalAlign="middle" align="right"
+              <Legend content={renderLegend} verticalAlign="bottom" align="centre"
                 payload={ visibleData.map((element, index) => {
                   return {
                     "data" : element, 

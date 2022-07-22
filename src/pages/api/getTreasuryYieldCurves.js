@@ -11,9 +11,13 @@ export default async function handler(req, res) {
         const data = await prisma.treasury_yield_curves.findMany();
         // console.log(`data: ${JSON.stringify(data)}`)
 
-        const series1 = data.map((element) => {
+        const series1 = data.map((element, index, array) => {
             if (element["bc_10year"] == undefined || element["bc_3month"] == undefined) {
-                return
+                const val = array[index-1]["bc_10year"] - array[index-1]["bc_3month"] 
+                return {
+                    "time" : element["new_date"],
+                    "val" : val,
+                }
             } else {
                 const val = element["bc_10year"] - element["bc_3month"] 
                 return {
@@ -23,9 +27,13 @@ export default async function handler(req, res) {
             }  
         })
 
-        const series2 = data.map((element) => {
+        const series2 = data.map((element, index, array) => {
             if (element["bc_10year"] == undefined || element["bc_2year"] == undefined) {
-                return
+                const val = array[index-1]["bc_10year"] - array[index-1]["bc_2year"] 
+                return {
+                    "time" : element["new_date"],
+                    "val" : val,
+                }
             } else {
                 const val = element["bc_10year"] - element["bc_2year"] 
                 return {
