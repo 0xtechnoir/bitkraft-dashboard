@@ -1,3 +1,4 @@
+"use strict";
 const { PrismaClient } = require('@prisma/client');
 
 export default async function handler(req, res) {
@@ -8,17 +9,17 @@ export default async function handler(req, res) {
     try {
 
         const data = await prisma.treasury_yield_curves.findMany();
-        
+
         const series1 = data.map((element, index, array) => {
             if (element["bc_10year"] == undefined || element["bc_3month"] == undefined) {
-                const val = array[index-1]["bc_10year"] - array[index-1]["bc_3month"] 
+                const val = parseFloat(array[index-1]["bc_10year"]) - parseFloat(array[index-1]["bc_3month"]) 
 
                 return {
                     "time" : element["new_date"],
                     "val" : val,
                 }
             } else {
-                const val = element["bc_10year"] - element["bc_3month"] 
+                const val = parseFloat(element["bc_10year"]) - parseFloat(element["bc_3month"]) 
 
                 return {
                     "time" : element["new_date"],
@@ -29,14 +30,14 @@ export default async function handler(req, res) {
 
         const series2 = data.map((element, index, array) => {
             if (element["bc_10year"] == undefined || element["bc_2year"] == undefined) {
-                const val = array[index-1]["bc_10year"] - array[index-1]["bc_2year"] 
+                const val = parseFloat(array[index-1]["bc_10year"]) - parseFloat(array[index-1]["bc_2year"])
 
                 return {
                     "time" : element["new_date"],
                     "val" : val,
                 }
             } else {
-                const val = element["bc_10year"] - element["bc_2year"] 
+                const val = parseFloat(element["bc_10year"]) - parseFloat(element["bc_2year"])
 
                 return {
                     "time" : element["new_date"],
