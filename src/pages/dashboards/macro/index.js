@@ -34,6 +34,7 @@ import { useSettings } from 'src/@core/hooks/useSettings'
 const AnalyticsDashboard = () => {
   
   const { settings } = useSettings()
+  
   return (
     <ApexChartWrapper>
       <Grid container spacing={6} className='match-height'>
