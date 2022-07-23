@@ -21,62 +21,67 @@ export default async function handler(req, res) {
 
         console.log(`data: ${JSON.stringify(data)}`)
 
-        const result = [
-            {
-                'timestamp' : data.new_date,
-                'data' : [
-                    {
-                        'name' : '1M', 
-                        'val' : data.bc_1month
-                    },
-                    {
-                        'name' : '2M', 
-                        'val' : data.bc_2month
-                    },
-                    {
-                        'name' : '3M', 
-                        'val' : data.bc_3month
-                    },
-                    {
-                        'name' : '6M', 
-                        'val' : data.bc_6month
-                    },
-                    {
-                        'name' : '1Y', 
-                        'val' : data.bc_1year
-                    },
-                    {
-                        'name' : '2Y', 
-                        'val' : data.bc_2year
-                    },
-                    {
-                        'name' : '3Y', 
-                        'val' : data.bc_3year
-                    },
-                    {
-                        'name' : '5Y', 
-                        'val' : data.bc_5year
-                    },
-                    {
-                        'name' : '7Y', 
-                        'val' : data.bc_7year
-                    },
-                    {
-                        'name' : '10Y', 
-                        'val' : data.bc_10year
-                    },
-                    {
-                        'name' : '20Y', 
-                        'val' : data.bc_20year
-                    },
-                    {
-                        'name' : '30Y', 
-                        'val' : data.bc_30year
-                    }
-                ]
-            }
-        ]
-             
+        let result
+
+        if(data !== null) {
+
+            result = [
+                {
+                    'timestamp' : data.new_date,
+                    'data' : [
+                        {
+                            'name' : '1M', 
+                            'val' : data.bc_1month
+                        },
+                        {
+                            'name' : '2M', 
+                            'val' : data.bc_2month
+                        },
+                        {
+                            'name' : '3M', 
+                            'val' : data.bc_3month
+                        },
+                        {
+                            'name' : '6M', 
+                            'val' : data.bc_6month
+                        },
+                        {
+                            'name' : '1Y', 
+                            'val' : data.bc_1year
+                        },
+                        {
+                            'name' : '2Y', 
+                            'val' : data.bc_2year
+                        },
+                        {
+                            'name' : '3Y', 
+                            'val' : data.bc_3year
+                        },
+                        {
+                            'name' : '5Y', 
+                            'val' : data.bc_5year
+                        },
+                        {
+                            'name' : '7Y', 
+                            'val' : data.bc_7year
+                        },
+                        {
+                            'name' : '10Y', 
+                            'val' : data.bc_10year
+                        },
+                        {
+                            'name' : '20Y', 
+                            'val' : data.bc_20year
+                        },
+                        {
+                            'name' : '30Y', 
+                            'val' : data.bc_30year
+                        }
+                    ]
+                }
+            ]
+        }
+     
         res.send(result);
 
     } catch (err) {
