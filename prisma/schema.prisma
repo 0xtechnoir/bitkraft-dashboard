@@ -117,7 +117,7 @@ model treasury_yield_curves {
   /// Multiple data types found: Float: 98.4%, Int: 1.6% out of 1000 sampled entries
   bc_7year         Json?
   id_              Int    @map("id")
-  new_date         Float  @unique(map: "new_date_1")
+  new_date         Float?  @unique(map: "new_date_1")
 }
 
 model yield_guild_games {
