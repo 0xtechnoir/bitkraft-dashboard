@@ -86,7 +86,8 @@
     "stylis": "4.0.10",
     "stylis-plugin-rtl": "2.1.1",
     "swc-loader": "^0.2.3",
-    "yup": "0.32.9"
+    "yup": "0.32.9",
+    "prisma": "^4.0.0"
   },
   "devDependencies": {
     "eslint": "8.14.0",
@@ -96,7 +97,6 @@
     "eslint-import-resolver-typescript": "2.5.0",
     "eslint-plugin-import": "2.25.4",
     "next-transpile-modules": "9.0.0",
-    "prettier": "2.6.2",
-    "prisma": "^4.0.0"
+    "prettier": "2.6.2"
   }
 }
