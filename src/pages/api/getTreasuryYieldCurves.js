@@ -19,6 +19,8 @@ export default async function handler(req, res) {
             },
         });
 
+        console.log(`data: ${JSON.stringify(data)}`)
+
         const result = [
             {
                 'timestamp' : data.new_date,
@@ -78,6 +80,7 @@ export default async function handler(req, res) {
         res.send(result);
 
     } catch (err) {
+        console.log("Error occured during API logic")
         console.log(err.stack);
     }
     finally {
