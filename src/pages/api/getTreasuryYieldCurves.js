@@ -4,7 +4,6 @@ const { PrismaClient } = require('@prisma/client');
 export default async function handler(req, res) {
 
     const prisma = new PrismaClient()
-    console.log(`getTreasuryYieldCurves endpoint invoked`)
 
     try {
 
@@ -88,6 +87,6 @@ export default async function handler(req, res) {
 
 function toTimestamp(year,month,day,hour,minute,second){
     var datum = new Date(year,month-1,day,hour,minute,second);
-    console.log(`datum: ${datum}`)
+
     return datum.getTime();
 }
