@@ -34,7 +34,7 @@ import { useSettings } from 'src/@core/hooks/useSettings'
 const AnalyticsDashboard = () => {
   
   const { settings } = useSettings()
-  
+
   return (
     <ApexChartWrapper>
       <Grid container spacing={6} className='match-height'>
@@ -55,7 +55,7 @@ const AnalyticsDashboard = () => {
           <AnalyticsSessions />
         </Grid> */}
 
-        <Grid item xs={12} md={12}>
+        <Grid item xs={12} md={6}>
           <TreasuryYieldCurves direction={settings.direction} />
         </Grid>
 
@@ -85,14 +85,14 @@ const AnalyticsDashboard = () => {
         </Grid>
         <Grid item xs={12} md={6}>
           <EmbeddedChart 
-            title='US Brent Oil Fund'
-            chartSrc="https://app.koyfin.com/share/34d572df1f/simple"
+            title='Oil'
+            chartSrc="https://app.koyfin.com/share/cec15aa75e/simple"
           />
         </Grid>
         <Grid item xs={12} md={6}>
           <EmbeddedChart 
-            title='World Gold Trust'
-            chartSrc="https://app.koyfin.com/share/97c7d024ee/simple"
+            title='Gold'
+            chartSrc="https://app.koyfin.com/share/0e18aaa53a/simple"
           />
         </Grid>
         {/* <Grid item xs={12} sm={6} md={4}>
