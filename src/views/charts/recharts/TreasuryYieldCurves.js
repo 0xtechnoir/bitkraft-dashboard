@@ -26,7 +26,6 @@ const TreasuryYieldCurves = ({ direction }) => {
             `This is an HTTP error: The status is ${response.status}`
           )
         }
-        console.log(JSON.stringify(response.data))
         setSeries(response.data)
         setLoading(false)
       })
@@ -39,7 +38,7 @@ const TreasuryYieldCurves = ({ direction }) => {
   if (loading) {
     return (
       <Card>
-        <CardHeader
+        <con
           title='Treasury Yield Curves'
           titleTypographyProps={{ variant: 'h6' }}
           sx={{
