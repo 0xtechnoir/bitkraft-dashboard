@@ -8,6 +8,10 @@ import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import Button from '@mui/material/Button'
+import ToggleButton from '@mui/material/ToggleButton'
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+
+import { styled } from '@mui/material/styles'
 import _ from 'lodash';
 
 // ** Third Party Imports
@@ -21,6 +25,7 @@ const TreasuryYieldCurveSpread = ({ direction }) => {
   const [disabled, setDisabled] = useState([""])
   const [loading, setLoading] = useState(true);
   const lineColours = ["#e6194B", "#3cb44b", "#ffe119", "#4363d8", "#f58231", "#911eb4", "#42d4f4", "#f032e6" ]
+  const [alignment, setAlignment] = useState('All');
 
   useEffect(() => {
     axios.get(`/api/getTreasuryYieldCurveSpread`)
@@ -179,6 +184,10 @@ const TreasuryYieldCurveSpread = ({ direction }) => {
       </Card>
     )
   }
+
+  const handleChange = (event, newAlignment) => {
+    setAlignment(newAlignment);
+  };
   
   return (
     <Card>
@@ -195,18 +204,24 @@ const TreasuryYieldCurveSpread = ({ direction }) => {
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Typography variant='h6' sx={{ mr: 5 }}>
             </Typography>
-            <div>
-                <Button size='small' sx={{ mr: 3.5 }} variant='outlined' onClick={() => changePeriod('ALL')}> All</Button>
-                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('30Y')}> 30Y </Button>
-                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('10Y')}> 10Y </Button>
-                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('7Y')}> 7Y </Button>
-                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('5Y')}> 5Y </Button>
-                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('3Y')}> 3Y </Button>
-                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('2Y')}> 2Y </Button>
-                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('1Y')}> 1Y </Button>
-                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('6M')}> 6M </Button>
-                <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('3M')}> 3M </Button>
-            </div>
+
+            <ToggleButtonGroup
+              color="primary"
+              value={alignment}
+              exclusive
+              onChange={handleChange}
+            >
+              <ToggleButton size='small' sx={{ mr: 3.5 }} variant='outlined' onClick={() => changePeriod('ALL')} value="All"> All </ToggleButton>
+              <ToggleButton size='small' sx={{ mr: 3.5 }} variant='outlined' onClick={() => changePeriod('30Y')} value="30Y"> 30Y</ToggleButton>
+              <ToggleButton size='small' sx={{ mr: 3.5 }} variant='outlined' onClick={() => changePeriod('10Y')} value="10Y"> 10Y</ToggleButton>
+              <ToggleButton size='small' sx={{ mr: 3.5 }} variant='outlined' onClick={() => changePeriod('7Y')} value="7Y"> 7Y</ToggleButton>
+              <ToggleButton size='small' sx={{ mr: 3.5 }} variant='outlined' onClick={() => changePeriod('5Y')} value="5Y"> 5Y</ToggleButton>
+              <ToggleButton size='small' sx={{ mr: 3.5 }} variant='outlined' onClick={() => changePeriod('3Y')} value="3Y"> 3Y</ToggleButton>
+              <ToggleButton size='small' sx={{ mr: 3.5 }} variant='outlined' onClick={() => changePeriod('2Y')} value="2Y"> 2Y</ToggleButton>
+              <ToggleButton size='small' sx={{ mr: 3.5 }} variant='outlined' onClick={() => changePeriod('1Y')} value="1Y"> 1Y</ToggleButton>
+              <ToggleButton size='small' sx={{ mr: 3.5 }} variant='outlined' onClick={() => changePeriod('6M')} value="6M"> 6M</ToggleButton>
+              <ToggleButton size='small' sx={{ mr: 3.5 }} variant='outlined' onClick={() => changePeriod('3M')} value="3M"> 3M</ToggleButton>
+            </ToggleButtonGroup>
           </Box>
         }
       />
