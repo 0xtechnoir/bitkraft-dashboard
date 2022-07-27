@@ -26,7 +26,8 @@ import EmbeddedChart from 'src/views/dashboards/analytics/EmbeddedChart'
 import AnalyticsProjectStatistics from 'src/views/dashboards/analytics/AnalyticsProjectStatistics'
 import AnalyticsTopReferralSources from 'src/views/dashboards/analytics/AnalyticsTopReferralSources'
 import iAnalyticsTopReferralSources from 'src/views/dashboards/analytics/AnalyticsTopReferralSources'
-import TreasuryYieldCurves from 'src/views/charts/recharts/TreasuryYieldCurves'
+import TreasuryYieldCurve from 'src/views/charts/recharts/TreasuryYieldCurve'
+import TreasuryYieldCurveSpread from 'src/views/charts/recharts/TreasuryYieldCurveSpread'
 
 // ** Hooks
 import { useSettings } from 'src/@core/hooks/useSettings'
@@ -56,7 +57,11 @@ const AnalyticsDashboard = () => {
         </Grid> */}
 
         <Grid item xs={12} md={6}>
-          <TreasuryYieldCurves direction={settings.direction} />
+          <TreasuryYieldCurve direction={settings.direction} />
+        </Grid>
+
+        <Grid item xs={12} md={12}>
+          <TreasuryYieldCurveSpread direction={settings.direction} />
         </Grid>
 
         <Grid item xs={12} md={6}>
