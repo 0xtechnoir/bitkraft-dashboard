@@ -1,6 +1,5 @@
 import { MongoClient } from 'mongodb'
 
-const url = "mongodb+srv://bkCryptoTeam:Vw01wuSjeNkyeZrj@cluster0.tmpq7.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(url);
 const dbName = "historical_price_data";
 
