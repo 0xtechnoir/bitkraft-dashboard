@@ -25,8 +25,17 @@ import AnalyticsActivityTimeline from 'src/views/dashboards/analytics/AnalyticsA
 import EmbeddedChart from 'src/views/dashboards/analytics/EmbeddedChart'
 import AnalyticsProjectStatistics from 'src/views/dashboards/analytics/AnalyticsProjectStatistics'
 import AnalyticsTopReferralSources from 'src/views/dashboards/analytics/AnalyticsTopReferralSources'
+import iAnalyticsTopReferralSources from 'src/views/dashboards/analytics/AnalyticsTopReferralSources'
+import TreasuryYieldCurve from 'src/views/charts/recharts/TreasuryYieldCurve'
+import TreasuryYieldCurveSpread from 'src/views/charts/recharts/TreasuryYieldCurveSpread'
+
+// ** Hooks
+import { useSettings } from 'src/@core/hooks/useSettings'
 
 const AnalyticsDashboard = () => {
+  
+  const { settings } = useSettings()
+
   return (
     <ApexChartWrapper>
       <Grid container spacing={6} className='match-height'>
@@ -46,6 +55,15 @@ const AnalyticsDashboard = () => {
         <Grid item xs={6} md={2}>
           <AnalyticsSessions />
         </Grid> */}
+
+        <Grid item xs={12} md={6}>
+          <TreasuryYieldCurve direction={settings.direction} />
+        </Grid>
+
+        <Grid item xs={12} md={12}>
+          <TreasuryYieldCurveSpread direction={settings.direction} />
+        </Grid>
+
         <Grid item xs={12} md={6}>
           <EmbeddedChart 
             title='S&P 500'
@@ -72,14 +90,14 @@ const AnalyticsDashboard = () => {
         </Grid>
         <Grid item xs={12} md={6}>
           <EmbeddedChart 
-            title='US Brent Oil Fund'
-            chartSrc="https://app.koyfin.com/share/34d572df1f/simple"
+            title='Oil'
+            chartSrc="https://app.koyfin.com/share/cec15aa75e/simple"
           />
         </Grid>
         <Grid item xs={12} md={6}>
           <EmbeddedChart 
-            title='World Gold Trust'
-            chartSrc="https://app.koyfin.com/share/97c7d024ee/simple"
+            title='Gold'
+            chartSrc="https://app.koyfin.com/share/0e18aaa53a/simple"
           />
         </Grid>
         {/* <Grid item xs={12} sm={6} md={4}>
