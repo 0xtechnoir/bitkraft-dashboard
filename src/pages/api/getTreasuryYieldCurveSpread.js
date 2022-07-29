@@ -9,22 +9,22 @@ export default async function handler(req, res) {
 
         const data = await prisma.treasury_yield_curves.findMany();
 
-        const series1 = data.map((element, index, array) => {
+        const series1 = data.map((element) => {
 
             Object.hasOwnProperty.bind(element)
 
             if (element.hasOwnProperty('bc_10year') || element.hasOwnProperty('bc_3month')) {
 
                 const val = parseFloat(element["bc_10year"]) - parseFloat(element["bc_3month"]) 
-
+ 
                 return {
-                    "time" : element["new_date"],
+                    "time" : element["timestamp"],
                     "val" : val,
                 }
             }             
         })
 
-        const series2 = data.map((element, index, array) => {
+        const series2 = data.map((element) => {
 
             Object.hasOwnProperty.bind(element)
             if (element.hasOwnProperty('bc_10year') || element.hasOwnProperty('bc_2year')) {
@@ -32,7 +32,7 @@ export default async function handler(req, res) {
                 const val = parseFloat(element["bc_10year"]) - parseFloat(element["bc_2year"])
 
                 return {
-                    "time" : element["new_date"],
+                    "time" : element["timestamp"],
                     "val" : val,
                 }
             }    

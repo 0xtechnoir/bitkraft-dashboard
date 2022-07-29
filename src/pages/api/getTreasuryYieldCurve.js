@@ -34,7 +34,7 @@ async function getData(_take, _label) {
     });
 
     let result = {
-        'timestamp' : data[0].new_date,
+        'timestamp' : data[0].timestamp,
         'label' : _label,
         'data' : [
             {
