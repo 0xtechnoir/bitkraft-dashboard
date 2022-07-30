@@ -138,6 +138,9 @@ const TreasuryYieldCurve = ({ direction }) => {
         </Box>
       </CardContent>
     </Card>
+
+    
+
   )
 }
 
