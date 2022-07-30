@@ -30,7 +30,65 @@ const AnalyticsDashboard = () => {
   return (
     <ApexChartWrapper>
       <Grid container spacing={6} className='match-height'>
-        {/* <Grid item xs={12} md={8}>
+        
+        <Grid item xs={12} md={12}>
+          <EmbeddedChart
+            chartSrc="https://www.footprint.network/public/chart/30-Day-Gaming-Volume-by-Chain-fp-d12a48da-4766-4b61-86c4-93a6a47523e6"
+            height="550"
+          />
+        </Grid>
+
+        <Grid item xs={12} md={12}>
+          <EmbeddedChart
+            chartSrc="https://www.footprint.network/public/chart/GameFi-Monthly-Volume-fp-33a2e714-008a-4599-8594-a98e29178fba"
+            height="550"
+          />
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <EmbeddedChart
+            chartSrc="https://www.footprint.network/public/chart/Monthly-GameFi-Users-fp-8003b8ec-17f0-48a9-be3b-291977977053"
+            height="550"
+          />
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <EmbeddedChart
+            chartSrc="https://www.footprint.network/public/chart/New-users-by-chain-over-past-30-days-fp-ab95d5ea-a90f-432c-a38e-c6d849cf2032"
+            height="500"
+            width="650"
+          />
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <EmbeddedChart
+            chartSrc="https://www.footprint.network/public/chart/Unique-Users-by-Chain-Over-Past-30-Days-fp-f16eb47a-15e6-4933-afd9-9bb11d5ad2e1"
+            height="500"
+            width="650"
+          />
+        </Grid>
+
+        <Grid item xs={12} md={12}>
+          <EmbeddedChart
+            chartSrc="https://www.footprint.network/public/chart/Transaction-Numbers-Per-Chain-Over-Past-30-Days-fp-57338142-3b34-4f95-a354-09ac93f6ff55"
+            height="600"
+          />
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <EmbeddedChart
+            chartSrc="https://www.footprint.network/public/chart/Crypto-Unicorns-Total-Users-Vs-Active-Users-fp-fe30de5f-11b1-40dd-be6b-cb879ca1abb3"
+            height="500"
+            width="650"
+          />
+        </Grid>   
+      </Grid> 
+    </ApexChartWrapper>
+  )
+}
+
+export default AnalyticsDashboard
+
+{/* <Grid item xs={12} md={8}>
           <AnalyticsCongratulations />
         </Grid>
         <Grid item xs={6} md={2}>
@@ -46,25 +104,9 @@ const AnalyticsDashboard = () => {
         <Grid item xs={6} md={2}>
           <AnalyticsSessions />
         </Grid> */}
-        <Grid item xs={12} md={12}>
-          <EmbeddedChart
-            chartSrc="https://www.footprint.network/public/chart/Daily-Number-of-GameFi-Users-Cross-chain-0xnaylor-fp-143064ef-528f-4f5d-99b7-d571bc7c6b33"
-            width="1250"
-            height="600"
-          />
-        </Grid>
 
-        {/* <iframe
-    src="https://www.footprint.network/public/chart/Daily-Number-of-GameFi-Users-Cross-chain-0xnaylor-fp-143064ef-528f-4f5d-99b7-d571bc7c6b33"
-    frameborder="0"
-    width="800"
-    height="600"
-    allowtransparency
-></iframe> */}
-
-
-        {/* <Grid item xs={12} sm={6} md={4}>
-          <Grid container spacing={6}>
+{/* <Grid item xs={12} sm={6} md={4}>
+         <Grid container spacing={6}>
             <Grid item xs={6}>
               <AnalyticsTotalRevenue />
             </Grid>
@@ -107,10 +149,4 @@ const AnalyticsDashboard = () => {
         </Grid>
         <Grid item xs={12} md={8}>
           <AnalyticsActivityTimeline />
-        </Grid> */}
-      </Grid>
-    </ApexChartWrapper>
-  )
-}
-
-export default AnalyticsDashboard
+        </Grid> */} 

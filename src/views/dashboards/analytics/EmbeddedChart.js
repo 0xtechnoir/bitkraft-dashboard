@@ -4,7 +4,6 @@ import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import Grid from '@mui/material/Grid'
 import { styled, useTheme } from '@mui/material/styles'
-import IframeResizer from 'iframe-resizer-react'
 
 // Styled Grid component
 const StyledGrid = styled(Grid)(({ theme }) => ({
@@ -22,21 +21,19 @@ const EmbeddedChart = (props) => {
 
   return (
     <Card>
-      <Grid container>
-        <StyledGrid item xs={12} sm={'auto'}>
-          <CardHeader title={props.title} titleTypographyProps={{ sx: { letterSpacing: '0.15px' } }} />
-          <CardContent>
-            <iframe 
-              width={props.width||"600"} 
-              height={props.height||"420"} 
-              src={props.chartSrc} 
-              frameBorder="0"
-              loading="lazy"
-              >
-            </iframe>
-          </CardContent>
-        </StyledGrid>
-      </Grid>
+      <CardHeader title={props.title} titleTypographyProps={{ sx: { letterSpacing: '0.15px' } }} />
+      <CardContent>
+        <div style={{overflow : "hidden"}} >
+          <iframe
+            width={props.width||"100%"} 
+            height={props.height||"500"} 
+            src={props.chartSrc} 
+            frameBorder="0"
+            loading="lazy"
+          >
+          </iframe>
+        </div>
+      </CardContent>
     </Card>
   )
 }

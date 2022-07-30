@@ -39,7 +39,65 @@ const AnalyticsDashboard = () => {
   return (
     <ApexChartWrapper>
       <Grid container spacing={6} className='match-height'>
-        {/* <Grid item xs={12} md={8}>
+        
+        <Grid item xs={12} md={12}>
+          <TreasuryYieldCurveSpread direction={settings.direction} />
+        </Grid>
+       
+        <Grid item xs={12} md={6}>
+          <TreasuryYieldCurve direction={settings.direction} />
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <EmbeddedChart 
+            title='S&P 500'
+            chartSrc="https://app.koyfin.com/share/4d937a406b/simple"
+          />
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <EmbeddedChart 
+            title='FTSE 100'
+            chartSrc="https://app.koyfin.com/share/63b871f5e7/simple"
+          />
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <EmbeddedChart 
+            title='NASDAQ 100'
+            chartSrc="https://app.koyfin.com/share/33a4ffb4f0/simple"
+          />
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <EmbeddedChart 
+            title='Hang Seng China Enterprises Index'
+            chartSrc=" https://app.koyfin.com/share/88fb45f96d/simple"
+          />
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <EmbeddedChart 
+            title='Oil'
+            chartSrc="https://app.koyfin.com/share/cec15aa75e/simple"
+          />
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <EmbeddedChart 
+            title='Gold'
+            chartSrc="https://app.koyfin.com/share/0e18aaa53a/simple"
+          />
+        </Grid> 
+
+      </Grid>
+    </ApexChartWrapper>
+  )
+}
+
+export default AnalyticsDashboard
+
+ {/* <Grid item xs={12} md={8}>
           <AnalyticsCongratulations />
         </Grid>
         <Grid item xs={6} md={2}>
@@ -54,52 +112,7 @@ const AnalyticsDashboard = () => {
         </Grid>
         <Grid item xs={6} md={2}>
           <AnalyticsSessions />
-        </Grid> */}
-
-        <Grid item xs={12} md={6}>
-          <TreasuryYieldCurve direction={settings.direction} />
-        </Grid>
-
-        <Grid item xs={12} md={12}>
-          <TreasuryYieldCurveSpread direction={settings.direction} />
-        </Grid>
-
-        <Grid item xs={12} md={6}>
-          <EmbeddedChart 
-            title='S&P 500'
-            chartSrc="https://app.koyfin.com/share/4d937a406b/simple"
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <EmbeddedChart 
-            title='FTSE 100'
-            chartSrc="https://app.koyfin.com/share/63b871f5e7/simple"
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <EmbeddedChart 
-            title='NASDAQ 100'
-            chartSrc="https://app.koyfin.com/share/33a4ffb4f0/simple"
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <EmbeddedChart 
-            title='Hang Seng China Enterprises Index'
-            chartSrc=" https://app.koyfin.com/share/88fb45f96d/simple"
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <EmbeddedChart 
-            title='Oil'
-            chartSrc="https://app.koyfin.com/share/cec15aa75e/simple"
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <EmbeddedChart 
-            title='Gold'
-            chartSrc="https://app.koyfin.com/share/0e18aaa53a/simple"
-          />
-        </Grid>
+        </Grid> */} 
         {/* <Grid item xs={12} sm={6} md={4}>
           <Grid container spacing={6}>
             <Grid item xs={6}>
@@ -145,9 +158,3 @@ const AnalyticsDashboard = () => {
         <Grid item xs={12} md={8}>
           <AnalyticsActivityTimeline />
         </Grid> */}
-      </Grid>
-    </ApexChartWrapper>
-  )
-}
-
-export default AnalyticsDashboard
