@@ -40,9 +40,9 @@ const AnalyticsDashboard = () => {
     <ApexChartWrapper>
       <Grid container spacing={6} className='match-height'>
         
-        <Grid item xs={12} md={12}>
+        {/* <Grid item xs={12} md={12}>
           <TreasuryYieldCurveSpread direction={settings.direction} />
-        </Grid>
+        </Grid> */}
        
         <Grid item xs={12} md={6}>
           <TreasuryYieldCurve direction={settings.direction} />
