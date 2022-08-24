@@ -13,7 +13,7 @@ const FooterContent = () => {
       <Typography sx={{ mr: 2 }}>
         {`© ${new Date().getFullYear()}, Powered by `}
         <Link target='_blank' href='https://www.bitkraft.vc/'>
-          Bitkraft
+          BITKRAFT
         </Link>
       </Typography>
     </Box>

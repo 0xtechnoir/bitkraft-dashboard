@@ -75,7 +75,7 @@ const App = props => {
     <Provider store={store}>
       <CacheProvider value={emotionCache}>
         <Head>
-          <title>{`Bitkraft Dashboard`}</title>
+          <title>{`BITKRAFT Dashboard`}</title>
           <meta
             name='description'
             content={`Market tracking dashboard`}

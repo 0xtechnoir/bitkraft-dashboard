@@ -23,6 +23,7 @@ import AnalyticsSalesCountry from 'src/views/dashboards/analytics/AnalyticsSales
 import AnalyticsCongratulations from 'src/views/dashboards/analytics/AnalyticsCongratulations'
 import AnalyticsActivityTimeline from 'src/views/dashboards/analytics/AnalyticsActivityTimeline'
 import EmbeddedChart from 'src/views/dashboards/analytics/EmbeddedChart'
+import TradingViewEmbeddedChart from 'src/views/dashboards/analytics/TradingViewEmbeddedChart'
 import AnalyticsProjectStatistics from 'src/views/dashboards/analytics/AnalyticsProjectStatistics'
 import AnalyticsTopReferralSources from 'src/views/dashboards/analytics/AnalyticsTopReferralSources'
 import iAnalyticsTopReferralSources from 'src/views/dashboards/analytics/AnalyticsTopReferralSources'
@@ -40,9 +41,9 @@ const AnalyticsDashboard = () => {
     <ApexChartWrapper>
       <Grid container spacing={6} className='match-height'>
         
-        {/* <Grid item xs={12} md={12}>
+        <Grid item xs={12} md={12}>
           <TreasuryYieldCurveSpread direction={settings.direction} />
-        </Grid> */}
+        </Grid>
        
         <Grid item xs={12} md={6}>
           <TreasuryYieldCurve direction={settings.direction} />
@@ -88,6 +89,10 @@ const AnalyticsDashboard = () => {
             title='Gold'
             chartSrc="https://app.koyfin.com/share/0e18aaa53a/simple"
           />
+        </Grid> 
+
+        <Grid item xs={12} md={12}>
+          <TradingViewEmbeddedChart />
         </Grid> 
 
       </Grid>

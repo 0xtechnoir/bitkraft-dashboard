@@ -40,7 +40,7 @@ const AnalyticsDashboard = () => {
 
         <Grid item xs={12} md={12}>
           <EmbeddedChart
-            chartSrc="https://www.footprint.network/public/chart/GameFi-Monthly-Volume-fp-33a2e714-008a-4599-8594-a98e29178fba"
+            chartSrc="https://www.footprint.network/public/chart/Crypto-Gaming-Monthly-Volume-fp-70b96b8e-bc7b-456b-b853-f6b07b73aa71"
             height="550"
           />
         </Grid>
@@ -70,6 +70,34 @@ const AnalyticsDashboard = () => {
         <Grid item xs={12} md={12}>
           <EmbeddedChart
             chartSrc="https://www.footprint.network/public/chart/Transaction-Numbers-Per-Chain-Over-Past-30-Days-fp-57338142-3b34-4f95-a354-09ac93f6ff55"
+            height="600"
+          />
+        </Grid>
+
+        <Grid item xs={12} md={12}>
+          <EmbeddedChart
+            chartSrc="https://www.footprint.network/public/chart/Active-Users-by-Chain-fp-603f5715-6c2a-4a6d-baec-3c745d7a2cd3"
+            height="600"
+          />
+        </Grid>
+
+        <Grid item xs={12} md={12}>
+          <EmbeddedChart
+            chartSrc="https://www.footprint.network/public/chart/Transactions-per-User-per-Chain-Prev.-3-months-fp-5337fbd2-2723-47ed-b7b7-31564f94dd0c"
+            height="600"
+          />
+        </Grid>
+
+        <Grid item xs={12} md={12}>
+          <EmbeddedChart
+            chartSrc="https://www.footprint.network/public/chart/Volume-Per-User-by-Chain-Prev.-3-Months-fp-fd6717ea-a0e6-4048-a5ee-e143ef4d4750"
+            height="600"
+          />
+        </Grid>
+
+        <Grid item xs={12} md={12}>
+          <EmbeddedChart
+            chartSrc="https://www.footprint.network/public/chart/Crypto-Gaming-Daily-Active-Users-fp-65ac95d0-995f-42da-991e-5ff4459b4153"
             height="600"
           />
         </Grid>

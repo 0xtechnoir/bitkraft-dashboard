@@ -1,6 +1,0 @@
-name: Create Portfolio Positions
-slug: create_portfolio_positions
-description: A script which retrieves historic asset price data, calculates relative benchmark portfolio positions and writes them to a database.
-node:
-  entrypoint: create_portfolio_positions.js
-  nodeVersion: "18"
