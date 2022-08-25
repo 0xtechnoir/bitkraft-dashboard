@@ -23,7 +23,6 @@ import AnalyticsSalesCountry from 'src/views/dashboards/analytics/AnalyticsSales
 import AnalyticsCongratulations from 'src/views/dashboards/analytics/AnalyticsCongratulations'
 import AnalyticsActivityTimeline from 'src/views/dashboards/analytics/AnalyticsActivityTimeline'
 import EmbeddedChart from 'src/views/dashboards/analytics/EmbeddedChart'
-import TradingViewEmbeddedChart from 'src/views/dashboards/analytics/TradingViewEmbeddedChart'
 import AnalyticsProjectStatistics from 'src/views/dashboards/analytics/AnalyticsProjectStatistics'
 import AnalyticsTopReferralSources from 'src/views/dashboards/analytics/AnalyticsTopReferralSources'
 import iAnalyticsTopReferralSources from 'src/views/dashboards/analytics/AnalyticsTopReferralSources'
@@ -91,10 +90,12 @@ const AnalyticsDashboard = () => {
           />
         </Grid> 
 
-        <Grid item xs={12} md={12}>
-          <TradingViewEmbeddedChart />
+        <Grid item xs={12} md={6}>
+          <EmbeddedChart 
+            title='Gaming Equities'
+            chartSrc="https://app.koyfin.com/share/0f74e38dd1/simple"
+          />
         </Grid> 
-
       </Grid>
     </ApexChartWrapper>
   )

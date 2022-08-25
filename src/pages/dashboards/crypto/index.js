@@ -95,27 +95,7 @@ const AnalyticsDashboard = () => {
             title='Ethereum Bridge TVL'
             chartSrc="https://dune.com/embeds/915736/1601441/ef723fa3-2e84-489a-889d-29b3223cbb81"
           />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <EmbeddedChart 
-            title='$SUPER Spot Token Holders'
-            chartSrc="https://dune.com/embeds/1186831/2031681/8455369d-78cc-48da-bc6e-1c7e8207e337?ADDRESS=0xe53ec727dbdeb9e2d5456c3be40cff031ab40a55"
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <EmbeddedChart 
-            title='$SUPER Token Holders Distribution'
-            chartSrc="https://dune.com/embeds/1186937/2031856/7ac2ede7-1c37-4436-acfd-11e978927e8f?ADDRESS=0xe53ec727dbdeb9e2d5456c3be40cff031ab40a55"
-          />
-        </Grid>
-        <Grid item xs={12} md={12}>
-          <EmbeddedChart 
-            title='$SUPER Token Holders'
-            chartSrc="https://dune.com/embeds/1186944/2031869/a96a9f2b-c705-45c3-b6fa-8474662c1f08?ADDRESS=0xe53ec727dbdeb9e2d5456c3be40cff031ab40a55"
-          />
-        </Grid>
-
-        
+        </Grid>     
 
         
         
