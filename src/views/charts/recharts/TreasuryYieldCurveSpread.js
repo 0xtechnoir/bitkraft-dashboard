@@ -139,9 +139,9 @@ const TreasuryYieldCurveSpread = ({ direction }) => {
         default:
             startTime = 631238400000 // 2nd Jan 1990
       }
-
+      console.log(`Start Time: ${startTime}`)
     let tempArray = []
-    series.forEach((element, index, arr) => {
+    series.forEach((element, index) => {
       const dataArray = element.data
       const filteredArray = dataArray.filter(index => index.time > startTime)
 
@@ -225,14 +225,14 @@ const TreasuryYieldCurveSpread = ({ direction }) => {
       <CardContent>
         <Box sx={{ height: 400, width: 1350 }}>
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart margin={{ top: 15, right: 30, left: 40, bottom: 5 }} width={500} height={500} data={series}>
+            <LineChart margin={{ top: 15, right: 30, left: 40, bottom: 5 }} width={500} height={500} >
               <CartesianGrid strokeDasharray="3 3"/>
-              <XAxis dataKey="time" tickFormatter={formatXAxis} type="catagory" allowDuplicatedCategory={false} domain={['auto', 'auto']}/>
+              <XAxis dataKey="time" tickFormatter={formatXAxis} type="catagory" allowDuplicatedCategory={false} />
               <YAxis tickFormatter={formatYAxis}/>          
               {
                 <>
-                  <Line dataKey="val" data={series[0].data} name={series[0].name} key={series[0].name} dot={false} stroke="#e6194B" strokeWidth={2} connectNulls={true}/>
-                  <Line dataKey="val" data={series[1].data} name={series[1].name} key={series[1].name} dot={false} stroke="#3cb44b" strokeWidth={2} connectNulls={true}/>  
+                  <Line dataKey="val" data={visibleData[0].data} dot={false} stroke="#e6194B" strokeWidth={2} connectNulls={true}/>
+                  <Line dataKey="val" data={visibleData[1].data} dot={false} stroke="#3cb44b" strokeWidth={2} connectNulls={true}/>  
                 </>  
               }
               <Legend content={renderLegend} verticalAlign="bottom" align="centre"

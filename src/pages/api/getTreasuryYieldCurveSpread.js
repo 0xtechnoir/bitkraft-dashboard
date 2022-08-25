@@ -7,7 +7,9 @@ export default async function handler(req, res) {
 
     try {
 
-        const data = await prisma.treasury_yield_curves.findMany();
+        const data = await prisma.treasury_yield_curves.findMany({
+            orderBy: {timestamp: 'asc'}
+        });
 
         const series1 = data.map((element) => {
 

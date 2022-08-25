@@ -95,7 +95,9 @@ const AnalyticsDashboard = () => {
             title='Ethereum Bridge TVL'
             chartSrc="https://dune.com/embeds/915736/1601441/ef723fa3-2e84-489a-889d-29b3223cbb81"
           />
-        </Grid>
+        </Grid>     
+
+        
         
         {/* <Grid item xs={12} sm={6} md={4}>
           <Grid container spacing={6}>
