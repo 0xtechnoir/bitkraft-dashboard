@@ -14,17 +14,15 @@ import _ from 'lodash';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Surface, Symbols } from 'recharts'
 import axios from 'axios'
 
+import { MONTH_NAMES, LINE_COLOURS } from '../chartUtils'
+
 const MultiSeriesLineChart = ({direction}) => {
 
   const [series, setSeries] = useState()
   const [visibleData, setVisibleData] = useState()
   const [loading, setLoading] = useState(true);
   const [disabled, setDisabled] = useState([""])
-  const lineColours = ["#e6194B", "#3cb44b", "#ffe119", "#4363d8", "#f58231", "#911eb4", "#42d4f4", "#f032e6" ]
   const pairs = {}
-
-  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-  "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
   useEffect(() => {
     axios.get(`/api/getIndexedAssetData`)
@@ -46,7 +44,7 @@ const MultiSeriesLineChart = ({direction}) => {
 
   function formatXAxis(value) {
     let date = new Date(value)
-    return `${monthNames[date.getMonth()]}/${date.getYear()-100}`;
+    return `${MONTH_NAMES[date.getMonth()]}/${date.getYear()-100}`;
   }
 
   function abbreviate(number, maxPlaces, forcePlaces, forceLetter) {
@@ -108,7 +106,7 @@ const MultiSeriesLineChart = ({direction}) => {
 
   const formatDate = (timestamp) => {
     let date = new Date(timestamp)
-    return `${date.getDate()}/${monthNames[date.getMonth()]}/${date.getYear()-100}`
+    return `${date.getDate()}/${MONTH_NAMES[date.getMonth()]}/${date.getYear()-100}`
   }
 
   const CustomTooltip = ({ active, payload, label }) => {
@@ -314,7 +312,7 @@ const MultiSeriesLineChart = ({direction}) => {
               visibleData.map((element, index) => {
                 return {
                   "data" : element, 
-                  "colour" : lineColours[index]
+                  "colour" : LINE_COLOURS[index]
                 }
               }).filter(pair => {
                 console.log(`Pair ${JSON.stringify(pair)}`)

@@ -15,13 +15,14 @@ import _ from 'lodash';
 import { LineChart, Line, Label, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Legend, Surface, Symbols } from 'recharts'
 import axios from 'axios'
 
+import { LINE_COLOURS } from '../chartUtils'
+
 const TreasuryYieldCurveSpread = ({ direction }) => {
 
   const [series, setSeries] = useState()
   const [visibleData, setVisibleData] = useState()
   const [disabled, setDisabled] = useState([""])
   const [loading, setLoading] = useState(true);
-  const lineColours = ["#e6194B", "#3cb44b", "#ffe119", "#4363d8", "#f58231", "#911eb4", "#42d4f4", "#f032e6" ]
   const [alignment, setAlignment] = useState('All');
 
   useEffect(() => {
@@ -239,7 +240,7 @@ const TreasuryYieldCurveSpread = ({ direction }) => {
                 payload={ visibleData.map((element, index) => {
                   return {
                     "data" : element, 
-                    "colour" : lineColours[index]
+                    "colour" : LINE_COLOURS[index]
                   }})}
                />
             </LineChart>

@@ -28,13 +28,36 @@ import AnalyticsTopReferralSources from 'src/views/dashboards/analytics/Analytic
 import RechartsLineChart from 'src/views/charts/recharts/RechartsLineChart'
 import PortfolioPerformanceTracker from 'src/views/charts/recharts/PortfolioPerformanceTracker'
 import IndexChart from 'src/views/charts/recharts/IndexChart'
+import RechartsAreaChart from 'src/views/charts/recharts/RechartsAreaChart'
+
+// ** React Imports
+import { useEffect, useState } from 'react'
 
 // ** Hooks
 import { useSettings } from 'src/@core/hooks/useSettings'
 
+// ** Other Imports
+import axios from "axios";
+
+
+
 const AnalyticsDashboard = () => {
   const { settings } = useSettings()
-  
+  const [exchangeOpenInterest, setExchangeOpenInterest] = useState()
+
+  useEffect(() => {
+    axios.get(`/api/getExchangeOpenInterest`)
+    .then(response => {
+      if (!response === 200) {
+        throw new Error(
+          `This is an HTTP error: The status is ${response.status}`
+        )
+      }
+      setExchangeOpenInterest(response.data)
+    })
+  }, [])
+ 
+
   return (
     <ApexChartWrapper>
       <Grid container spacing={6} className='match-height'>
@@ -54,6 +77,14 @@ const AnalyticsDashboard = () => {
         <Grid item xs={6} md={2}>
           <AnalyticsSessions />
         </Grid> */}
+
+         <Grid item xs={12} md={6}>
+          <RechartsAreaChart 
+            title='Aggregated Open Interest of Bitcoin Futures'
+            data={exchangeOpenInterest}
+          />
+        </Grid>
+
         <Grid item xs={12} md={6}>
           <EmbeddedChart 
             title='Bitcoin Dominance'

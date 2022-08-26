@@ -49,6 +49,7 @@
     "clsx": "^1.2.1",
     "coingecko-api": "^1.0.10",
     "date-fns": "2.27.0",
+    "dotenv": "^16.0.1",
     "draft-js": "0.11.7",
     "firebase": "9.7.0",
     "i18next": "21.7.1",
