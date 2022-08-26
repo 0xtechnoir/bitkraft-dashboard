@@ -12,14 +12,12 @@ import CardContent from '@mui/material/CardContent'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import axios from 'axios'
 
+import { MONTH_NAMES } from '../chartUtils'
+
 const RechartsLineChart = ({ direction }) => {
 
   const [data, setData] = useState(null)
   const [fearAndGreedValues, setFearAndGreedValues] = useState(null)
-
-  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-  "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
-];
 
   const processData = (data) => {
     if (data) {
@@ -28,7 +26,7 @@ const RechartsLineChart = ({ direction }) => {
         let date = new Date(index.timestamp * 1000);
         return { 
           "sentiment" : index.value, 
-          "name": `${date.getDate()}/${monthNames[date.getMonth()]}/${date.getYear()-100}` 
+          "name": `${date.getDate()}/${MONTH_NAMES[date.getMonth()]}/${date.getYear()-100}` 
         }
       });
       setFearAndGreedValues(values)

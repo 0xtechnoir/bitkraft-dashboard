@@ -42,19 +42,4 @@ export default async function handler(req, res) {
     })
 
     res.send(result);
-
-    // let result = []
-    // for (const exchange in dataMap) {
-    //     console.log(`Exchange: ${JSON.stringify(exchange)}`)
-
-    //     const mappedArray = dataMap[exchange].map((element, index) => {
-            
-    //         return {
-    //             'date': dateList[index],
-    //             'openInterest': element
-    //         }
-    //     })
-    //     result.push(mappedArray)
-    // }
-    // res.send(result);
 }

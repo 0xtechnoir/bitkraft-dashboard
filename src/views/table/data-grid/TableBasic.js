@@ -2,7 +2,7 @@
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import { DataGrid } from '@mui/x-data-grid'
-import { formatTokenName, getDayOfYear } from 'src/views/charts/recharts/chartUtils'
+import { formatTokenName, getDayOfYear } from '../../charts/chartUtils'
 import { clsx } from 'clsx';
 
 const columnsETH = [
