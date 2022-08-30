@@ -29,6 +29,7 @@ import RechartsLineChart from 'src/views/charts/recharts/RechartsLineChart'
 import PortfolioPerformanceTracker from 'src/views/charts/recharts/PortfolioPerformanceTracker'
 import IndexChart from 'src/views/charts/recharts/IndexChart'
 import RechartsAreaChart from 'src/views/charts/recharts/RechartsAreaChart'
+import RechartsBarChart from 'src/views/charts/recharts/RechartsBarChart'
 
 // ** React Imports
 import { useEffect, useState } from 'react'
@@ -44,6 +45,7 @@ import axios from "axios";
 const AnalyticsDashboard = () => {
   const { settings } = useSettings()
   const [exchangeOpenInterest, setExchangeOpenInterest] = useState()
+  const [liquidatablePositions, setLiquidatablePositions] = useState()
 
   useEffect(() => {
     axios.get(`/api/getExchangeOpenInterest`)
@@ -57,6 +59,19 @@ const AnalyticsDashboard = () => {
     })
   }, [])
  
+  useEffect(() => {
+    console.log("useEffect called for liquidations")
+    axios.get(`/api/getLiquidatablePositions`)
+    .then(response => {
+      if (!response === 200) {
+        throw new Error(
+          `This is an HTTP error: The status is ${response.status}`
+        )
+      }
+      setLiquidatablePositions(response.data)
+      console.log("liquidatablePositions: " + JSON.stringify(response.data))
+    })
+  }, [])
 
   return (
     <ApexChartWrapper>
@@ -78,10 +93,17 @@ const AnalyticsDashboard = () => {
           <AnalyticsSessions />
         </Grid> */}
 
-         <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6}>
           <RechartsAreaChart 
             title='Aggregated Open Interest of Bitcoin Futures'
             data={exchangeOpenInterest}
+          />
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <RechartsBarChart 
+            title='Liquidatable Positions'
+            data={liquidatablePositions}
           />
         </Grid>
 

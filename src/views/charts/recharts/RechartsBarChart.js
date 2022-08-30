@@ -1,5 +1,5 @@
 // ** React Imports
-import { forwardRef, useState } from 'react'
+import { forwardRef, useState, useEffect } from 'react'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
@@ -120,10 +120,25 @@ const CustomTooltip = data => {
   return null
 }
 
-const RechartsBarChart = ({ direction }) => {
+const RechartsBarChart = (props, { direction }) => {
   // ** States
   const [endDate, setEndDate] = useState(null)
   const [startDate, setStartDate] = useState(new Date())
+  const [visibleData, setVisibleData] = useState()
+  const [alignment, setAlignment] = useState('All');
+  const [series, setSeries] = useState()
+  const [loaded, setLoaded] = useState(false)
+
+
+  useEffect(() => {
+    if (props.data) {
+      setSeries(props.data)
+      setVisibleData(props.data)
+      setLoaded(true)
+      console.log("inside chart component")
+      console.log(props.data)
+    }  
+  }, [props.data])
 
   const CustomInput = forwardRef((props, ref) => {
     const startDate = format(props.start, 'MM/dd/yyyy')
@@ -158,66 +173,93 @@ const RechartsBarChart = ({ direction }) => {
     setEndDate(end)
   }
 
-  return (
-    <Card>
-      <CardHeader
-        title='Brand Turnover'
-        titleTypographyProps={{ variant: 'h6' }}
-        sx={{
-          flexDirection: ['column', 'row'],
-          alignItems: ['flex-start', 'center'],
-          '& .MuiCardHeader-action': { mb: 0 },
-          '& .MuiCardHeader-content': { mb: [2, 0] }
-        }}
-        action={
-          <DatePicker
-            selectsRange
-            id='recharts-bar'
-            endDate={endDate}
-            selected={startDate}
-            startDate={startDate}
-            onChange={handleOnChange}
-            placeholderText='Click to select a date'
-            customInput={<CustomInput start={startDate} end={endDate} />}
-          />
-        }
-      />
-      <CardContent>
-        <Box sx={{ mb: 4, display: 'flex', flexWrap: 'wrap' }}>
-          <Box sx={{ mr: 6, display: 'flex', alignItems: 'center' }}>
-            <Circle sx={{ mr: 1.5, fontSize: '0.75rem', color: '#826af9' }} />
-            <Typography>Apple</Typography>
-          </Box>
-          <Box sx={{ mr: 6, display: 'flex', alignItems: 'center' }}>
-            <Circle sx={{ mr: 1.5, fontSize: '0.75rem', color: '#9f87ff' }} />
-            <Typography>Samsung</Typography>
-          </Box>
-          <Box sx={{ mr: 6, display: 'flex', alignItems: 'center' }}>
-            <Circle sx={{ mr: 1.5, fontSize: '0.75rem', color: '#d2b0ff' }} />
-            <Typography>Oneplus</Typography>
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Circle sx={{ mr: 1.5, fontSize: '0.75rem', color: '#f8d3ff' }} />
-            <Typography>Motorola</Typography>
-          </Box>
-        </Box>
+  if (!loaded) {
+    return (
+      <Card>
+        <CardHeader
+          title={props.title}
+          titleTypographyProps={{ variant: 'h6' }}
+          sx={{
+            flexDirection: ['column', 'row'],
+            alignItems: ['flex-start', 'center'],
+            '& .MuiCardHeader-action': { mb: 0 },
+            '& .MuiCardHeader-content': { mb: [2, 0] }
+          }}
+        />
+        <CardContent>
         <Box sx={{ height: 350 }}>
-          <ResponsiveContainer>
-            <BarChart height={350} data={data} barSize={15} style={{ direction }} margin={{ left: -20 }}>
-              <CartesianGrid strokeDasharray='3 3' />
-              <XAxis dataKey='name' reversed={direction === 'rtl'} />
-              <YAxis orientation={direction === 'rtl' ? 'right' : 'left'} />
-              <Tooltip content={CustomTooltip} />
-              <Bar dataKey='Apple' stackId='a' fill='#826af9' />
-              <Bar dataKey='Samsung' stackId='a' fill='#9f87ff' />
-              <Bar dataKey='Oneplus' stackId='a' fill='#d2b0ff' />
-              <Bar dataKey='Motorola' stackId='a' fill='#f8d3ff' radius={[15, 15, 0, 0]} />
-            </BarChart>
+            <ResponsiveContainer>
+          <div>
+            <p>Loading</p>
+          </div>
           </ResponsiveContainer>
-        </Box>
-      </CardContent>
-    </Card>
-  )
+          </Box>
+        </CardContent>
+      </Card>
+    )
+  } else {
+    return (
+      <Card>
+        <CardHeader
+          title={props.title}
+          titleTypographyProps={{ variant: 'h6' }}
+          sx={{
+            flexDirection: ['column', 'row'],
+            alignItems: ['flex-start', 'center'],
+            '& .MuiCardHeader-action': { mb: 0 },
+            '& .MuiCardHeader-content': { mb: [2, 0] }
+          }}
+          action={
+            <DatePicker
+              selectsRange
+              id='recharts-bar'
+              endDate={endDate}
+              selected={startDate}
+              startDate={startDate}
+              onChange={handleOnChange}
+              placeholderText='Click to select a date'
+              customInput={<CustomInput start={startDate} end={endDate} />}
+            />
+          }
+        />
+        <CardContent>
+          <Box sx={{ mb: 4, display: 'flex', flexWrap: 'wrap' }}>
+            <Box sx={{ mr: 6, display: 'flex', alignItems: 'center' }}>
+              <Circle sx={{ mr: 1.5, fontSize: '0.75rem', color: '#826af9' }} />
+              <Typography>Apple</Typography>
+            </Box>
+            <Box sx={{ mr: 6, display: 'flex', alignItems: 'center' }}>
+              <Circle sx={{ mr: 1.5, fontSize: '0.75rem', color: '#9f87ff' }} />
+              <Typography>Samsung</Typography>
+            </Box>
+            <Box sx={{ mr: 6, display: 'flex', alignItems: 'center' }}>
+              <Circle sx={{ mr: 1.5, fontSize: '0.75rem', color: '#d2b0ff' }} />
+              <Typography>Oneplus</Typography>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Circle sx={{ mr: 1.5, fontSize: '0.75rem', color: '#f8d3ff' }} />
+              <Typography>Motorola</Typography>
+            </Box>
+          </Box>
+          <Box sx={{ height: 350 }}>
+            <ResponsiveContainer>
+              <BarChart height={350} data={data} barSize={15} style={{ direction }} margin={{ left: -20 }}>
+                <CartesianGrid strokeDasharray='3 3' />
+                <XAxis dataKey='name' reversed={direction === 'rtl'} />
+                <YAxis orientation={direction === 'rtl' ? 'right' : 'left'} />
+                <Tooltip content={CustomTooltip} />
+                <Bar dataKey='Apple' stackId='a' fill='#826af9' />
+                <Bar dataKey='Samsung' stackId='a' fill='#9f87ff' />
+                <Bar dataKey='Oneplus' stackId='a' fill='#d2b0ff' />
+                <Bar dataKey='Motorola' stackId='a' fill='#f8d3ff' radius={[15, 15, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </Box>
+        </CardContent>
+      </Card>
+    )
+  }
+  
 }
 
 export default RechartsBarChart

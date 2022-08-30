@@ -26,7 +26,6 @@ import ChevronDown from 'mdi-material-ui/ChevronDown'
 import { LINE_COLOURS, MONTH_NAMES, abbreviate, getDayOfYear, formatDate } from '../chartUtils'
 
 const CustomTooltip = ({ payload }) => {
-  console.log(`Payload: ${JSON.stringify(payload)}`)
   if (payload && payload.length) {
     return (
       <Card>
@@ -53,8 +52,6 @@ const CustomTooltip = ({ payload }) => {
 };
 
 const RechartsAreaChart = (props, {direction}) => {
-  console.log(`${props.title} chart loaded`)
-  console.dir(props.data)
   // ** States
   const [endDate, setEndDate] = useState(null)
   const [loaded, setLoaded] = useState(false)
