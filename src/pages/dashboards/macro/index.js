@@ -22,7 +22,8 @@ import AnalyticsTotalRevenue from 'src/views/dashboards/analytics/AnalyticsTotal
 import AnalyticsSalesCountry from 'src/views/dashboards/analytics/AnalyticsSalesCountry'
 import AnalyticsCongratulations from 'src/views/dashboards/analytics/AnalyticsCongratulations'
 import AnalyticsActivityTimeline from 'src/views/dashboards/analytics/AnalyticsActivityTimeline'
-import EmbeddedChart from 'src/views/dashboards/analytics/EmbeddedChart'
+import EmbeddedChart from 'src/views/charts/EmbeddedChart'
+import TradingViewEmbeddedChart from 'src/views/charts/TradingViewEmbeddedChart'
 import AnalyticsProjectStatistics from 'src/views/dashboards/analytics/AnalyticsProjectStatistics'
 import AnalyticsTopReferralSources from 'src/views/dashboards/analytics/AnalyticsTopReferralSources'
 import iAnalyticsTopReferralSources from 'src/views/dashboards/analytics/AnalyticsTopReferralSources'
@@ -95,7 +96,14 @@ const AnalyticsDashboard = () => {
             title='Gaming Equities'
             chartSrc="https://app.koyfin.com/share/0f74e38dd1/simple"
           />
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <TradingViewEmbeddedChart 
+            title='USD Liquidity Conditions Index'
+          />
         </Grid> 
+                
       </Grid>
     </ApexChartWrapper>
   )

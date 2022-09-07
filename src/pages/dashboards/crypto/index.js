@@ -22,7 +22,7 @@ import AnalyticsTotalRevenue from 'src/views/dashboards/analytics/AnalyticsTotal
 import AnalyticsSalesCountry from 'src/views/dashboards/analytics/AnalyticsSalesCountry'
 import AnalyticsCongratulations from 'src/views/dashboards/analytics/AnalyticsCongratulations'
 import AnalyticsActivityTimeline from 'src/views/dashboards/analytics/AnalyticsActivityTimeline'
-import EmbeddedChart from 'src/views/dashboards/analytics/EmbeddedChart'
+import EmbeddedChart from 'src/views/charts/EmbeddedChart'
 import AnalyticsProjectStatistics from 'src/views/dashboards/analytics/AnalyticsProjectStatistics'
 import AnalyticsTopReferralSources from 'src/views/dashboards/analytics/AnalyticsTopReferralSources'
 import RechartsLineChart from 'src/views/charts/recharts/RechartsLineChart'
