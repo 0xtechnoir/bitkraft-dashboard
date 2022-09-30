@@ -65,6 +65,7 @@ const TradingViewEmbeddedChart = (props) => {
             "symbol": "( FRED:WALCL - ( FRED:WDTGAL + FRED:RRPONTSYD * 1000 ) )",
             "hide_top_toolbar": true,
             "hide_side_toolbar": true,
+            "range": "60M",
 
             }} />
         

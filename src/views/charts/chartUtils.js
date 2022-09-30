@@ -146,4 +146,42 @@ export const formatTokenName = (name) => {
 export const formatDate = (timestamp) => {
     let date = new Date(timestamp)
     return `${date.getDate()}/${MONTH_NAMES[date.getMonth()]}/${date.getYear()-100}`
-  }
+}
+
+export const formatXAxis = (value) => {
+  let date = new Date(value)
+  const month = ("0" + (date.getMonth() + 1)).slice(-2)
+  return `${month}/${date.getFullYear()}`;
+}
+
+export const changePeriodSimple = (period, series, interval) => {
+  
+  // interval represents the number of days between each data point. 
+  // e.g. weekly data will have an interval of 7
+
+    let tempArray = []
+
+    switch(period) {
+        case "30D":
+            tempArray = series.slice(series.length - Math.ceil(30/interval), series.length);
+            break;
+        case "90D":
+            tempArray = series.slice(series.length - Math.ceil(90/interval), series.length);
+            break;
+        case "YTD":
+            const day = getDayOfYear()
+            tempArray = series.slice(series.length - Math.ceil(day/interval), series.length);
+            break;
+        case "1Y":
+            tempArray = series.slice(series.length - Math.ceil(365/interval), series.length);
+            break;
+        case "ALL":
+            tempArray = series
+            break;
+        default:
+            tempArray = series
+      }
+
+     return tempArray
+  
+}

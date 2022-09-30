@@ -10,8 +10,6 @@ import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import InputAdornment from '@mui/material/InputAdornment'
-import ToggleButton from '@mui/material/ToggleButton'
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 // ** Third Party Imports
 import format from 'date-fns/format'
@@ -23,7 +21,8 @@ import Circle from 'mdi-material-ui/Circle'
 import BellOutline from 'mdi-material-ui/BellOutline'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 
-import { LINE_COLOURS, MONTH_NAMES, abbreviate, getDayOfYear, formatDate } from '../chartUtils'
+import { LINE_COLOURS, MONTH_NAMES, abbreviate, getDayOfYear, formatDate, changePeriodSimple, formatXAxis } from '../chartUtils'
+import { TimeToggleButtonsLight } from '../../components/TimeToggleButtonsLight'
 
 const CustomTooltip = ({ payload }) => {
   console.log(`Payload: ${JSON.stringify(payload)}`)
@@ -69,6 +68,7 @@ const RechartsAreaChart = (props, {direction}) => {
       setVisibleData(props.data)
       setLoaded(true)
     }  
+    console.log(`Data: ${JSON.stringify(props.data)}`)
   }, [props.data])
 
   const CustomInput = forwardRef((props, ref) => {
@@ -98,53 +98,12 @@ const RechartsAreaChart = (props, {direction}) => {
     )
   })
 
-  const handleOnChange = dates => {
-    const [start, end] = dates
-    setStartDate(start)
-    setEndDate(end)
-  }
-
-  function formatXAxis(value) {
-    let date = new Date(value)
-    const month = ("0" + (date.getMonth() + 1)).slice(-2)
-    return `${month}/${date.getFullYear()}`;
-  }
-
   function formatYAxis(value) {
     return abbreviate(value, 2, false, false)
   }
 
-  const handleChange = (event, newAlignment) => {
-    setAlignment(newAlignment);
-  };
-
-  
-  const changePeriod = async (period) => {
-
-    let tempArray = []
-
-    switch(period) {
-        case "30D":
-            tempArray = series.slice(series.length - 30, series.length);
-            break;
-        case "90D":
-            tempArray = series.slice(series.length - 90, series.length);
-            break;
-        case "YTD":
-            const day = getDayOfYear()
-            tempArray = series.slice(series.length - day, series.length);
-            break;
-        case "1Y":
-            tempArray = series.slice(series.length - 365, series.length);
-            break;
-        case "ALL":
-            tempArray = series
-            break;
-        default:
-            tempArray = series
-      }
-
-      setVisibleData(tempArray)
+  const handleClick = (_period, _series) => {
+    setVisibleData(changePeriodSimple(_period, _series, 1))
   }
 
   if (!loaded) { 
@@ -188,18 +147,10 @@ const RechartsAreaChart = (props, {direction}) => {
               <Typography variant='h6' sx={{ mr: 5 }}>
               </Typography>
   
-              <ToggleButtonGroup
-                color="primary"
-                value={alignment}
-                exclusive
-                onChange={handleChange}
-              >
-                <ToggleButton size='small' sx={{ mr: 3.5 }} variant='outlined' onClick={() => changePeriod('ALL')} value="All"> All </ToggleButton>
-                <ToggleButton size='small' sx={{ mr: 3.5 }} variant='outlined' onClick={() => changePeriod('1Y')} value="1Y"> 1Y</ToggleButton>
-                <ToggleButton size='small' sx={{ mr: 3.5 }} variant='outlined' onClick={() => changePeriod('YTD')} value="YTD"> YTD</ToggleButton>
-                <ToggleButton size='small' sx={{ mr: 3.5 }} variant='outlined' onClick={() => changePeriod('90D')} value="90D"> 90D</ToggleButton>
-                <ToggleButton size='small' sx={{ mr: 3.5 }} variant='outlined' onClick={() => changePeriod('30D')} value="30D"> 30D</ToggleButton>
-              </ToggleButtonGroup>
+              <TimeToggleButtonsLight 
+                data={series} 
+                handleClick={handleClick}>
+              </TimeToggleButtonsLight>
             </Box>
           }
         />
