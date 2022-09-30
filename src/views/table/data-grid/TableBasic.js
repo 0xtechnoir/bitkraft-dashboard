@@ -205,7 +205,7 @@ const TableBasic = (props) => {
 
     const currentValueInEth = (x.data[x.data.length-1].eth_value).toFixed(6)
     const priorWeekValueInEth = (x.data[(x.data.length-1)-7].eth_value).toFixed(6)
-    const YtdValueInEth = (x.data[(x.data.length-1)-currentDayOfYear]) ? (x.data[(x.data.length-1)-currentDayOfYear].eth_value).toFixed(6) : 0
+    const YtdValueInEth = (x.data[(x.data.length-1)-currentDayOfYear]) ? (x.data[(x.data.length-1)-currentDayOfYear].eth_value).toFixed(6) : (x.data[0].eth_value).toFixed(6)
     const priorYearValueInEth = (x.data[(x.data.length-1)-365]) ? (x.data[(x.data.length-1)-365].eth_value).toFixed(6) : 0
 
     return {
@@ -225,7 +225,7 @@ const TableBasic = (props) => {
 
     const currentValueInUsd = (x.data[x.data.length-1].usd_value).toFixed(2)
     const priorWeekValueInUsd = (x.data[(x.data.length-1)-7].usd_value).toFixed(2)
-    const YtdValueInUsd = (x.data[(x.data.length-1)-currentDayOfYear]) ? (x.data[(x.data.length-1)-currentDayOfYear].usd_value).toFixed(2) : 0
+    const YtdValueInUsd = (x.data[(x.data.length-1)-currentDayOfYear]) ? (x.data[(x.data.length-1)-currentDayOfYear].usd_value).toFixed(2) : (x.data[0].usd_value).toFixed(2)
     const priorYearValueInUsd = (x.data[(x.data.length-1)-365]) ? (x.data[(x.data.length-1)-365].usd_value).toFixed(2) : 0
 
     return {
@@ -284,9 +284,7 @@ function calcPercentageChange(currentValue, previousValue){
 
   const percentageChange = ((currentValue - previousValue) / previousValue) * 100
   return formatNumber(percentageChange)
-
 }
-
 
 function formatNumber(value){
 
@@ -299,7 +297,6 @@ function formatNumber(value){
     return "-"
   }
 
-  // ' <span style="color: red">' + word + '</span>'
   if(value < 0) {
     return `(${Math.abs(value.toFixed(1))}%)`
   } else if(value >= 0) {
