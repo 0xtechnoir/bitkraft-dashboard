@@ -223,10 +223,10 @@ const TableBasic = (props) => {
 
   const mappedDataUSD = rawData.map((x, index) => {
 
-    const currentValueInUsd = (x.data[x.data.length-1].usd_value).toFixed(2)
-    const priorWeekValueInUsd = (x.data[(x.data.length-1)-7].usd_value).toFixed(2)
-    const YtdValueInUsd = (x.data[(x.data.length-1)-currentDayOfYear]) ? (x.data[(x.data.length-1)-currentDayOfYear].usd_value).toFixed(2) : (x.data[0].usd_value).toFixed(2)
-    const priorYearValueInUsd = (x.data[(x.data.length-1)-365]) ? (x.data[(x.data.length-1)-365].usd_value).toFixed(2) : 0
+    const currentValueInUsd = (x.data[x.data.length-1].usd_value).toFixed(3)
+    const priorWeekValueInUsd = (x.data[(x.data.length-1)-7].usd_value).toFixed(3)
+    const YtdValueInUsd = (x.data[(x.data.length-1)-currentDayOfYear]) ? (x.data[(x.data.length-1)-currentDayOfYear].usd_value).toFixed(3) : (x.data[0].usd_value).toFixed(3)
+    const priorYearValueInUsd = (x.data[(x.data.length-1)-365]) ? (x.data[(x.data.length-1)-365].usd_value).toFixed(3) : 0
 
     return {
       "id" : index,
