@@ -7,17 +7,13 @@ import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
-import ToggleButton from '@mui/material/ToggleButton'
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
-// ** Third Party Imports
+
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, Label } from 'recharts'
-import axios from 'axios'
-
-import { LINE_COLOURS, MONTH_NAMES, changePeriodSimple, formatXAxis, abbreviate } from '../chartUtils'
+import { LINE_COLOURS, changePeriodSimple, formatXAxis, formatDate } from '../chartUtils'
 import { TimeToggleButtonsLight } from '../../components/TimeToggleButtonsLight'
 
-const RechartsLineChart = (props) => {
+const RechartsSingleLineChart = (props) => {
 
   const [visibleData, setVisibleData] = useState(null)
   const [loaded, setLoaded] = useState(false)
@@ -37,8 +33,23 @@ const RechartsLineChart = (props) => {
       setVisibleData(props.data)
       setLoaded(true)
     }  
-    console.log(`Data: ${JSON.stringify(props.data)}`)
   }, [props.data])
+
+  const CustomTooltip = ({ payload }) => {
+    if (payload && payload.length) {
+      return (
+        <Card>
+          <CardContent>
+            <div className="custom-tooltip">
+              <p className="label">{formatDate(payload[0].payload.date)}</p>
+              <p className="label" style={{color:'#8884d8'}}>{`${payload?.[0] ? formatYAxis(payload[0].value.toFixed(0)) : ""}`}</p>
+            </div>
+        </CardContent>
+        </Card>
+      );
+    }
+    return null;
+  };
   
   if(!loaded) {
     return (
@@ -109,7 +120,7 @@ const RechartsLineChart = (props) => {
                   <Label value={formatYAxis(visibleData[visibleData.length-1]["liquidity_index"])} position="right" fill="red" />
                 </ReferenceLine>
                 <Line type="monotone" dataKey={Object.keys(visibleData[0])[2]} stroke={LINE_COLOURS[0]} dot={false} />
-                <Tooltip />
+                <Tooltip content={<CustomTooltip />} />
               </LineChart>
             </ResponsiveContainer>
           </Box>
@@ -117,7 +128,6 @@ const RechartsLineChart = (props) => {
       </Card>
     )
   }
-  
 }
 
-export default RechartsLineChart
+export default RechartsSingleLineChart

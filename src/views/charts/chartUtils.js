@@ -81,16 +81,16 @@ export  const changePeriod = async (period) => {
             startTime = Date.now() - (3 * YEAR_MS);
             break;
         case "5Y":
-            startTime = Date.now() - (5 * YEAR_MS);;
+            startTime = Date.now() - (5 * YEAR_MS);
             break;
         case "7Y":
-            startTime = Date.now() - (7 * YEAR_MS);;
+            startTime = Date.now() - (7 * YEAR_MS);
             break;
         case "10Y":
-            startTime = Date.now() - (10 * YEAR_MS);;
+            startTime = Date.now() - (10 * YEAR_MS);
             break;
         case "30Y":
-            startTime = Date.now() - (30 * YEAR_MS);;
+            startTime = Date.now() - (30 * YEAR_MS);
             break;
         case "ALL":
             startTime = 631238400000 // 2nd Jan 1990
@@ -165,6 +165,8 @@ export const changePeriodSimple = (period, series, interval) => {
         case "30D":
             tempArray = series.slice(series.length - Math.ceil(30/interval), series.length);
             break;
+        case "60D":
+            tempArray = series.slice(series.length - Math.ceil(60/interval), series.length);
         case "90D":
             tempArray = series.slice(series.length - Math.ceil(90/interval), series.length);
             break;
@@ -174,6 +176,24 @@ export const changePeriodSimple = (period, series, interval) => {
             break;
         case "1Y":
             tempArray = series.slice(series.length - Math.ceil(365/interval), series.length);
+            break;
+        case "2Y":
+            tempArray = series.slice(series.length - Math.ceil(730/interval), series.length);
+            break;
+        case "3Y":
+            tempArray = series.slice(series.length - Math.ceil(1095/interval), series.length);
+            break;
+        case "5Y":
+            tempArray = series.slice(series.length - Math.ceil(1825/interval), series.length);
+            break;
+        case "7Y":
+            tempArray = series.slice(series.length - Math.ceil(2555/interval), series.length);
+            break;
+        case "10Y":
+            tempArray = series.slice(series.length - Math.ceil(3650/interval), series.length);
+            break;
+        case "30Y":
+            tempArray = series.slice(series.length - Math.ceil(10950/interval), series.length);
             break;
         case "ALL":
             tempArray = series

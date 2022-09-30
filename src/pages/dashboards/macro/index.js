@@ -31,7 +31,7 @@ import AnalyticsTopReferralSources from 'src/views/dashboards/analytics/Analytic
 import iAnalyticsTopReferralSources from 'src/views/dashboards/analytics/AnalyticsTopReferralSources'
 import TreasuryYieldCurve from 'src/views/charts/recharts/TreasuryYieldCurve'
 import TreasuryYieldCurveSpread from 'src/views/charts/recharts/TreasuryYieldCurveSpread'
-import RechartsLineChartNew from 'src/views/charts/recharts/RechartsLineChartNew'
+import RechartsSingleLineChart from 'src/views/charts/recharts/RechartsSingleLineChart'
 
 // ** Hooks
 import { useSettings } from 'src/@core/hooks/useSettings'
@@ -69,7 +69,7 @@ const AnalyticsDashboard = () => {
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <RechartsLineChartNew
+          <RechartsSingleLineChart
             title='FED Liquidity Index'
             data={fedLiquidityIndex} 
           />

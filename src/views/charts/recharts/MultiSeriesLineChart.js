@@ -315,7 +315,6 @@ const MultiSeriesLineChart = ({direction}) => {
                   "colour" : LINE_COLOURS[index]
                 }
               }).filter(pair => {
-                console.log(`Pair ${JSON.stringify(pair)}`)
                 !disabled.includes(pair.data.name)
               })
               .map((pair) => (

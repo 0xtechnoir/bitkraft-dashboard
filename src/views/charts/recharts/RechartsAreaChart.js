@@ -25,7 +25,7 @@ import { LINE_COLOURS, MONTH_NAMES, abbreviate, getDayOfYear, formatDate, change
 import { TimeToggleButtonsLight } from '../../components/TimeToggleButtonsLight'
 
 const CustomTooltip = ({ payload }) => {
-  console.log(`Payload: ${JSON.stringify(payload)}`)
+
   if (payload && payload.length) {
     return (
       <Card>
@@ -51,15 +51,11 @@ const CustomTooltip = ({ payload }) => {
   return null;
 };
 
-const RechartsAreaChart = (props, {direction}) => {
-  console.log(`${props.title} chart loaded`)
-  console.dir(props.data)
+const RechartsAreaChart = (props ) => {
+
   // ** States
-  const [endDate, setEndDate] = useState(null)
   const [loaded, setLoaded] = useState(false)
-  const [startDate, setStartDate] = useState(new Date())
   const [visibleData, setVisibleData] = useState()
-  const [alignment, setAlignment] = useState('All');
   const [series, setSeries] = useState()
 
   useEffect(() => {
@@ -68,7 +64,7 @@ const RechartsAreaChart = (props, {direction}) => {
       setVisibleData(props.data)
       setLoaded(true)
     }  
-    console.log(`Data: ${JSON.stringify(props.data)}`)
+
   }, [props.data])
 
   const CustomInput = forwardRef((props, ref) => {
