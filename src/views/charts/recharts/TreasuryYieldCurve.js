@@ -120,7 +120,7 @@ const TreasuryYieldCurve = ({ direction }) => {
               <XAxis dataKey="name" data={series[0].data} type="category" allowDuplicatedCategory={false} >
                 <Label value="Residual Maturity" offset={0} position="bottom" />
               </XAxis>
-              <YAxis type="number" axisLine={false} domain={["aut0", "auto"]} tickFormatter={formatYAxis}/>       
+              <YAxis type="number" axisLine={false} domain={["auto", "auto"]} tickFormatter={formatYAxis}/>       
               <Line dataKey="val" data={series[0].data} name={series[0].name} key={series[0].name} dot={false} type="monotone" stroke={lineColours[0]} strokeWidth={3} connectNulls={true}/>
               <Line dataKey="val" data={series[1].data} name={series[1].name} key={series[1].name} dot={false} type="monotone" stroke={lineColours[1]} strokeWidth={2}  connectNulls={true}/>
               <Line dataKey="val" data={series[2].data} name={series[2].name} key={series[2].name} dot={false} type="monotone" stroke={lineColours[2]} strokeWidth={2}  connectNulls={true}/>

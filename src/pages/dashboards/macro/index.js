@@ -1,6 +1,9 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
+// ** React Imports
+import { useEffect, useState } from 'react'
+
 // ** Icon Imports
 import Link from 'mdi-material-ui/Link'
 import CartPlus from 'mdi-material-ui/CartPlus'
@@ -22,19 +25,36 @@ import AnalyticsTotalRevenue from 'src/views/dashboards/analytics/AnalyticsTotal
 import AnalyticsSalesCountry from 'src/views/dashboards/analytics/AnalyticsSalesCountry'
 import AnalyticsCongratulations from 'src/views/dashboards/analytics/AnalyticsCongratulations'
 import AnalyticsActivityTimeline from 'src/views/dashboards/analytics/AnalyticsActivityTimeline'
-import EmbeddedChart from 'src/views/dashboards/analytics/EmbeddedChart'
+import EmbeddedChart from 'src/views/charts/EmbeddedChart'
 import AnalyticsProjectStatistics from 'src/views/dashboards/analytics/AnalyticsProjectStatistics'
 import AnalyticsTopReferralSources from 'src/views/dashboards/analytics/AnalyticsTopReferralSources'
 import iAnalyticsTopReferralSources from 'src/views/dashboards/analytics/AnalyticsTopReferralSources'
 import TreasuryYieldCurve from 'src/views/charts/recharts/TreasuryYieldCurve'
 import TreasuryYieldCurveSpread from 'src/views/charts/recharts/TreasuryYieldCurveSpread'
+import RechartsSingleLineChart from 'src/views/charts/recharts/RechartsSingleLineChart'
 
 // ** Hooks
 import { useSettings } from 'src/@core/hooks/useSettings'
 
+// ** Other Imports
+import axios from "axios";
+
 const AnalyticsDashboard = () => {
   
   const { settings } = useSettings()
+  const [fedLiquidityIndex, setFedLiquidityIndex] = useState()
+
+  useEffect(() => {
+    axios.get(`/api/getFedLiquidityIndex`)
+    .then(response => {
+      if (!response === 200) {
+        throw new Error(
+          `This is an HTTP error: The status is ${response.status}`
+        )
+      }
+      setFedLiquidityIndex(response.data)
+    })
+  }, [])
 
   return (
     <ApexChartWrapper>
@@ -46,6 +66,13 @@ const AnalyticsDashboard = () => {
        
         <Grid item xs={12} md={6}>
           <TreasuryYieldCurve direction={settings.direction} />
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <RechartsSingleLineChart
+            title='FED Liquidity Index'
+            data={fedLiquidityIndex} 
+          />
         </Grid>
 
         <Grid item xs={12} md={6}>
@@ -95,7 +122,8 @@ const AnalyticsDashboard = () => {
             title='Gaming Equities'
             chartSrc="https://app.koyfin.com/share/0f74e38dd1/simple"
           />
-        </Grid> 
+        </Grid>
+                
       </Grid>
     </ApexChartWrapper>
   )

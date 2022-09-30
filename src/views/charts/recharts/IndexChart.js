@@ -13,6 +13,7 @@ import TableBasic from 'src/views/table/data-grid/TableBasic'
 
 // Custom Imports
 import { formatTokenName, MONTH_NAMES, LINE_COLOURS } from '../chartUtils'
+import { TimeToggleButtonsLight } from '../../components/TimeToggleButtonsLight'
 
 // ** Third Party Imports
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Surface, Symbols } from 'recharts'
@@ -22,7 +23,7 @@ const RechartsLineChart = ({ direction }) => {
 
   const [series, setSeries] = useState()
   const [visibleData, setVisibleData] = useState()
-  const [loading, setLoading] = useState(true);
+  const [loaded, setLoaded] = useState(false);
   const [disabled, setDisabled] = useState([""])
   const pairs = {}
 
@@ -36,74 +37,13 @@ const RechartsLineChart = ({ direction }) => {
         }
         setSeries(response.data)
         setVisibleData(response.data)
-        setLoading(false)
+        setLoaded(true)
       })
   }, []);
-
-  function formatYAxis(value) {
-    return abbreviate(value, 2, false, false)
-  }
 
   function formatXAxis(value) {
     let date = new Date(value)
     return `${MONTH_NAMES[date.getMonth()]}/${date.getYear()-100}`;
-  }
-
-  function abbreviate(number, maxPlaces, forcePlaces, forceLetter) {
-    number = Number(number)
-    forceLetter = forceLetter || false
-    if(forceLetter !== false) {
-      return annotate(number, maxPlaces, forcePlaces, forceLetter)
-    }
-    var abbr
-    if(number >= 1e12) {
-      abbr = 'T'
-    }
-    else if(number >= 1e9) {
-      abbr = 'B'
-    }
-    else if(number >= 1e6) {
-      abbr = 'M'
-    }
-    else if(number >= 1e3) {
-      abbr = 'K'
-    }
-    else {
-      abbr = ''
-    }
-    return annotate(number, maxPlaces, forcePlaces, abbr)
-  }
-  
-  function annotate(number, maxPlaces, forcePlaces, abbr) {
-    // set places to false to not round
-    var rounded = 0
-    switch(abbr) {
-      case 'T':
-        rounded = number / 1e12
-        break
-      case 'B':
-        rounded = number / 1e9
-        break
-      case 'M':
-        rounded = number / 1e6
-        break
-      case 'K':
-        rounded = number / 1e3
-        break
-      case '':
-        rounded = number
-        break
-    }
-    if(maxPlaces !== false) {
-      var test = new RegExp('\\.\\d{' + (maxPlaces + 1) + ',}$')
-      if(test.test(('' + rounded))) {
-        rounded = rounded.toFixed(maxPlaces)
-      }
-    }
-    if(forcePlaces !== false) {
-      rounded = Number(rounded).toFixed(forcePlaces)
-    }
-    return rounded + abbr
   }
 
   const formatDate = (timestamp) => {
@@ -111,7 +51,7 @@ const RechartsLineChart = ({ direction }) => {
     return `${date.getDate()}/${MONTH_NAMES[date.getMonth()]}/${date.getYear()-100}`
   }
 
-  const CustomTooltip = ({ active, payload, label }) => {
+  const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
         <Card>
@@ -134,7 +74,7 @@ const RechartsLineChart = ({ direction }) => {
     return null;
   };
 
-  const handleClick = dataKey => {
+  const handleLegendClick = dataKey => {
     if (_.includes(disabled, dataKey)) {
       setDisabled(disabled.filter(obj => obj !== dataKey));
     } else {
@@ -156,7 +96,7 @@ const RechartsLineChart = ({ direction }) => {
 
           return (
             <ul
-              onClick={() => handleClick(dataKey)}
+              onClick={() => handleLegendClick(dataKey)}
               style={style}
             >
               <Surface width={10} height={10} viewBox="0 0 10 10">
@@ -179,36 +119,6 @@ const RechartsLineChart = ({ direction }) => {
     );
   }
   
-  if (loading) {
-    return (
-      <Card>
-        <CardHeader
-          title='BIT1 Token Assets (Eth Denominated)'
-          titleTypographyProps={{ variant: 'h6' }}
-          sx={{
-            flexDirection: ['column', 'row'],
-            alignItems: ['flex-start', 'center'],
-            '& .MuiCardHeader-action': { mb: 0 },
-            '& .MuiCardHeader-content': { mb: [2, 0] }
-          }}
-          action={
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Typography variant='h6' sx={{ mr: 5 }}></Typography>
-            </Box>
-          }
-          
-        />
-        <CardContent>
-          <Box sx={{ height: 400, width: 1250 }}>
-            <ResponsiveContainer width="100%" height="100%">
-              <div><p>Loading...</p></div>
-            </ResponsiveContainer>
-          </Box>
-        </CardContent>
-      </Card>
-    )
-  } 
-
   const changePeriod = async (period) => {
     
     const DAY_MS = 86400000
@@ -252,9 +162,9 @@ const RechartsLineChart = ({ direction }) => {
     })
     setVisibleData(tempArray)
   }
-  
-  return (
-    <>
+
+  if (!loaded) {
+    return (
       <Card>
         <CardHeader
           title='BIT1 Token Assets (Eth Denominated)'
@@ -267,56 +177,85 @@ const RechartsLineChart = ({ direction }) => {
           }}
           action={
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Typography variant='h6' sx={{ mr: 5 }}>
-              </Typography>
-              <div>
-                  <Button size='small' sx={{ mr: 3.5 }} variant='outlined' onClick={() => changePeriod('ALL')}> All</Button>
-                  <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('1Y')}> 1Y </Button>
-                  <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('YTD')}> YTD </Button>
-                  <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('180D')}> 180D </Button>
-                  <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('90D')}> 90D </Button>
-                  <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('30D')}> 30D </Button>
-              </div>
+              <Typography variant='h6' sx={{ mr: 5 }}></Typography>
             </Box>
           }
+          
         />
         <CardContent>
           <Box sx={{ height: 400, width: 1250 }}>
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart margin={{ top: 15, right: 30, left: 30, bottom: 5 }} width={500} height={500} data={visibleData}>
-                <CartesianGrid strokeDasharray="3 3"/>
-                <XAxis dataKey="time" tickFormatter={formatXAxis} minTickGap={150} allowDuplicatedCategory={false} type="number" domain={['dataMin', 'dataMax']}/>
-                <YAxis label={{ value: 'ETH', angle: -90, position: 'insideLeft', offset: -20}}/>          
-                {
-                visibleData.map((element, index) => {
-                  return {
-                    "data" : element, 
-                    "colour" : LINE_COLOURS[index]
-                  }
-                }).filter(pair => !disabled.includes(pair.data.name))
-                .map((pair) => (
-                    <Line dataKey="eth_value" data={pair.data.data} name={pair.data.name} key={pair.data.name} dot={false} stroke={pair.colour} strokeWidth={2}/>
-                  ))
-                }
-                <Tooltip content={<CustomTooltip />} offset={200}/>
-                <Legend content={renderLegend} layout="vertical" verticalAlign="middle" align="right"
-                  payload={ visibleData.map((element, index) => {
+              <div><p>Loading...</p></div>
+            </ResponsiveContainer>
+          </Box>
+        </CardContent>
+      </Card>
+    )
+  } else {
+
+    return (
+        <Card>
+          <CardHeader
+            title='BIT1 Token Assets (Eth Denominated)'
+            titleTypographyProps={{ variant: 'h6' }}
+            sx={{
+              flexDirection: ['column', 'row'],
+              alignItems: ['flex-start', 'center'],
+              '& .MuiCardHeader-action': { mb: 0 },
+              '& .MuiCardHeader-content': { mb: [2, 0] }
+            }}
+            action={
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Typography variant='h6' sx={{ mr: 5 }}>
+                </Typography>
+
+                <div>
+                    <Button size='small' sx={{ mr: 3.5 }} variant='outlined' onClick={() => changePeriod('ALL')}> All</Button>
+                    <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('1Y')}> 1Y </Button>
+                    <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('YTD')}> YTD </Button>
+                    <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('180D')}> 180D </Button>
+                    <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('90D')}> 90D </Button>
+                    <Button size='small' sx={{ mr: 3.5 }} variant='contained' onClick={() => changePeriod('30D')}> 30D </Button>
+                </div>
+              </Box>
+            }
+          />
+          <CardContent>
+            <Box sx={{ height: 400, width: 1250 }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart margin={{ top: 15, right: 30, left: 30, bottom: 5 }} width={500} height={500} data={visibleData}>
+                  <CartesianGrid strokeDasharray="3 3"/>
+                  <XAxis dataKey="time" tickFormatter={formatXAxis} minTickGap={150} allowDuplicatedCategory={false} type="number" domain={['dataMin', 'dataMax']}/>
+                  <YAxis label={{ value: 'ETH', angle: -90, position: 'insideLeft', offset: -20}}/>          
+                  {
+                  visibleData.map((element, index) => {
                     return {
                       "data" : element, 
                       "colour" : LINE_COLOURS[index]
-                    }})}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </Box>
-          <TableBasic >
-            data={series}
-          </TableBasic>
-        </CardContent>
-      </Card>
-     
-    </>
-  )
+                    }
+                  }).filter(pair => !disabled.includes(pair.data.name))
+                  .map((pair) => (
+                      <Line dataKey="eth_value" data={pair.data.data} name={pair.data.name} key={pair.data.name} dot={false} stroke={pair.colour} strokeWidth={2}/>
+                    ))
+                  }
+                  <Tooltip content={<CustomTooltip />} offset={200}/>
+                  <Legend content={renderLegend} layout="vertical" verticalAlign="middle" align="right"
+                    payload={ visibleData.map((element, index) => {
+                      return {
+                        "data" : element, 
+                        "colour" : LINE_COLOURS[index]
+                      }})}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </Box>
+            <TableBasic >
+              data={series}
+            </TableBasic>
+          </CardContent>
+        </Card>
+    )
+  }
 }
 
 export default RechartsLineChart

@@ -4,7 +4,7 @@ const client = new MongoClient(url);
 const dbName = "historical_price_data";
 
 export default async function handler(req, res) {
-  console.log("getBtcData endpoint invoked")
+
     try {
         // connect to mongodb cloud database
         await client.connect();
