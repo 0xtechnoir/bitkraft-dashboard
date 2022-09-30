@@ -91,6 +91,7 @@ const AnalyticsDashboard = () => {
             chartSrc="https://embed.theblockcrypto.com/data/crypto-markets/prices/bitcoin-dominance/embed"
           />
         </Grid>
+        
         <Grid item xs={12} md={6}>
           <RechartsLineChart direction={settings.direction} />
         </Grid>

@@ -11,7 +11,7 @@ import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 // ** Third Party Imports
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, Label } from 'recharts'
 import axios from 'axios'
 
 import { LINE_COLOURS, MONTH_NAMES, changePeriodSimple, formatXAxis, abbreviate } from '../chartUtils'
@@ -97,14 +97,17 @@ const RechartsLineChart = (props) => {
                 data={visibleData} 
                 margin={{
                   top: 5,
-                  right: 30,
-                  left: 40,
+                  right: 85,
+                  left: 30,
                   bottom: 5,
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3"/>
-                <XAxis dataKey={Object.keys(visibleData[0])[1]} tickFormatter={formatXAxis} interval="preserveStartEnd" allowDuplicatedCategory={false}/>
+                <XAxis dataKey={Object.keys(visibleData[0])[1]} tickFormatter={formatXAxis} minTickGap={30} />
                 <YAxis padding={{ left: 60 }} tickFormatter={formatYAxis}/>
+                <ReferenceLine y={visibleData[visibleData.length-1]["liquidity_index"]} stroke="black" strokeDasharray= "3 3" alwaysShow>
+                  <Label value={formatYAxis(visibleData[visibleData.length-1]["liquidity_index"])} position="right" fill="red" />
+                </ReferenceLine>
                 <Line type="monotone" dataKey={Object.keys(visibleData[0])[2]} stroke={LINE_COLOURS[0]} dot={false} />
                 <Tooltip />
               </LineChart>
