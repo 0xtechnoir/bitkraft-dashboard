@@ -29,6 +29,7 @@ import RechartsLineChart from 'src/views/charts/recharts/RechartsLineChart'
 import PortfolioPerformanceTracker from 'src/views/charts/recharts/PortfolioPerformanceTracker'
 import IndexChart from 'src/views/charts/recharts/IndexChart'
 import RechartsAreaChart from 'src/views/charts/recharts/RechartsAreaChart'
+import TokenWatchList from 'src/views/table/data-grid/TokenWatchList'
 
 // ** React Imports
 import { useEffect, useState } from 'react'
@@ -57,6 +58,17 @@ const AnalyticsDashboard = () => {
     })
   }, [])
  
+  useEffect(() => {
+    axios.get(`/api/getTokenWatchlistData`)
+    .then(response => {
+      if (!response === 200) {
+        throw new Error(
+          `This is an HTTP error: The status is ${response.status}`
+        )
+      }
+      // setExchangeOpenInterest(response.data)
+    })
+  }, [])
 
   return (
     <ApexChartWrapper>
@@ -104,6 +116,10 @@ const AnalyticsDashboard = () => {
           <IndexChart direction={settings.direction} />
         </Grid>
         
+        <Grid item xs={12} md={12}>
+          <TokenWatchList direction={settings.direction} />
+        </Grid>
+
         <Grid item xs={12} md={6}>
           <EmbeddedChart 
             title='Daily New Unique Addresses for EVM-Chains'
