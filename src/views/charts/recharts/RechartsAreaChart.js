@@ -118,9 +118,9 @@ const RechartsAreaChart = (props ) => {
         <CardContent>
         <Box sx={{ height: 350 }}>
             <ResponsiveContainer>
-          <div>
-            <p>Loading</p>
-          </div>
+              <div>
+                <p>Loading</p>
+              </div>
           </ResponsiveContainer>
           </Box>
         </CardContent>

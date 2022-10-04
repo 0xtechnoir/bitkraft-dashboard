@@ -1,6 +1,8 @@
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardHeader from '@mui/material/CardHeader'
 import { DataGrid } from '@mui/x-data-grid'
 import { formatTokenName, getDayOfYear } from '../../charts/chartUtils'
 import { clsx } from 'clsx';
@@ -243,36 +245,62 @@ const TableBasic = (props) => {
   })
 
   return (
-    <Card>
-      <Box sx={{ 
-        height: 500,
-        '& .super-app.negative': {
-          color: 'red',
-          fontWeight: '600',
-        },
-        '& .super-app.positive': {
-          color: 'green',
-          fontWeight: '600',
-        },
-        }}>
-        <p>ETH</p>
-        <DataGrid align='center' columns={columnsETH} rows={mappedDataETH.slice(0, 7)} />
-      </Box>
-      <Box sx={{ 
-        height: 500,
-        '& .super-app.negative': {
-          color: 'red',
-          fontWeight: '600',
-        },
-        '& .super-app.positive': {
-          color: 'green',
-          fontWeight: '600',
-        },
-        }}>
-        <p>USD</p>
-        <DataGrid align='center' columns={columnsUSD} rows={mappedDataUSD.slice(0, 7)} />
-      </Box>
+    <>
+      <Card>
+        <CardHeader
+          title="ETH"
+          titleTypographyProps={{ variant: 'h6' }}
+          sx={{
+            flexDirection: ['column', 'row'],
+            alignItems: ['flex-start', 'center'],
+            '& .MuiCardHeader-action': { mb: 0 },
+            '& .MuiCardHeader-content': { mb: [2, 0] }
+          }}
+          />
+        <CardContent>
+          <Box sx={{ 
+            height: 500,
+            '& .super-app.negative': {
+              color: 'red',
+              fontWeight: '600',
+            },
+            '& .super-app.positive': {
+              color: 'green',
+              fontWeight: '600',
+            },
+            }}>
+            <DataGrid align='center' columns={columnsETH} rows={mappedDataETH.slice(0, 7)} />
+          </Box>
+        </CardContent>
+      </Card>
+      <Card>
+      <CardHeader
+        title="USD"
+        titleTypographyProps={{ variant: 'h6' }}
+        sx={{
+          flexDirection: ['column', 'row'],
+          alignItems: ['flex-start', 'center'],
+          '& .MuiCardHeader-action': { mb: 0 },
+          '& .MuiCardHeader-content': { mb: [2, 0] }
+        }}
+        />
+      <CardContent>
+        <Box sx={{ 
+          height: 500,
+          '& .super-app.negative': {
+            color: 'red',
+            fontWeight: '600',
+          },
+          '& .super-app.positive': {
+            color: 'green',
+            fontWeight: '600',
+          },
+          }}>
+          <DataGrid align='center' columns={columnsUSD} rows={mappedDataUSD.slice(0, 7)} />
+        </Box>
+      </CardContent>
     </Card>
+   </>
   )
 }
 
