@@ -50,14 +50,14 @@ const AnalyticsDashboard = () => {
           <TokenWatchlistTable direction={settings.direction} 
             title='Token Watchlist'
             endpoint='getTokenWatchlistData'
-            height={300}
+            height={550}
           />
         </Grid>
         <Grid item xs={12} md={12}>
           <TokenWatchlistTable direction={settings.direction} 
             title='Top 20 by Market Cap'
             endpoint='getTop20ByMarketCap'
-            height={800}
+            height={1150}
           />
         </Grid>
         <Grid item xs={12} md={6}>

@@ -5,7 +5,7 @@ import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
-import { DataGrid } from '@mui/x-data-grid'
+import { DataGrid, GridValueFormatterParams } from '@mui/x-data-grid'
 import { clsx } from 'clsx';
 
 import axios from 'axios'
@@ -23,9 +23,37 @@ const tokenListColumns = [
     flex: 0.12,
     minWidth: 20,
     field: 'price',
-    headerName: 'Price ($)',
+    headerName: 'Price',
     headerAlign: 'center',
-    align: 'right'
+    align: 'right',
+    type: 'number',
+    valueFormatter: (params) => {
+      if (params.value == null) {
+        return '';
+      }
+      let result
+      const val = parseFloat(params.value)
+
+      if (val > 1) {
+        result = val.toFixed(2)
+      } else if (val <= 1 && val > 0.01) {
+        result = val.toFixed(3)
+      } else if (val <= 0.01 && val > 0.001) {
+        result = val.toFixed(4)
+      } else if (val <= 0.001 && val > 0.0001) {
+        result = val.toFixed(5)
+      } else if (val <= 0.0001 && val > 0.00001) {
+        result = val.toFixed(6)
+      } else if (val <= 0.00001 && val > 0.000001) {
+        result = val.toFixed(7)
+      } else if (val <= 0.000001 && val > 0.0000001) {
+        result = val.toFixed(8)
+      } else {
+        result = val.toFixed(9)
+      }
+
+      return `$${result}`;
+    },
   },
   {
     flex: 0.1,
@@ -110,20 +138,34 @@ const tokenListColumns = [
     },
   },
   {
-    flex: 0.1,
+    flex: 0.11,
     field: 'volume_24h',
     minWidth: 20,
     headerName: '24h Vol',
     headerAlign: 'center',
     align: 'right',
+    valueFormatter: (params) => {
+      if (params.value == null) {
+        return '';
+      }
+
+      return `$${params.value}`;
+    },
   },
   {
-    flex: 0.1,
+    flex: 0.11,
     field: 'market_cap',
     minWidth: 20,
     headerName: 'MC',
     headerAlign: 'center',
     align: 'right',
+    valueFormatter: (params) => {
+      if (params.value == null) {
+        return '';
+      }
+
+      return `$${params.value}`;
+    },
   },
   {
     flex: 0.125,
@@ -142,12 +184,20 @@ const tokenListColumns = [
     align: 'right',
   },
   {
-    flex: 0.09,
+    flex: 0.11,
     field: 'fdv',
     minWidth: 20,
     headerName: 'FDV',
     headerAlign: 'center',
     align: 'right',
+    valueFormatter: (params) => {
+      if (params.value == null || params.value == '-') {
+        return '-';
+      }
+
+      return `$${params.value}`;
+    },
+    
   },
   {
     flex: 0.11,
@@ -161,9 +211,16 @@ const tokenListColumns = [
     flex: 0.08,
     field: 'pc_circulating',
     minWidth: 20,
-    headerName: 'Circ %',
+    headerName: 'Circ',
     headerAlign: 'center',
     align: 'right',
+    valueFormatter: (params) => {
+      if (params.value == null) {
+        return '';
+      }
+
+      return `${params.value}%`;
+    },
   }
 ]
 
