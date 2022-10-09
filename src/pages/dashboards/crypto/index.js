@@ -3,6 +3,8 @@ import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 import EmbeddedChart from 'src/views/charts/EmbeddedChart'
 import RechartsLineChart from 'src/views/charts/recharts/RechartsLineChart'
 import IndexChart from 'src/views/charts/recharts/IndexChart'
+import IndexedTokenWatchListChart from 'src/views/charts/recharts/IndexedTokenWatchListChart'
+
 import RechartsAreaChart from 'src/views/charts/recharts/RechartsAreaChart'
 import TokenWatchlistTable from 'src/views/table/data-grid/TokenWatchlistTable'
 import { useEffect, useState } from 'react'
@@ -44,7 +46,15 @@ const AnalyticsDashboard = () => {
           <RechartsLineChart direction={settings.direction} />
         </Grid>
         <Grid item xs={12} md={12}>
-          <IndexChart direction={settings.direction} />
+          <IndexChart direction={settings.direction} 
+            endpoint='getIndexedAssetData'
+          />
+        </Grid>  
+        <Grid item xs={12} md={12}>
+          <IndexedTokenWatchListChart direction={settings.direction} 
+            endpoint='getTokenWatchlistChartData'
+            title='Indexed Token Watchlist (USD)'
+          />
         </Grid>     
         <Grid item xs={12} md={12}>
           <TokenWatchlistTable direction={settings.direction} 

@@ -30,6 +30,7 @@ export default async function handler(req, res) {
 
             results[i] = resultsObj
         }
+        // console.dir(results[0].data)
         
         res.send(results);
 
