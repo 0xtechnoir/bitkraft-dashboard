@@ -35,8 +35,6 @@ const RechartsLineChart = (props) => {
 
   function formatXAxis(value) {
     return formatDate(value)
-    // let date = new Date(value)
-    // return `${date.getDate()/MONTH_NAMES[date.getMonth()]}/${date.getYear()-100}`;
   }
 
   const formatDate = (timestamp) => {
@@ -257,7 +255,7 @@ const RechartsLineChart = (props) => {
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart margin={{ top: 15, right: 30, left: 30, bottom: 5 }} width={500} height={500} data={visibleData}>
                   <CartesianGrid strokeDasharray="3 3"/>
-                  <XAxis tickCount="10" minTickGap="150" dataKey="timestamp" tickFormatter={formatXAxis} allowDuplicatedCategory={false} type="catagory" domain={['dataMin', 'dataMax']}/>
+                  <XAxis minTickGap="150" dataKey="timestamp" tickFormatter={formatXAxis} allowDuplicatedCategory={false} type="catagory" domain={['dataMin', 'dataMax']}/>
                   <YAxis tickFormatter={formatYAxis} />
                   <ReferenceLine y={100} stroke="black" strokeDasharray="3 3" strokeWidth="2" />          
                   {
