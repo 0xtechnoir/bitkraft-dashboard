@@ -5,6 +5,7 @@ import RechartsLineChart from 'src/views/charts/recharts/RechartsLineChart'
 import IndexChart from 'src/views/charts/recharts/IndexChart'
 import RechartsAreaChart from 'src/views/charts/recharts/RechartsAreaChart'
 import TokenWatchlistTable from 'src/views/table/data-grid/TokenWatchlistTable'
+import TokenUnlockTable from 'src/views/table/data-grid/TokenUnlockTable'
 import { useEffect, useState } from 'react'
 import { useSettings } from 'src/@core/hooks/useSettings'
 import axios from "axios";
@@ -43,9 +44,16 @@ const AnalyticsDashboard = () => {
         <Grid item xs={12} md={6}>
           <RechartsLineChart direction={settings.direction} />
         </Grid>
+        <Grid item xs={12} md={6}>
+          <TokenUnlockTable direction={settings.direction} 
+            title='Token Unlocks'
+          />
+        </Grid>  
         <Grid item xs={12} md={12}>
           <IndexChart direction={settings.direction} />
-        </Grid>     
+        </Grid>  
+
+
         <Grid item xs={12} md={12}>
           <TokenWatchlistTable direction={settings.direction} 
             title='Token Watchlist'
