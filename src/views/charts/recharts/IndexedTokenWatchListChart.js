@@ -8,7 +8,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import _ from 'lodash';
 import { MONTH_NAMES, LINE_COLOURS } from '../chartUtils'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Surface, Symbols, ReferenceLine } from 'recharts'
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Surface, Symbols, ReferenceLine, Label, LabelList } from 'recharts'
 import axios from 'axios'
 
 const RechartsLineChart = (props) => {
@@ -63,7 +63,7 @@ const RechartsLineChart = (props) => {
     }
     return null;
   };
-
+  
   const handleLegendClick = dataKey => {
     if (_.includes(disabled, dataKey)) {
       setDisabled(disabled.filter(obj => obj !== dataKey));
@@ -73,14 +73,18 @@ const RechartsLineChart = (props) => {
   };
 
   const renderLegend = ({payload}) => {
+    console.log(`payload legend: ${JSON.stringify(payload)}`)
+    
     return (
-      <div>
+      <div >
         {payload.map(entry => {
           const dataKey = entry.data.token
+          const value = (entry.data.data[entry.data.data.length-1]["indexed_usd_value"]-100).toFixed(0)
           const colour = entry.colour;
           const active = _.includes(disabled, dataKey);
           const style = {
-            marginRight: 10,
+            marginRight: -80,
+            marginLeft: 30,
             color: active ? "#AAA" : "#000"
           };
 
@@ -89,7 +93,7 @@ const RechartsLineChart = (props) => {
               onClick={() => handleLegendClick(dataKey)}
               style={style}
             >
-              <Surface width={10} height={10} viewBox="0 0 10 10">
+              <Surface width={20} height={10} viewBox="0 0 10 10" margin={{ top: 0, left: 500, right: 20, bottom: 0 }}>
                 <Symbols cx={5} cy={5} type="circle" size={50} fill={colour} />
                 {active && (
                   <Symbols
@@ -101,7 +105,7 @@ const RechartsLineChart = (props) => {
                   />
                 )}
               </Surface>
-              <span>{dataKey}</span>
+              <span>{`${value}% : ${dataKey}`}</span>
             </ul>
           )
         })}
@@ -255,8 +259,8 @@ const RechartsLineChart = (props) => {
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart margin={{ top: 15, right: 30, left: 30, bottom: 5 }} width={500} height={500} data={visibleData}>
                   <CartesianGrid strokeDasharray="3 3"/>
-                  <XAxis minTickGap="150" dataKey="timestamp" tickFormatter={formatXAxis} allowDuplicatedCategory={false} type="catagory" domain={['dataMin', 'dataMax']}/>
-                  <YAxis tickFormatter={formatYAxis} />
+                  <XAxis dataKey="timestamp" tickFormatter={formatXAxis} allowDuplicatedCategory={false} type="catagory" domain={['dataMin', 'dataMax']}/>
+                  <YAxis orientation="right" tickFormatter={formatYAxis} />
                   <ReferenceLine y={100} stroke="black" strokeDasharray="3 3" strokeWidth="2" />          
                   {
                     visibleData.map((element, index) => {
@@ -267,11 +271,24 @@ const RechartsLineChart = (props) => {
                     })
                     .filter(pair => !disabled.includes(pair.data.token))
                     .map((pair) => (
-                      <Line dataKey="indexed_usd_value" data={pair.data.data} name={pair.data.token} key={pair.data.token} dot={false} stroke={pair.colour} strokeWidth={2}/>
+                      <>
+                        <Line dataKey="indexed_usd_value" 
+                          data={pair.data.data} 
+                          name={pair.data.token} 
+                          key={pair.data.token} 
+                          dot={false} 
+                          stroke={pair.colour} 
+                          strokeWidth={2}
+                        />
+
+                         {/* <ReferenceLine y={pair.data.data[pair.data.data.length-1]["indexed_usd_value"]} stroke={pair.colour} strokeDasharray= "3 3" strokeWidth={0} >
+                           <Label style={{marginBottom: 20, marginTop: 10}} value={pair.data.data[pair.data.data.length-1]["indexed_usd_value"].toFixed(0)-100} position="right" stroke={pair.colour} />                        
+                         </ReferenceLine> */}
+                      </>
                     ))
                   }
                   <Tooltip content={<CustomTooltip />} offset={200}/>
-                  <Legend content={renderLegend} layout="vertical" verticalAlign="middle" align="right"
+                  <Legend content={renderLegend} layout="vertical" verticalAlign="middle" align="right" 
                     payload={ visibleData.map((element, index) => {
                       return {
                         "data" : element, 
