@@ -3,6 +3,10 @@ import { useEffect, useState } from 'react'
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
+import Collapse from '@mui/material/Collapse';
+import IconButton from '@mui/material/IconButton';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
 import { DataGrid, GridValueFormatterParams } from '@mui/x-data-grid'
@@ -228,6 +232,7 @@ const TokenWatchListTable = (props) => {
 
   const [data, setData] = useState()
   const [loaded, setLoaded] = useState(false);
+  const [open, setOpen] = useState(false);
   
   useEffect(() => {
     axios.post(`/api/${props.endpoint}`)
@@ -277,7 +282,9 @@ const TokenWatchListTable = (props) => {
   } else {
     return (
       <Card>
+       
         <CardHeader
+    
           title={props.title}
           titleTypographyProps={{ variant: 'h6' }}
           sx={{
@@ -286,21 +293,35 @@ const TokenWatchListTable = (props) => {
             '& .MuiCardHeader-action': { mb: 0 },
             '& .MuiCardHeader-content': { mb: [2, 0] }
           }}
-        />
+          action={
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <IconButton
+                aria-label="expand row"
+                size="small"
+                onClick={() => setOpen(!open)}
+                >
+                {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+              </IconButton>
+            </Box>
+          }
+         
+         />
         <CardContent>
-          <Box sx={{ 
-            height: props.height,
-            '& .super-app.negative': {
-              color: 'red',
-              fontWeight: '600',
-            },
-            '& .super-app.positive': {
-              color: 'green',
-              fontWeight: '600',
-            },
-            }}>
-            <DataGrid align='center' columns={tokenListColumns} rows={data} />
-          </Box>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <Box sx={{ 
+              height: props.height,
+              '& .super-app.negative': {
+                color: 'red',
+                fontWeight: '600',
+              },
+              '& .super-app.positive': {
+                color: 'green',
+                fontWeight: '600',
+              },
+              }}>
+                <DataGrid align='center' columns={tokenListColumns} rows={data} />
+            </Box>
+          </Collapse>
         </CardContent>
       </Card>
     )
