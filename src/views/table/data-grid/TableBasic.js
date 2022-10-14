@@ -205,7 +205,7 @@ const columnsUSD = [
 
 const TableBasic = (props) => {
 
-  const [openETH, setOpenETH] = useState(false);
+  const [openETH, setOpenETH] = useState(true);
   const [openUSD, setOpenUSD] = useState(false);
 
   const rawData = props.children[1]
@@ -296,6 +296,7 @@ const TableBasic = (props) => {
           </Collapse>
         </CardContent>
       </Card>
+      <br/>
       <Card>
       <CardHeader
         title="USD"
