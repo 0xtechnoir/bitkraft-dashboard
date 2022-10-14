@@ -1,8 +1,12 @@
-// ** MUI Imports
+import { useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
+import Collapse from '@mui/material/Collapse';
+import IconButton from '@mui/material/IconButton';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { DataGrid } from '@mui/x-data-grid'
 import { formatTokenName, getDayOfYear } from '../../charts/chartUtils'
 import { clsx } from 'clsx';
@@ -200,6 +204,10 @@ const columnsUSD = [
 ]
 
 const TableBasic = (props) => {
+
+  const [openETH, setOpenETH] = useState(false);
+  const [openUSD, setOpenUSD] = useState(false);
+
   const rawData = props.children[1]
   const currentDayOfYear = getDayOfYear()
   // map raw data into an array that can be displayed in the table
@@ -256,21 +264,36 @@ const TableBasic = (props) => {
             '& .MuiCardHeader-action': { mb: 0 },
             '& .MuiCardHeader-content': { mb: [2, 0] }
           }}
-          />
+          action={
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <IconButton
+                aria-label="expand row"
+                size="small"
+                onClick={() => setOpenETH(!openETH)}
+                >
+                {openETH ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+              </IconButton>
+            </Box>
+          }
+        />
         <CardContent>
-          <Box sx={{ 
-            height: 500,
-            '& .super-app.negative': {
-              color: 'red',
-              fontWeight: '600',
-            },
-            '& .super-app.positive': {
-              color: 'green',
-              fontWeight: '600',
-            },
-            }}>
-            <DataGrid align='center' columns={columnsETH} rows={mappedDataETH.slice(0, 7)} />
-          </Box>
+          <Collapse in={openETH} timeout="auto" unmountOnExit>
+            <Box 
+              sx={{ 
+                height: 500,
+                '& .super-app.negative': {
+                  color: 'red',
+                  fontWeight: '600',
+                },
+                '& .super-app.positive': {
+                  color: 'green',
+                  fontWeight: '600',
+                },
+              }}
+            >
+              <DataGrid align='center' columns={columnsETH} rows={mappedDataETH.slice(0, 7)} />
+            </Box>
+          </Collapse>
         </CardContent>
       </Card>
       <Card>
@@ -283,21 +306,34 @@ const TableBasic = (props) => {
           '& .MuiCardHeader-action': { mb: 0 },
           '& .MuiCardHeader-content': { mb: [2, 0] }
         }}
-        />
+        action={
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <IconButton
+              aria-label="expand row"
+              size="small"
+              onClick={() => setOpenUSD(!openUSD)}
+              >
+              {openUSD ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            </IconButton>
+          </Box>
+        }
+      />
       <CardContent>
-        <Box sx={{ 
-          height: 500,
-          '& .super-app.negative': {
-            color: 'red',
-            fontWeight: '600',
-          },
-          '& .super-app.positive': {
-            color: 'green',
-            fontWeight: '600',
-          },
-          }}>
-          <DataGrid align='center' columns={columnsUSD} rows={mappedDataUSD.slice(0, 7)} />
-        </Box>
+        <Collapse in={openUSD} timeout="auto" unmountOnExit>
+          <Box sx={{ 
+            height: 500,
+            '& .super-app.negative': {
+              color: 'red',
+              fontWeight: '600',
+            },
+            '& .super-app.positive': {
+              color: 'green',
+              fontWeight: '600',
+            },
+            }}>
+            <DataGrid align='center' columns={columnsUSD} rows={mappedDataUSD.slice(0, 7)} />
+          </Box>
+        </Collapse>
       </CardContent>
     </Card>
    </>
