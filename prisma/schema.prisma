@@ -185,30 +185,30 @@ model top_20_projects_by_market_cap {
 
 model treasury_yield_curves {
   id               String @id @default(auto()) @map("_id") @db.ObjectId
-  /// Multiple data types found: Float: 98.9%, Int: 1.1% out of 1000 sampled entries
+  /// Multiple data types found: Float: 98.7%, Int: 1.3% out of 1000 sampled entries
   bc_10year        Json?
-  /// Multiple data types found: Float: 97.5%, Int: 2.5% out of 637 sampled entries
+  /// Multiple data types found: Float: 97.3%, Int: 2.7% out of 662 sampled entries
   bc_1month        Json?
-  /// Multiple data types found: Float: 99.5%, Int: 0.5% out of 1000 sampled entries
+  /// Multiple data types found: Float: 99%, Int: 1% out of 1000 sampled entries
   bc_1year         Json?
-  /// Multiple data types found: Float: 98.6%, Int: 1.4% out of 880 sampled entries
+  /// Multiple data types found: Float: 99.2%, Int: 0.8% out of 886 sampled entries
   bc_20year        Json?
   bc_2month        Float?
-  /// Multiple data types found: Float: 99.4%, Int: 0.6% out of 1000 sampled entries
+  /// Multiple data types found: Float: 99.2%, Int: 0.8% out of 1000 sampled entries
   bc_2year         Json?
-  /// Multiple data types found: Float: 98.7%, Int: 1.3% out of 876 sampled entries
+  /// Multiple data types found: Float: 98.8%, Int: 1.2% out of 867 sampled entries
   bc_30year        Json?
-  /// Multiple data types found: Float: 34.4%, Int: 65.6% out of 1000 sampled entries
+  /// Multiple data types found: Float: 35.2%, Int: 64.8% out of 1000 sampled entries
   bc_30yeardisplay Json?
-  /// Multiple data types found: Float: 99.2%, Int: 0.8% out of 999 sampled entries
+  /// Multiple data types found: Float: 98.8%, Int: 1.2% out of 1000 sampled entries
   bc_3month        Json?
   /// Multiple data types found: Float: 98.8%, Int: 1.2% out of 1000 sampled entries
   bc_3year         Json?
-  /// Multiple data types found: Float: 99.2%, Int: 0.8% out of 1000 sampled entries
-  bc_5year         Json?
   /// Multiple data types found: Float: 99.1%, Int: 0.9% out of 1000 sampled entries
+  bc_5year         Json?
+  /// Multiple data types found: Float: 98.9%, Int: 1.1% out of 1000 sampled entries
   bc_6month        Json?
-  /// Multiple data types found: Float: 98.3%, Int: 1.7% out of 1000 sampled entries
+  /// Multiple data types found: Float: 98.7%, Int: 1.3% out of 1000 sampled entries
   bc_7year         Json?
   date             String? @unique(map: "date_1")
   id_              Int    @map("id")
