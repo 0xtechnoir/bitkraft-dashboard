@@ -194,8 +194,6 @@ const RechartsLineChart = (props) => {
   } else {
 
     return (
-    <>
-      {console.log(`${props.endpoint} data: ${JSON.stringify(series)}`)}
 
         <Card>
           <CardHeader
@@ -257,7 +255,6 @@ const RechartsLineChart = (props) => {
             </TableBasic>
           </CardContent>
         </Card>
-      </>
     )
   }
 }

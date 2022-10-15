@@ -29,6 +29,8 @@ const RechartsLineChart = (props) => {
         }
         setSeries(response.data)
         setVisibleData(response.data)
+      })
+      .then(() => {
         setLoaded(true)
       })
   }, []);
@@ -73,7 +75,6 @@ const RechartsLineChart = (props) => {
   };
 
   const renderLegend = ({payload}) => {
-    console.log(`payload legend: ${JSON.stringify(payload)}`)
     
     return (
       <div >
@@ -112,6 +113,47 @@ const RechartsLineChart = (props) => {
       </div>
     );
   }
+
+  function mutateSeries (series, startTime) {
+    let tempArray = []
+    series.forEach((element, index, arr) => {
+      const dataArray = element.data
+      const filteredArray = dataArray.filter(i => i.timestamp >= startTime)
+  
+      tempArray[index] = {
+        "token": element.token,
+        "data": filteredArray
+      }
+    })
+  
+    const resultArray = tempArray.map((element) => {
+  
+      const firstValueInUSD = element.data[0]["usd_value"]
+      const firstValueInETH = element.data[0]["eth_value"]
+  
+      const newData = element.data.map((i) => {
+  
+        const currentValueInUSD = i["usd_value"]
+        const currentValueInETH = i["eth_value"]
+        const indexedValueUSD = 100 * (currentValueInUSD / firstValueInUSD)
+        const indexedValueETH = 100 * (currentValueInETH / firstValueInETH)
+  
+        return {
+          "timestamp": i["timestamp"],
+          "date": i["date"],
+          "usd_value": i["usd_value"],
+          "eth_value": i["eth_value"],
+          "indexed_usd_value": indexedValueUSD,
+          "indexed_eth_value": indexedValueETH
+        }
+      })
+      return {
+        "token": element.token,
+        "data": newData
+      }
+    })
+    return resultArray
+  }
   
   async function changePeriod (period) {
     
@@ -144,43 +186,7 @@ const RechartsLineChart = (props) => {
         startTime = 1609539760000 // 1st Jan 2021
     }
     
-    let tempArray = []
-    series.forEach((element, index, arr) => {
-      const dataArray = element.data
-      const filteredArray = dataArray.filter(i => i.timestamp >= startTime)
-
-      tempArray[index] = {
-        "token" : element.token,
-        "data" : filteredArray
-      }
-    })
-
-    const resultArray = tempArray.map((element) => {
-      // index 0 is now the baseline price from which to measure the rest of the values against
-      const firstValueInUSD = element.data[0]["usd_value"]
-      const firstValueInETH = element.data[0]["eth_value"]
-
-      const newData = element.data.map((i) => {
-
-        const currentValueInUSD = i["usd_value"]
-        const currentValueInETH = i["eth_value"]
-        const indexedValueUSD = 100 * ( currentValueInUSD / firstValueInUSD)
-        const indexedValueETH = 100 * ( currentValueInETH / firstValueInETH)
- 
-        return {
-          "timestamp" : i["timestamp"],
-          "date": i["date"],
-          "usd_value" : i["usd_value"],
-          "eth_value" : i["eth_value"],
-          "indexed_usd_value": indexedValueUSD,
-          "indexed_eth_value": indexedValueETH,
-        }
-      })
-      return {
-        "token": element.token,
-        "data": newData
-      }
-    })
+    const resultArray = mutateSeries(series, startTime)
     setVisibleData(resultArray)
   }
 
@@ -222,6 +228,7 @@ const RechartsLineChart = (props) => {
     )
   } else {   
     return (
+      
       <> 
         <Card>
           <CardHeader
@@ -269,6 +276,7 @@ const RechartsLineChart = (props) => {
                         "colour" : LINE_COLOURS[index]
                       }
                     })
+                 
                     .filter(pair => !disabled.includes(pair.data.token))
                     .map((pair) => (
                       <>
@@ -306,3 +314,5 @@ const RechartsLineChart = (props) => {
 }
 
 export default RechartsLineChart
+
+

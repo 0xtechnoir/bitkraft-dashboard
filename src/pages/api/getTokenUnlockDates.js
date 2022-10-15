@@ -13,7 +13,6 @@ export default async function handler(req, res) {
       let results = []
 
     GSheetReader(options, resp => {
-        console.log(resp)
         res.send(resp);
       }).catch(err => {
         console.log(err)
