@@ -29,8 +29,7 @@ export default async function handler(req, res) {
             }
 
             results[i] = resultsObj
-        }
-        
+        }        
         res.send(results);
 
     } catch (err) {

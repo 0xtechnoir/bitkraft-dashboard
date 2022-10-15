@@ -11,6 +11,17 @@ type EtheruemLiqudationPositionsExtra {
   url String
 }
 
+type HistoricalTokenWatchlistPriceDataData {
+  date              String
+  eth_value         Float
+  /// Multiple data types found: Float: 99.8%, Int: 0.2% out of 5104 sampled entries
+  indexed_eth_value Json
+  /// Multiple data types found: Float: 99.8%, Int: 0.2% out of 5104 sampled entries
+  indexed_usd_value Json
+  timestamp         Float
+  usd_value         Float
+}
+
 type PolygonLiqudationPositionsExtra {
   url String
 }
@@ -18,7 +29,7 @@ type PolygonLiqudationPositionsExtra {
 model alethea_artificial_liquid_intelligence_token {
   id                String @id @default(auto()) @map("_id") @db.ObjectId
   eth_value         Float
-  /// Multiple data types found: Float: 99.1%, Int: 0.9% out of 235 sampled entries
+  /// Multiple data types found: Float: 99.2%, Int: 0.8% out of 241 sampled entries
   indexed_usd_value Json
   time              Float  @unique(map: "time_1")
   usd_value         Float
@@ -26,10 +37,21 @@ model alethea_artificial_liquid_intelligence_token {
   @@map("alethea-artificial-liquid-intelligence-token")
 }
 
+model apecoin {
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  eth_value         Float
+  /// Multiple data types found: Float: 99.5%, Int: 0.5% out of 206 sampled entries
+  indexed_eth_value Json
+  /// Multiple data types found: Float: 99%, Int: 1% out of 206 sampled entries
+  indexed_usd_value Json
+  time              Float  @unique(map: "time_1")
+  usd_value         Float
+}
+
 model blackpool_token {
   id                String @id @default(auto()) @map("_id") @db.ObjectId
   eth_value         Float
-  /// Multiple data types found: Float: 99.6%, Int: 0.4% out of 497 sampled entries
+  /// Multiple data types found: Float: 99.6%, Int: 0.4% out of 503 sampled entries
   indexed_usd_value Json
   time              Float  @unique(map: "time_1")
   usd_value         Float
@@ -40,7 +62,7 @@ model blackpool_token {
 model ethereum {
   id                String @id @default(auto()) @map("_id") @db.ObjectId
   eth_value         Int
-  /// Multiple data types found: Float: 99.8%, Int: 0.2% out of 643 sampled entries
+  /// Multiple data types found: Float: 99.8%, Int: 0.2% out of 649 sampled entries
   indexed_usd_value Json
   time              Float  @unique(map: "time_1")
   usd_value         Float
@@ -55,10 +77,16 @@ model etheruem_liqudation_positions {
   owner            String
 }
 
+model historical_token_watchlist_price_data {
+  id    String                                  @id @default(auto()) @map("_id") @db.ObjectId
+  data  HistoricalTokenWatchlistPriceDataData[]
+  token String                                  @unique(map: "token_1")
+}
+
 model immutable_x {
   id                String @id @default(auto()) @map("_id") @db.ObjectId
   eth_value         Float
-  /// Multiple data types found: Float: 99.4%, Int: 0.6% out of 336 sampled entries
+  /// Multiple data types found: Float: 99.4%, Int: 0.6% out of 342 sampled entries
   indexed_usd_value Json
   time              Float  @unique(map: "time_1")
   usd_value         Float
@@ -69,7 +97,7 @@ model immutable_x {
 model matic_network {
   id                String @id @default(auto()) @map("_id") @db.ObjectId
   eth_value         Float
-  /// Multiple data types found: Float: 99.8%, Int: 0.2% out of 643 sampled entries
+  /// Multiple data types found: Float: 99.8%, Int: 0.2% out of 649 sampled entries
   indexed_usd_value Json
   time              Float  @unique(map: "time_1")
   usd_value         Float
@@ -89,7 +117,7 @@ model polygon_liqudation_positions {
 model rainbow_token_2 {
   id                String @id @default(auto()) @map("_id") @db.ObjectId
   eth_value         Float
-  /// Multiple data types found: Float: 99%, Int: 1% out of 200 sampled entries
+  /// Multiple data types found: Float: 99%, Int: 1% out of 206 sampled entries
   indexed_usd_value Json
   time              Float  @unique(map: "time_1")
   usd_value         Float
@@ -100,7 +128,7 @@ model rainbow_token_2 {
 model sipher {
   id                String @id @default(auto()) @map("_id") @db.ObjectId
   eth_value         Float
-  /// Multiple data types found: Float: 99.3%, Int: 0.7% out of 302 sampled entries
+  /// Multiple data types found: Float: 99.4%, Int: 0.6% out of 308 sampled entries
   indexed_usd_value Json
   time              Float  @unique(map: "time_1")
   usd_value         Float
@@ -109,7 +137,7 @@ model sipher {
 model superfarm {
   id                String @id @default(auto()) @map("_id") @db.ObjectId
   eth_value         Float
-  /// Multiple data types found: Float: 99.7%, Int: 0.3% out of 592 sampled entries
+  /// Multiple data types found: Float: 99.7%, Int: 0.3% out of 598 sampled entries
   indexed_usd_value Json
   time              Float  @unique(map: "time_1")
   usd_value         Float
@@ -138,7 +166,7 @@ model token_watchlist {
 model top_20_projects_by_market_cap {
   id                   String @id @default(auto()) @map("_id") @db.ObjectId
   circulating_supply   String
-  coin_id              Int    @unique(map: "coin_id_1")
+  coin_id              Int
   fdv                  String
   market_cap           String
   max_supply           String
@@ -149,7 +177,7 @@ model top_20_projects_by_market_cap {
   price_change_pc_3m   String
   price_change_pc_6m   String
   price_change_pc_7d   String
-  rank                 Int
+  rank                 Int    @unique(map: "rank_1")
   token                String
   total_supply         String
   volume_24h           String
@@ -191,7 +219,7 @@ model usd_liquidity_conditions_index {
   id              String @id @default(auto()) @map("_id") @db.ObjectId
   date            String @unique(map: "date_1")
   liquidity_index Int
-  /// Multiple data types found: Float: 45.1%, Int: 54.9% out of 1000 sampled entries
+  /// Multiple data types found: Float: 45.6%, Int: 54.4% out of 1000 sampled entries
   rrpontsyd       Json
   walcl           Int
   wdtgal          Int
@@ -200,7 +228,7 @@ model usd_liquidity_conditions_index {
 model yield_guild_games {
   id                String @id @default(auto()) @map("_id") @db.ObjectId
   eth_value         Float
-  /// Multiple data types found: Float: 99.5%, Int: 0.5% out of 436 sampled entries
+  /// Multiple data types found: Float: 99.5%, Int: 0.5% out of 442 sampled entries
   indexed_usd_value Json
   time              Float  @unique(map: "time_1")
   usd_value         Float

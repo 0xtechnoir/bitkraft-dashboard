@@ -98,7 +98,7 @@ export  const changePeriod = async (period) => {
         default:
             startTime = 631238400000 // 2nd Jan 1990
       }
-      console.log(`Start Time: ${startTime}`)
+
     let tempArray = []
     series.forEach((element, index) => {
       const dataArray = element.data

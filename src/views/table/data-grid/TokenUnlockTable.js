@@ -57,7 +57,6 @@ const TableBasic = (props) => {
 
   if (loaded) {
 
-    console.log(`Token Data: ${JSON.stringify(data)}`)
     return (
         <Card>
           <CardHeader

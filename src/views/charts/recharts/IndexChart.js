@@ -19,7 +19,7 @@ import { TimeToggleButtonsLight } from '../../components/TimeToggleButtonsLight'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Surface, Symbols } from 'recharts'
 import axios from 'axios'
 
-const RechartsLineChart = ({ direction }) => {
+const RechartsLineChart = (props) => {
 
   const [series, setSeries] = useState()
   const [visibleData, setVisibleData] = useState()
@@ -28,7 +28,7 @@ const RechartsLineChart = ({ direction }) => {
   const pairs = {}
 
   useEffect(() => {
-    axios.get(`/api/getIndexedAssetData`)
+    axios.get(`/api/${props.endpoint}`)
       .then(response => {
         if (!response === 200) {
           throw new Error(
@@ -194,6 +194,7 @@ const RechartsLineChart = ({ direction }) => {
   } else {
 
     return (
+
         <Card>
           <CardHeader
             title='BIT1 Token Assets (Eth Denominated)'
