@@ -40,7 +40,7 @@ const AnalyticsDashboard = () => {
 
         <Grid item xs={12} md={12}>
           <EmbeddedChart
-            chartSrc="https://www.footprint.network/public/chart/Crypto-Gaming-Monthly-Volume-fp-70b96b8e-bc7b-456b-b853-f6b07b73aa71"
+            chartSrc="https://www.footprint.network/public/chart/Weekly-GameFi-Volume-fp-c138a176-0b3b-4488-b1c1-4d4459d5fe25"
             height="550"
           />
         </Grid>
@@ -51,19 +51,9 @@ const AnalyticsDashboard = () => {
           />
         </Grid>
 
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={12}>
           <EmbeddedChart
-            chartSrc="https://www.footprint.network/public/chart/New-users-by-chain-over-past-30-days-fp-ab95d5ea-a90f-432c-a38e-c6d849cf2032"
-            height="500"
-            width="650"
-          />
-        </Grid>
-
-        <Grid item xs={12} md={6}>
-          <EmbeddedChart
-            chartSrc="https://www.footprint.network/public/chart/Unique-Users-by-Chain-Over-Past-30-Days-fp-f16eb47a-15e6-4933-afd9-9bb11d5ad2e1"
-            height="500"
-            width="650"
+            chartSrc="https://www.footprint.network/public/chart/Web3-Gamers-by-Chain-fp-42d129b5-c9b5-4418-84ce-bce770a768a4"
           />
         </Grid>
 
