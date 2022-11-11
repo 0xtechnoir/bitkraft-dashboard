@@ -76,6 +76,11 @@ const AnalyticsDashboard = () => {
             height={1150}
           />
         </Grid>
+        <Grid item xs={12} md={12}>
+          <EmbeddedChart 
+            chartSrc="https://www.footprint.network/public/chart/Top-NFT-Marketplaces-fp-98dcbd14-8e6f-4efe-94cb-874a4915995c"
+          />
+        </Grid>
         <Grid item xs={12} md={6}>
           <EmbeddedChart 
             title='Daily New Unique Addresses for EVM-Chains'
