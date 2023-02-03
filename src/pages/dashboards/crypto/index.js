@@ -31,12 +31,12 @@ const AnalyticsDashboard = () => {
   return (
     <ApexChartWrapper>
       <Grid container spacing={6} className='match-height'>
-        <Grid item xs={12} md={6}>
+        {/* <Grid item xs={12} md={6}>
           <RechartsAreaChart 
             title='Aggregated Open Interest of Bitcoin Futures'
             data={exchangeOpenInterest}
           />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12} md={6}>
           <EmbeddedChart 
             title='Bitcoin Dominance'

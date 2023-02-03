@@ -83,13 +83,13 @@ const AnalyticsDashboard = () => {
             height="600"
           />
         </Grid>  
-        <Grid item xs={12} md={6}>
+        {/* <Grid item xs={12} md={6}>
           <EmbeddedChart
             chartSrc="https://www.footprint.network/public/chart/Crypto-Unicorns-Total-Users-Vs-Active-Users-fp-fe30de5f-11b1-40dd-be6b-cb879ca1abb3"
             height="500"
             width="650"
           />
-        </Grid>  
+        </Grid>   */}
       </Grid> 
     </ApexChartWrapper>
   )
