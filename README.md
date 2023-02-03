@@ -34,3 +34,8 @@ This will update the schema in the project. Then run:
 yarn prisma generate
 ```
 This will ensure the prisma client is updated with any schema changes.
+
+## Hosting
+
+The dashboard application is hosted on Vercel. Environmental Variables can be changed here:
+https://vercel.com/0xnaylor/bitkraft-dashboard/settings/environment-variables

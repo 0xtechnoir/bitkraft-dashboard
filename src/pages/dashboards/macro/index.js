@@ -1,48 +1,21 @@
-// ** MUI Imports
 import Grid from '@mui/material/Grid'
-
-// ** React Imports
 import { useEffect, useState } from 'react'
-
-// ** Icon Imports
-import Link from 'mdi-material-ui/Link'
-import CartPlus from 'mdi-material-ui/CartPlus'
-import CurrencyUsd from 'mdi-material-ui/CurrencyUsd'
-
-// ** Custom Component Import
-import CardStatisticsVertical from 'src/@core/components/card-statistics/card-stats-vertical'
-
-// ** Styled Component Import
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
-
-// ** Demo Components Imports
-import AnalyticsSessions from 'src/views/dashboards/analytics/AnalyticsSessions'
-import AnalyticsOverview from 'src/views/dashboards/analytics/AnalyticsOverview'
-import AnalyticsPerformance from 'src/views/dashboards/analytics/AnalyticsPerformance'
-import AnalyticsWeeklySales from 'src/views/dashboards/analytics/AnalyticsWeeklySales'
-import AnalyticsVisitsByDay from 'src/views/dashboards/analytics/AnalyticsVisitsByDay'
-import AnalyticsTotalRevenue from 'src/views/dashboards/analytics/AnalyticsTotalRevenue'
-import AnalyticsSalesCountry from 'src/views/dashboards/analytics/AnalyticsSalesCountry'
-import AnalyticsCongratulations from 'src/views/dashboards/analytics/AnalyticsCongratulations'
-import AnalyticsActivityTimeline from 'src/views/dashboards/analytics/AnalyticsActivityTimeline'
 import EmbeddedChart from 'src/views/charts/EmbeddedChart'
-import AnalyticsProjectStatistics from 'src/views/dashboards/analytics/AnalyticsProjectStatistics'
-import AnalyticsTopReferralSources from 'src/views/dashboards/analytics/AnalyticsTopReferralSources'
-import iAnalyticsTopReferralSources from 'src/views/dashboards/analytics/AnalyticsTopReferralSources'
 import TreasuryYieldCurve from 'src/views/charts/recharts/TreasuryYieldCurve'
 import TreasuryYieldCurveSpread from 'src/views/charts/recharts/TreasuryYieldCurveSpread'
 import RechartsSingleLineChart from 'src/views/charts/recharts/RechartsSingleLineChart'
-
-// ** Hooks
 import { useSettings } from 'src/@core/hooks/useSettings'
-
-// ** Other Imports
 import axios from "axios";
+import { Route, Routes, Link } from "react-router-dom";
+import { Button } from '@mui/material';
+
 
 const AnalyticsDashboard = () => {
   
   const { settings } = useSettings()
   const [fedLiquidityIndex, setFedLiquidityIndex] = useState()
+  
 
   useEffect(() => {
     axios.get(`/api/getFedLiquidityIndex`)
@@ -65,7 +38,7 @@ const AnalyticsDashboard = () => {
         </Grid>
        
         <Grid item xs={12} md={6}>
-          <TreasuryYieldCurve direction={settings.direction} />
+          <TreasuryYieldCurve direction={settings.direction} /> 
         </Grid>
 
         <Grid item xs={12} md={6}>
@@ -80,6 +53,7 @@ const AnalyticsDashboard = () => {
             title='S&P 500'
             chartSrc="https://app.koyfin.com/share/4d937a406b/simple"
           />
+          <></>
         </Grid>
 
         <Grid item xs={12} md={6}>
@@ -130,65 +104,3 @@ const AnalyticsDashboard = () => {
 }
 
 export default AnalyticsDashboard
-
- {/* <Grid item xs={12} md={8}>
-          <AnalyticsCongratulations />
-        </Grid>
-        <Grid item xs={6} md={2}>
-          <CardStatisticsVertical
-            stats='155k'
-            color='primary'
-            trendNumber='+22%'
-            icon={<CartPlus />}
-            title='Total Orders'
-            chipText='Last 4 Month'
-          />
-        </Grid>
-        <Grid item xs={6} md={2}>
-          <AnalyticsSessions />
-        </Grid> */} 
-        {/* <Grid item xs={12} sm={6} md={4}>
-          <Grid container spacing={6}>
-            <Grid item xs={6}>
-              <AnalyticsTotalRevenue />
-            </Grid>
-            <Grid item xs={6}>
-              <CardStatisticsVertical
-                stats='$13.4k'
-                color='success'
-                trendNumber='+38%'
-                title='Total Sales'
-                icon={<CurrencyUsd />}
-                chipText='Last Six Month'
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <CardStatisticsVertical
-                color='info'
-                stats='142.8k'
-                icon={<Link />}
-                trendNumber='+62%'
-                chipText='Last One Year'
-                title='Total Impressions'
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <AnalyticsOverview />
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <AnalyticsSalesCountry />
-        </Grid>
-        <Grid item xs={12} md={8}>
-          <AnalyticsTopReferralSources />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <AnalyticsWeeklySales />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <AnalyticsVisitsByDay />
-        </Grid>
-        <Grid item xs={12} md={8}>
-          <AnalyticsActivityTimeline />
-        </Grid> */}

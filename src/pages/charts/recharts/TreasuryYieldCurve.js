@@ -121,6 +121,9 @@ const TreasuryYieldCurve = ({ direction }) => {
           '& .MuiCardHeader-content': { mb: [2, 0] }
         }}
       />
+      <div>
+        <Link to="/expand">expand</Link>
+      </div>
       <CardContent>
         <Box sx={{ height: 400, width: 600 }}>
           <ResponsiveContainer height="100%" width="100%" >
