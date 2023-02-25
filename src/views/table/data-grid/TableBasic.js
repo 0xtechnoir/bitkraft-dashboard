@@ -11,6 +11,17 @@ import { DataGrid } from '@mui/x-data-grid'
 import { formatTokenName, getDayOfYear } from '../../charts/chartUtils'
 import { clsx } from 'clsx';
 
+const costBasis = {
+  "yield_guild_games": 0.05,
+  "alethea_artificial_liquid_intelligence_token": 0.01,
+  "immutable_x": 0.0256,
+  "rainbow_token_2": 0.0228,
+  "superfarm": 0.18,
+  "matic_network": 0.9,
+  "sipher": 0.06,
+  "blackpool_token": 2.0,
+}
+
 const columnsETH = [
   {
     flex: 0.125,
@@ -119,10 +130,36 @@ const columnsUSD = [
   {
     flex: 0.125,
     minWidth: 20,
+    field: 'costBasis',
+    headerName: 'Cost Basis ($)',
+    headerAlign: 'center',
+    align: 'right'
+  },
+  {
+    flex: 0.125,
+    minWidth: 20,
     field: 'current',
     headerName: 'Current ($)',
     headerAlign: 'center',
     align: 'right'
+  },
+  {
+    flex: 0.125,
+    field: 'roi',
+    minWidth: 20,
+    headerName: 'ROI',
+    headerAlign: 'center',
+    align: 'right',
+    cellClassName: (params) => {
+      if (params.value == null) {
+        return '';
+      }
+
+      return clsx('super-app', {
+        negative: params.value.includes('('),
+        positive: !params.value.includes('('),
+      });
+    },
   },
   {
     flex: 0.125,
@@ -231,9 +268,12 @@ const TableBasic = (props) => {
     }
   })
 
+  console.log('rawData: ', rawData)
+
   const mappedDataUSD = rawData.map((x, index) => {
 
     const currentValueInUsd = (x.data[x.data.length-1].usd_value).toFixed(3)
+    const costBasisInUsd = costBasis[x.name]
     const priorWeekValueInUsd = (x.data[(x.data.length-1)-7].usd_value).toFixed(3)
     const YtdValueInUsd = (x.data[(x.data.length-1)-currentDayOfYear]) ? (x.data[(x.data.length-1)-currentDayOfYear].usd_value).toFixed(3) : (x.data[0].usd_value).toFixed(3)
     const priorYearValueInUsd = (x.data[(x.data.length-1)-365]) ? (x.data[(x.data.length-1)-365].usd_value).toFixed(3) : 0
@@ -241,7 +281,9 @@ const TableBasic = (props) => {
     return {
       "id" : index,
       "token" : formatTokenName(x.name),
+      "costBasis" : costBasisInUsd,
       "current" : currentValueInUsd, // last item in array
+      "roi": calcPercentageChange(currentValueInUsd, costBasisInUsd),
       "prior_week" : priorWeekValueInUsd,
       "ytd" : YtdValueInUsd ? YtdValueInUsd : "-",
       "prior_year" : priorYearValueInUsd ? priorYearValueInUsd : "-",
@@ -291,7 +333,7 @@ const TableBasic = (props) => {
                 },
               }}
             >
-              <DataGrid align='center' columns={columnsETH} rows={mappedDataETH.slice(0, 7)} />
+              <DataGrid align='center' columns={columnsETH} rows={mappedDataETH.slice(0, 8)} />
             </Box>
           </Collapse>
         </CardContent>
@@ -332,7 +374,7 @@ const TableBasic = (props) => {
               fontWeight: '600',
             },
             }}>
-            <DataGrid align='center' columns={columnsUSD} rows={mappedDataUSD.slice(0, 7)} />
+            <DataGrid align='center' columns={columnsUSD} rows={mappedDataUSD.slice(0, 8)} />
           </Box>
         </Collapse>
       </CardContent>

@@ -14,9 +14,9 @@ type EtheruemLiqudationPositionsExtra {
 type HistoricalTokenWatchlistPriceDataData {
   date              String
   eth_value         Float
-  /// Multiple data types found: Float: 99.9%, Int: 0.1% out of 6016 sampled entries
+  /// Multiple data types found: Float: 99.9%, Int: 0.1% out of 6184 sampled entries
   indexed_eth_value Json
-  /// Multiple data types found: Float: 99.9%, Int: 0.1% out of 6016 sampled entries
+  /// Multiple data types found: Float: 99.9%, Int: 0.1% out of 6184 sampled entries
   indexed_usd_value Json
   timestamp         Float
   usd_value         Float
@@ -27,45 +27,44 @@ type PolygonLiqudationPositionsExtra {
 }
 
 model alethea_artificial_liquid_intelligence_token {
-  id                String @id @default(auto()) @map("_id") @db.ObjectId
-  eth_value         Float
-  /// Multiple data types found: Float: 99.4%, Int: 0.6% out of 355 sampled entries
-  indexed_usd_value Json
-  time              Float  @unique(map: "time_1")
-  usd_value         Float
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  eth_value Float
+  time      Float  @unique(map: "time_1")
+  usd_value Float
 
   @@map("alethea-artificial-liquid-intelligence-token")
 }
 
-model apecoin {
-  id                String @id @default(auto()) @map("_id") @db.ObjectId
-  eth_value         Float
-  /// Multiple data types found: Float: 99.5%, Int: 0.5% out of 206 sampled entries
-  indexed_eth_value Json
-  /// Multiple data types found: Float: 99%, Int: 1% out of 206 sampled entries
-  indexed_usd_value Json
-  time              Float  @unique(map: "time_1")
-  usd_value         Float
+model bitcoin {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  eth_value Float
+  time      Float  @unique(map: "time_1")
+  usd_value Float
 }
 
 model blackpool_token {
-  id                String @id @default(auto()) @map("_id") @db.ObjectId
-  eth_value         Float
-  /// Multiple data types found: Float: 99.7%, Int: 0.3% out of 617 sampled entries
-  indexed_usd_value Json
-  time              Float  @unique(map: "time_1")
-  usd_value         Float
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  eth_value Float
+  time      Float  @unique(map: "time_1")
+  usd_value Float
 
   @@map("blackpool-token")
 }
 
+model defipulse_index {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  eth_value Float
+  time      Float  @unique(map: "time_1")
+  usd_value Float
+
+  @@map("defipulse-index")
+}
+
 model ethereum {
-  id                String @id @default(auto()) @map("_id") @db.ObjectId
-  eth_value         Int
-  /// Multiple data types found: Float: 99.9%, Int: 0.1% out of 763 sampled entries
-  indexed_usd_value Json
-  time              Float  @unique(map: "time_1")
-  usd_value         Float
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  eth_value Int
+  time      Float  @unique(map: "time_1")
+  usd_value Float
 }
 
 model etheruem_liqudation_positions {
@@ -73,8 +72,7 @@ model etheruem_liqudation_positions {
   collateral       String
   collateralAmount String
   extra            EtheruemLiqudationPositionsExtra
-  /// Multiple data types found: Float: 99.9%, Int: 0.1% out of 1000 sampled entries
-  liqPrice         Json
+  liqPrice         Float
   owner            String
 }
 
@@ -85,23 +83,19 @@ model historical_token_watchlist_price_data {
 }
 
 model immutable_x {
-  id                String @id @default(auto()) @map("_id") @db.ObjectId
-  eth_value         Float
-  /// Multiple data types found: Float: 99.6%, Int: 0.4% out of 456 sampled entries
-  indexed_usd_value Json
-  time              Float  @unique(map: "time_1")
-  usd_value         Float
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  eth_value Float
+  time      Float  @unique(map: "time_1")
+  usd_value Float
 
   @@map("immutable-x")
 }
 
 model matic_network {
-  id                String @id @default(auto()) @map("_id") @db.ObjectId
-  eth_value         Float
-  /// Multiple data types found: Float: 99.9%, Int: 0.1% out of 763 sampled entries
-  indexed_usd_value Json
-  time              Float  @unique(map: "time_1")
-  usd_value         Float
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  eth_value Float
+  time      Float  @unique(map: "time_1")
+  usd_value Float
 
   @@map("matic-network")
 }
@@ -116,32 +110,26 @@ model polygon_liqudation_positions {
 }
 
 model rainbow_token_2 {
-  id                String @id @default(auto()) @map("_id") @db.ObjectId
-  eth_value         Float
-  /// Multiple data types found: Float: 99.4%, Int: 0.6% out of 320 sampled entries
-  indexed_usd_value Json
-  time              Float  @unique(map: "time_1")
-  usd_value         Float
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  eth_value Float
+  time      Float  @unique(map: "time_1")
+  usd_value Float
 
   @@map("rainbow-token-2")
 }
 
 model sipher {
-  id                String @id @default(auto()) @map("_id") @db.ObjectId
-  eth_value         Float
-  /// Multiple data types found: Float: 99.5%, Int: 0.5% out of 422 sampled entries
-  indexed_usd_value Json
-  time              Float  @unique(map: "time_1")
-  usd_value         Float
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  eth_value Float
+  time      Float  @unique(map: "time_1")
+  usd_value Float
 }
 
 model superfarm {
-  id                String @id @default(auto()) @map("_id") @db.ObjectId
-  eth_value         Float
-  /// Multiple data types found: Float: 99.7%, Int: 0.3% out of 712 sampled entries
-  indexed_usd_value Json
-  time              Float  @unique(map: "time_1")
-  usd_value         Float
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  eth_value Float
+  time      Float  @unique(map: "time_1")
+  usd_value Float
 }
 
 model token_watchlist {
@@ -186,35 +174,35 @@ model top_20_projects_by_market_cap {
 
 model treasury_yield_curves {
   id               String @id @default(auto()) @map("_id") @db.ObjectId
-  /// Multiple data types found: Float: 99.2%, Int: 0.8% out of 1000 sampled entries
-  bc_10year        Json?
-  /// Multiple data types found: Float: 97.5%, Int: 2.5% out of 639 sampled entries
+  /// Multiple data types found: Float: 99.1%, Int: 0.9% out of 1000 sampled entries
+  bc_10year        Json
+  /// Multiple data types found: Float: 98.6%, Int: 1.4% out of 630 sampled entries
   bc_1month        Json?
-  /// Multiple data types found: Float: 99.4%, Int: 0.6% out of 1000 sampled entries
-  bc_1year         Json?
-  /// Multiple data types found: Float: 98.4%, Int: 1.6% out of 860 sampled entries
+  /// Multiple data types found: Float: 99.2%, Int: 0.8% out of 1000 sampled entries
+  bc_1year         Json
+  /// Multiple data types found: Float: 98.6%, Int: 1.4% out of 879 sampled entries
   bc_20year        Json?
   bc_2month        Float?
-  /// Multiple data types found: Float: 99.1%, Int: 0.9% out of 1000 sampled entries
-  bc_2year         Json?
-  /// Multiple data types found: Float: 99.3%, Int: 0.7% out of 873 sampled entries
-  bc_30year        Json?
-  /// Multiple data types found: Float: 35.3%, Int: 64.7% out of 1000 sampled entries
-  bc_30yeardisplay Json?
   /// Multiple data types found: Float: 99%, Int: 1% out of 1000 sampled entries
-  bc_3month        Json?
-  /// Multiple data types found: Float: 98.6%, Int: 1.4% out of 1000 sampled entries
-  bc_3year         Json?
-  bc_4month        Float?
+  bc_2year         Json
+  /// Multiple data types found: Float: 99.1%, Int: 0.9% out of 877 sampled entries
+  bc_30year        Json?
+  /// Multiple data types found: Float: 35.9%, Int: 64.1% out of 1000 sampled entries
+  bc_30yeardisplay Json
   /// Multiple data types found: Float: 99.4%, Int: 0.6% out of 1000 sampled entries
-  bc_5year         Json?
-  /// Multiple data types found: Float: 98.9%, Int: 1.1% out of 1000 sampled entries
-  bc_6month        Json?
+  bc_3month        Json
   /// Multiple data types found: Float: 99.2%, Int: 0.8% out of 1000 sampled entries
-  bc_7year         Json?
-  date             String? @unique(map: "date_1")
+  bc_3year         Json
+  bc_4month        Float?
+  /// Multiple data types found: Float: 99%, Int: 1% out of 1000 sampled entries
+  bc_5year         Json
+  /// Multiple data types found: Float: 99.1%, Int: 0.9% out of 1000 sampled entries
+  bc_6month        Json
+  /// Multiple data types found: Float: 98.6%, Int: 1.4% out of 1000 sampled entries
+  bc_7year         Json
+  date             String @unique(map: "date_1")
   id_              Int?   @map("id")
-  timestamp        Float?
+  timestamp        Float
 }
 
 model usd_liquidity_conditions_index {
@@ -228,12 +216,10 @@ model usd_liquidity_conditions_index {
 }
 
 model yield_guild_games {
-  id                String @id @default(auto()) @map("_id") @db.ObjectId
-  eth_value         Float
-  /// Multiple data types found: Float: 99.6%, Int: 0.4% out of 556 sampled entries
-  indexed_usd_value Json
-  time              Float  @unique(map: "time_1")
-  usd_value         Float
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  eth_value Float
+  time      Float  @unique(map: "time_1")
+  usd_value Float
 
   @@map("yield-guild-games")
 }
